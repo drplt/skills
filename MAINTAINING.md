@@ -48,6 +48,10 @@ This bumps `plugin.json`, adds the line to `CHANGELOG.md`, runs the checks, comm
 
 Version numbers: bump the last digit for rule additions and fixes, the middle digit for new references or exemplars, the first digit if the skill's process or file layout changes.
 
+## The support article
+
+A support article on support.droplet.io ("Build a form with your AI assistant") introduces the skill and mirrors the Install section of README.md. It is written and published from the support docs CMS, not from this repo. When a release changes an install step, tell whoever maintains that article so its install paragraphs match. Link the article from the README's "Questions and problems" section once it is live.
+
 ## How customers receive updates
 
 - Claude Code plugin installs pull from this repo; customers refresh from the `/plugin` menu.
