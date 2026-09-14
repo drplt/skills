@@ -1,0 +1,1653 @@
+<Form color="#016844">
+  <Section id="header" marginBottom={7.5} marginTop={7.5} wide>
+    <Image
+      id="logo"
+      src="https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png"
+      columns={3}
+      align="left"
+    />
+    <Text
+      id="formTitle"
+      marginLeft={0}
+      marginRight={0}
+      marginTop={25}
+      marginBottom={10}
+      columns={9}
+    >
+      <h1 style={{ textAlign: "right" }}>Instructional Extra Work Form</h1>
+    </Text>
+  </Section>
+  <Section
+    id="rejectionSection"
+    marginBottom={10}
+    marginTop={10}
+    border
+    borderColor="#D64545"
+    background="#FDECEC"
+    display="_reason"
+  >
+    <Text
+      id="rejectionText"
+      margin={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={12}
+    >
+      <p style={{ color: "#A01C1C" }}>
+        <b>Returned for Changes</b>
+      </p>
+      <p>##_reason##</p>
+    </Text>
+  </Section>
+  <Section
+    id="instructionsSection"
+    marginBottom={10}
+    marginTop={10}
+    border
+    borderColor="#CFE6DD"
+    background="#F2F9F6"
+  >
+    <Text
+      id="instructionsText"
+      margin={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={9}
+    >
+      <div style={{ color: "#0B3B2C", textAlign: "left" }}>
+        <h3>
+          <span style={{ color: "#016844" }}>Instructions</span>
+        </h3>
+        <p>
+          Choose your <b>primary position</b>, your <b>primary work location</b>
+          , and the<b> type of work</b>. The form will show only the fields that
+          apply and route your paysheet to the right approvers. Enter your dates
+          and hours, sign at the bottom, and submit.
+        </p>
+      </div>
+    </Text>
+    <Identifier
+      id="paysheetId"
+      label="EWF ID"
+      mode="auto"
+      columns={3}
+      formula="`EWF${padStart(String(getSequenceId()), 6, '0')}`"
+    />
+  </Section>
+  <Section id="employeeInfo">
+    <Input id="submittedByName" label="Employee Name" columns={6} />
+    <Input
+      id="submittedByEmail"
+      label="Employee Email"
+      type="email"
+      columns={6}
+    />
+    <Tile id="workLocationTile" columns={4}>
+      <Dropdown
+        id="workLocation"
+        label="Primary Work Location"
+        columns={12}
+        options="Object.keys(schoolsDepartments).sort()"
+        hideSearch
+      />
+      <Text
+        id="text1"
+        margin={0}
+        marginTop={4}
+        marginBottom={2}
+        columns={12}
+        display={{
+          conditions: [{ elementId: "principalName", comparator: "notEmpty" }],
+          action: "show",
+        }}
+      >
+        <p style={{ color: "#5A6B62", fontSize: 13 }}>
+          <b>Primary Administrator:</b> ##principalName##
+        </p>
+      </Text>
+    </Tile>
+    <Dropdown
+      id="position"
+      label="Primary Position"
+      columns={4}
+      options="Object.keys(positions).filter(key => positions[key].paysheet).sort()"
+    />
+    <Tile id="workTypeTile" columns={4}>
+      <Dropdown
+        id="typeOfWork"
+        label="Type of Work"
+        hint="Determines the layout, rate, and approvers."
+        columns={12}
+        options={[
+          "Professional Learning",
+          "Tutoring",
+          "Curriculum Writing",
+          "Grant Stipend",
+          "Committee",
+        ]}
+      />
+      <Radio
+        id="plRole"
+        label="Your Role"
+        hint="Facilitators and trainers are paid at 1.25x the hourly rate."
+        columns={4}
+        horizontal
+        options={["Participant", "Facilitator / Trainer"]}
+        display={{
+          conditions: [
+            {
+              elementId: "typeOfWork",
+              comparator: "equal",
+              value: "Professional Learning",
+            },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Dropdown
+        id="subtype"
+        label="Category"
+        columns={12}
+        options="(()=>{ if (typeOfWork === 'Professional Learning') return ['Non-District Professional Learning (ND PL)', 'In-House Professional Learning (21 Hour)', 'In-House Professional Learning (Non-21 Hour)']; if (typeOfWork === 'Grant Stipend') return ['ECHS Grant', 'Tech & Learning Grant']; if (typeOfWork === 'Committee') return ['SIT', 'Department/Grade Level Leader', 'SOAR']; return []; })()"
+        hideSearch
+        display="typeOfWork === 'Professional Learning' || typeOfWork === 'Grant Stipend' || typeOfWork === 'Committee'"
+        clear
+      />
+    </Tile>
+    <Dropdown
+      id="payPeriod"
+      label="Pay Period"
+      hint="Select the two-week pay period these tutoring hours fall in."
+      columns={4}
+      options="(()=>{ const now = new Date(); now.setHours(0,0,0,0); const ks = Object.keys(payCalendar).filter(k => payCalendar[k].appliesToHourly); const up = ks.filter(k => new Date(payCalendar[k].checkDate + 'T00:00:00') >= now); const list = up.length ? up : ks; return list.sort((a,b) => new Date(payCalendar[a].checkDate + 'T00:00:00') - new Date(payCalendar[b].checkDate + 'T00:00:00')); })()"
+      display="payStructure === 'timegrid'"
+      clear
+    />
+  </Section>
+  <Section
+    id="timingSection"
+    marginBottom={10}
+    marginTop={10}
+    border
+    borderColor="#F0E2B8"
+    background="#FFF9E9"
+  >
+    <Text
+      id="cutoffNote"
+      margin={0}
+      marginTop={8}
+      marginBottom={6}
+      columns={9}
+    >
+      <h3 style={{ textAlign: "left" }}>
+        <span style={{ color: "#9A7B10", fontSize: 16 }}>Payroll Timing</span>
+      </h3>
+      <p style={{ color: "#4A3D0A", fontSize: 15 }}>
+        Pending final approvals, the next projected pay date is{" "}
+        <b>##expectedPayDate##</b>.
+      </p>
+      <p style={{ color: "#7A6A3A", fontSize: 12 }}>
+        Deadline is <b>Wednesday 11:59 PM</b> the week before payday. The dates
+        you enter below are work dates; they do not change your pay date.
+      </p>
+    </Text>
+    <Timestamp id="formStarted" label="Form Started" columns={3} />
+  </Section>
+  <Section id="week1Section" display="payStructure === 'timegrid'">
+    <Text
+      id="week1Header"
+      margin={0}
+      marginTop={6}
+      marginBottom={0}
+      columns={12}
+    >
+      <h3 style={{ textAlign: "left" }}>
+        <span style={{ color: "#016844", fontSize: 18 }}>
+          First Week Ending: ##week1Ending##
+        </span>
+      </h3>
+    </Text>
+    <Table id="week1Table" initialRows={7} displayRows="7">
+      <TableColumn
+        id="w1Day"
+        label="Day"
+        width={20}
+        bold
+        values={[
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ]}
+      />
+      <TableColumn
+        id="w1Date"
+        label="Date"
+        width={20}
+        values={[
+          "##week1Dates[0]##",
+          "##week1Dates[1]##",
+          "##week1Dates[2]##",
+          "##week1Dates[3]##",
+          "##week1Dates[4]##",
+          "##week1Dates[5]##",
+          "##week1Dates[6]##",
+        ]}
+      />
+      <TableColumn id="w1Hours" label="Hours" width={20} sum />
+    </Table>
+  </Section>
+  <Section id="week2Section" display="payStructure === 'timegrid'">
+    <Text
+      id="week2Header"
+      margin={0}
+      marginTop={6}
+      marginBottom={0}
+      columns={12}
+    >
+      <h3 style={{ textAlign: "left" }}>
+        <span style={{ color: "#016844", fontSize: 18 }}>
+          Second Week Ending: ##week2Ending##
+        </span>
+      </h3>
+    </Text>
+    <Table id="week2Table" initialRows={7} displayRows="7">
+      <TableColumn
+        id="w2Day"
+        label="Day"
+        width={20}
+        bold
+        values={[
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ]}
+      />
+      <TableColumn
+        id="w2Date"
+        label="Date"
+        width={20}
+        values={[
+          "##week2Dates[0]##",
+          "##week2Dates[1]##",
+          "##week2Dates[2]##",
+          "##week2Dates[3]##",
+          "##week2Dates[4]##",
+          "##week2Dates[5]##",
+          "##week2Dates[6]##",
+        ]}
+      />
+      <TableColumn id="w2Hours" label="Hours" width={20} sum />
+    </Table>
+  </Section>
+  <Section id="sessionsSection" display="payStructure === 'sessions'">
+    <Text
+      id="sessionsHeaderText"
+      margin={0}
+      marginTop={6}
+      marginBottom={0}
+      columns={12}
+    >
+      <h3 style={{ textAlign: "left" }}>
+        <span style={{ color: "#016844", fontSize: 16 }}>Dates & Hours</span>
+      </h3>
+      <p style={{ color: "#5A6B62", fontSize: 12 }}>
+        Add one row per session date. Amount calculates as Hours × Rate. These
+        are work dates; pay timing follows the payroll deadline above, not the
+        dates listed here.
+      </p>
+    </Text>
+    <Table id="sessionsTable" label="Sessions" initialRows={1}>
+      <TableColumn
+        id="sessDate"
+        type="date"
+        label="Date"
+        width={16}
+        validate="(!is21Type || !getCell(sessDate)) ? true : (getCell(sessDate) >= plMinDate && getCell(sessDate) <= plToday)"
+      />
+      <TableColumn id="sessTopic" label="Focus / Topic" width={30} />
+      <TableColumn
+        id="sessHours"
+        label="Hours"
+        width={10}
+        validate="plWouldExceed ? false : true"
+      />
+      <TableColumn
+        id="sessManualRate"
+        label="Payroll Rate"
+        width={12}
+        mask="/{currency}"
+        display="rateIsManual"
+      />
+      <TableColumn
+        id="sessRate"
+        label="Rate"
+        width={12}
+        align="right"
+        formula="(()=>{ if (rateIsManual) { const m = getCell(sessManualRate); const r = m ? fromCurrency(m) : (payrollRate ? fromCurrency(payrollRate) : 0); return r ? toCurrency(r) : ''; } const d = getCell(sessDate) ? new Date(getCell(sessDate) + 'T00:00:00') : new Date(); const y = d.getFullYear(); const s = (d.getMonth() + 1) >= 7 ? y : y - 1; const fy = s + '-' + (s + 1); const o = rateKey && rates[fy] && rates[fy][rateKey] ? rates[fy][rateKey] : []; if (!o.length) return ''; let r = o[0]; if (typeOfWork === 'Professional Learning' && plRole === 'Facilitator / Trainer') r = r * 1.25; return toCurrency(r); })()"
+      />
+      <TableColumn
+        id="sessAmount"
+        label="Amount"
+        width={20}
+        align="right"
+        bold
+        mask="/{currency}"
+        sum
+        formula="(()=>{ const r = getCell(sessRate); if (!r) return ''; return toCurrency(getCell(sessHours) * fromCurrency(r)); })()"
+      />
+    </Table>
+    <Text
+      id="manualRateNote"
+      margin={0}
+      marginTop={6}
+      marginBottom={6}
+      columns={12}
+      display="rateIsManual"
+    >
+      <p style={{ color: "#9A7B10", fontSize: 13 }}>
+        No rate is shown for this position. The hourly rate is set by payroll
+        and is added during the approval steps, so Rate and Amount will fill in
+        then.
+        Just enter your dates and hours, that is all we need from you here.
+      </p>
+    </Text>
+    <Input
+      id="payrollRate"
+      label="Rate for All Rows (per hour)"
+      mask="/{currency}"
+      hint="Business Office use only. Applies to every row that does not have its own Payroll Rate."
+      columns={4}
+      display="rateIsManual && (currentStep() === 'ericReview' || currentStep() === 'katieReview' || value)"
+      required={false}
+    />
+    <Upload
+      id="proofUpload"
+      label="Proof of Attendance"
+      text="Add proof"
+      hint="Required for Non-District Professional Learning."
+      multiple
+      columns={6}
+      display="typeOfWork === 'Professional Learning' && subtype === 'Non-District Professional Learning (ND PL)'"
+      required={false}
+    />
+  </Section>
+  <Section
+    id="plClaimSection"
+    marginBottom={6}
+    marginTop={6}
+    border
+    borderColor="#CFE6DD"
+    background="#F2F9F6"
+    display="is21Type"
+  >
+    <Text
+      id="plClaimLabel"
+      margin={0}
+      marginTop={10}
+      marginBottom={2}
+      columns={12}
+    >
+      <h3 style={{ textAlign: "left" }}>
+        <span style={{ color: "#016844", fontSize: 16 }}>
+          Professional Learning Balance
+        </span>
+      </h3>
+      <p style={{ color: "#5A6B62", fontSize: 12 }}>
+        Each session date counts against the year it falls in. Dates on or
+        after ##plThisYearStartDisplay## count against ##plThisYearLabel##.
+      </p>
+    </Text>
+    <Tile
+      id="plThisYearTile"
+      columns={12}
+      background="#FFFFFF"
+      border
+      borderColor="#CFE6DD"
+      display="plShowThisYear"
+    >
+      <Text
+        id="plThisYearHeader"
+        margin={0}
+        marginTop={4}
+        marginBottom={4}
+        columns={12}
+      >
+        <p style={{ color: "#0B3B2C", fontSize: 13 }}>
+          <b>##plThisYearLabel## (this year)</b>
+        </p>
+      </Text>
+      <Html id="plBar0" columns={12} display="plBarBucket === 0">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="100%" bgcolor="#CFE0D8" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Html id="plBar1" columns={12} display="plBarBucket === 1">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="10%" bgcolor="#016844" />
+              <td height="16" width="90%" bgcolor="#CFE0D8" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Html id="plBar2" columns={12} display="plBarBucket === 2">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="20%" bgcolor="#016844" />
+              <td height="16" width="80%" bgcolor="#CFE0D8" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Html id="plBar3" columns={12} display="plBarBucket === 3">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="30%" bgcolor="#016844" />
+              <td height="16" width="70%" bgcolor="#CFE0D8" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Html id="plBar4" columns={12} display="plBarBucket === 4">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="40%" bgcolor="#016844" />
+              <td height="16" width="60%" bgcolor="#CFE0D8" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Html id="plBar5" columns={12} display="plBarBucket === 5">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="50%" bgcolor="#016844" />
+              <td height="16" width="50%" bgcolor="#CFE0D8" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Html id="plBar6" columns={12} display="plBarBucket === 6">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="60%" bgcolor="#016844" />
+              <td height="16" width="40%" bgcolor="#CFE0D8" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Html id="plBar7" columns={12} display="plBarBucket === 7">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="70%" bgcolor="#016844" />
+              <td height="16" width="30%" bgcolor="#CFE0D8" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Html id="plBar8" columns={12} display="plBarBucket === 8">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="80%" bgcolor="#016844" />
+              <td height="16" width="20%" bgcolor="#CFE0D8" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Html id="plBar9" columns={12} display="plBarBucket === 9">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="90%" bgcolor="#016844" />
+              <td height="16" width="10%" bgcolor="#CFE0D8" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Html id="plBar10" columns={12} display="plBarBucket === 10">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+            <tr>
+              <td height="16" width="100%" bgcolor="#016844" />
+            </tr>
+          </tbody>
+        </table>
+      </Html>
+      <Tile id="plCardUsed" columns={4}>
+        <Text id="plCardUsedText" marginTop={8} marginBottom={8} columns={12}>
+          <h3 style={{ textAlign: "center" }}>
+            <span style={{ color: "#016844", fontSize: 24 }}>
+              ##plThisYearUsed##
+            </span>
+          </h3>
+          <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 11 }}>
+            Used This Year
+          </p>
+        </Text>
+      </Tile>
+      <Tile id="plCardClaiming" columns={4}>
+        <Text id="plCardClaimingText" marginTop={8} marginBottom={8} columns={12}>
+          <h3 style={{ textAlign: "center" }}>
+            <span style={{ color: "#016844", fontSize: 24 }}>
+              ##plThisYearClaim##
+            </span>
+          </h3>
+          <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 11 }}>
+            Claiming Now
+          </p>
+        </Text>
+      </Tile>
+      <Tile id="plCardRemaining" columns={4}>
+        <Text
+          id="plCardRemainingText"
+          marginTop={8}
+          marginBottom={8}
+          columns={12}
+        >
+          <h3 style={{ textAlign: "center" }}>
+            <span style={{ color: "#016844", fontSize: 24 }}>
+              ##plThisYearAfter##
+            </span>
+          </h3>
+          <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 11 }}>
+            Remaining if Approved
+          </p>
+        </Text>
+      </Tile>
+    </Tile>
+    <Tile
+      id="plLastYearTile"
+      columns={12}
+      background="#FFFFFF"
+      border
+      borderColor="#CFE6DD"
+      display="plShowLastYear"
+    >
+      <Text
+        id="plLastYearHeader"
+        margin={0}
+        marginTop={6}
+        marginBottom={2}
+        columns={12}
+      >
+        <p style={{ color: "#0B3B2C", fontSize: 13 }}>
+          <b>##plLastYearLabel## (last year)</b>
+        </p>
+        <p style={{ color: "#5A6B62", fontSize: 12 }}>
+          Dates before ##plThisYearStartDisplay##.
+        </p>
+      </Text>
+        <Html id="plLastBar0" columns={12} display="plLastBarBucket === 0">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="100%" bgcolor="#CFE0D8" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+        <Html id="plLastBar1" columns={12} display="plLastBarBucket === 1">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="10%" bgcolor="#016844" />
+                <td height="16" width="90%" bgcolor="#CFE0D8" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+        <Html id="plLastBar2" columns={12} display="plLastBarBucket === 2">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="20%" bgcolor="#016844" />
+                <td height="16" width="80%" bgcolor="#CFE0D8" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+        <Html id="plLastBar3" columns={12} display="plLastBarBucket === 3">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="30%" bgcolor="#016844" />
+                <td height="16" width="70%" bgcolor="#CFE0D8" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+        <Html id="plLastBar4" columns={12} display="plLastBarBucket === 4">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="40%" bgcolor="#016844" />
+                <td height="16" width="60%" bgcolor="#CFE0D8" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+        <Html id="plLastBar5" columns={12} display="plLastBarBucket === 5">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="50%" bgcolor="#016844" />
+                <td height="16" width="50%" bgcolor="#CFE0D8" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+        <Html id="plLastBar6" columns={12} display="plLastBarBucket === 6">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="60%" bgcolor="#016844" />
+                <td height="16" width="40%" bgcolor="#CFE0D8" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+        <Html id="plLastBar7" columns={12} display="plLastBarBucket === 7">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="70%" bgcolor="#016844" />
+                <td height="16" width="30%" bgcolor="#CFE0D8" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+        <Html id="plLastBar8" columns={12} display="plLastBarBucket === 8">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="80%" bgcolor="#016844" />
+                <td height="16" width="20%" bgcolor="#CFE0D8" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+        <Html id="plLastBar9" columns={12} display="plLastBarBucket === 9">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="90%" bgcolor="#016844" />
+                <td height="16" width="10%" bgcolor="#CFE0D8" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+        <Html id="plLastBar10" columns={12} display="plLastBarBucket === 10">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td height="16" width="100%" bgcolor="#016844" />
+              </tr>
+            </tbody>
+          </table>
+        </Html>
+      <Tile id="plCardLastUsed" columns={4}>
+        <Text
+          id="plCardLastUsedText"
+          marginTop={8}
+          marginBottom={8}
+          columns={12}
+        >
+          <h3 style={{ textAlign: "center" }}>
+            <span style={{ color: "#016844", fontSize: 24 }}>
+              ##plLastYearUsed##
+            </span>
+          </h3>
+          <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 11 }}>
+            Used Last Year
+          </p>
+        </Text>
+      </Tile>
+      <Tile id="plCardLastClaiming" columns={4}>
+        <Text
+          id="plCardLastClaimingText"
+          marginTop={8}
+          marginBottom={8}
+          columns={12}
+        >
+          <h3 style={{ textAlign: "center" }}>
+            <span style={{ color: "#016844", fontSize: 24 }}>
+              ##plLastYearClaim##
+            </span>
+          </h3>
+          <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 11 }}>
+            Claiming Now
+          </p>
+        </Text>
+      </Tile>
+      <Tile id="plCardLastRemaining" columns={4}>
+        <Text
+          id="plCardLastRemainingText"
+          marginTop={8}
+          marginBottom={8}
+          columns={12}
+        >
+          <h3 style={{ textAlign: "center" }}>
+            <span style={{ color: "#016844", fontSize: 24 }}>
+              ##plLastYearAfter##
+            </span>
+          </h3>
+          <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 11 }}>
+            Remaining if Approved
+          </p>
+        </Text>
+      </Tile>
+    </Tile>
+    <Tile
+      id="plBlockTile"
+      columns={12}
+      background="#FDECEC"
+      border
+      borderColor="#E8B4B4"
+      display="plThisYearExceed"
+    >
+      <Text
+        id="plBlockText"
+        margin={0}
+        marginTop={6}
+        marginBottom={6}
+        columns={12}
+      >
+        <h3 style={{ textAlign: "left" }}>
+          <span style={{ color: "#B01515", fontSize: 16 }}>
+            Over the 21-Hour Limit for ##plThisYearLabel##
+          </span>
+        </h3>
+        <p style={{ color: "#A01C1C", fontSize: 13 }}>
+          The <b>##plThisYearClaim##</b> hours counted toward
+          ##plThisYearLabel## would put you over 21. Enter only up to your
+          remaining <b>##plThisYearRemaining##</b> hours here, and submit any
+          pre-approved additional hours on a separate <b>PL Non-21</b> form.
+        </p>
+      </Text>
+    </Tile>
+    <Tile
+      id="plBlockLastTile"
+      columns={12}
+      background="#FDECEC"
+      border
+      borderColor="#E8B4B4"
+      display="plLastYearExceed"
+    >
+      <Text
+        id="plBlockLastText"
+        margin={0}
+        marginTop={6}
+        marginBottom={6}
+        columns={12}
+      >
+        <h3 style={{ textAlign: "left" }}>
+          <span style={{ color: "#B01515", fontSize: 16 }}>
+            Over the 21-Hour Limit for ##plLastYearLabel##
+          </span>
+        </h3>
+        <p style={{ color: "#A01C1C", fontSize: 13 }}>
+          The <b>##plLastYearClaim##</b> hours dated before
+          ##plThisYearStartDisplay## would put you over 21 for
+          ##plLastYearLabel##. Enter only up to your remaining
+          <b>##plLastYearRemaining##</b> hours here, and submit any pre-approved
+          additional hours on a separate <b>PL Non-21</b> form.
+        </p>
+      </Text>
+    </Tile>
+    <Tile
+      id="plOldDateTile"
+      columns={12}
+      background="#FDECEC"
+      border
+      borderColor="#E8B4B4"
+      display="plOldDateCount"
+    >
+      <Text
+        id="plOldDateText"
+        margin={0}
+        marginTop={6}
+        marginBottom={6}
+        columns={12}
+      >
+        <h3 style={{ textAlign: "left" }}>
+          <span style={{ color: "#B01515", fontSize: 16 }}>
+            Date Cannot Be Claimed
+          </span>
+        </h3>
+        <p style={{ color: "#A01C1C", fontSize: 13 }}>##plOldDateMessage##</p>
+      </Text>
+    </Tile>
+  </Section>
+  <Section
+    id="overlapSection"
+    marginBottom={10}
+    marginTop={10}
+    border
+    borderColor="#E8B4B4"
+    background="#FDECEC"
+    display="overlapCount"
+  >
+    <Text
+      id="overlapText"
+      margin={0}
+      marginTop={10}
+      marginBottom={6}
+      columns={12}
+    >
+      <p style={{ color: "#A01C1C" }}>
+        <b>Possible double claim</b>
+      </p>
+      <p style={{ color: "#5A2A2A" }}>##overlapMessage##</p>
+    </Text>
+    <Table id="overlapTable" displayRows="overlapRowCount">
+      <TableColumn
+        id="olDate"
+        label="Date"
+        width={22}
+        values={[
+          "##overlapDatesArr[0]##",
+          "##overlapDatesArr[1]##",
+          "##overlapDatesArr[2]##",
+          "##overlapDatesArr[3]##",
+          "##overlapDatesArr[4]##",
+          "##overlapDatesArr[5]##",
+          "##overlapDatesArr[6]##",
+          "##overlapDatesArr[7]##",
+        ]}
+      />
+      <TableColumn
+        id="olType"
+        label="Previously Claimed"
+        width={56}
+        values={[
+          "##overlapTypes[0]##",
+          "##overlapTypes[1]##",
+          "##overlapTypes[2]##",
+          "##overlapTypes[3]##",
+          "##overlapTypes[4]##",
+          "##overlapTypes[5]##",
+          "##overlapTypes[6]##",
+          "##overlapTypes[7]##",
+        ]}
+      />
+      <TableColumn
+        id="olHours"
+        label="Hours"
+        width={22}
+        align="right"
+        values={[
+          "##overlapHours[0]##",
+          "##overlapHours[1]##",
+          "##overlapHours[2]##",
+          "##overlapHours[3]##",
+          "##overlapHours[4]##",
+          "##overlapHours[5]##",
+          "##overlapHours[6]##",
+          "##overlapHours[7]##",
+        ]}
+      />
+    </Table>
+  </Section>
+  <Section
+    id="totalsSection"
+    marginBottom={10}
+    marginTop={10}
+    display="typeOfWork && typeOfWork !== 'Other'"
+  >
+    <Tile
+      id="totalsTile"
+      border
+      borderColor="#CFE6DD"
+      background="#F2F9F6"
+      columns={12}
+    >
+      <Text
+        id="totalsHeader"
+        margin={0}
+        marginTop={6}
+        marginBottom={8}
+        columns={12}
+      >
+        <h3 style={{ textAlign: "left" }}>
+          <span style={{ color: "#016844", fontSize: 16 }}>Totals</span>
+        </h3>
+      </Text>
+      <Tile
+        id="cardHours"
+        border
+        borderColor="#CFE6DD"
+        background="#FFFFFF"
+        columns={4}
+      >
+        <Text id="cardHoursText" marginTop={12} marginBottom={12} columns={12}>
+          <h2 style={{ textAlign: "center" }}>
+            <span style={{ color: "#016844", fontSize: 28 }}>
+              ##grandHours##
+            </span>
+          </h2>
+          <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 12 }}>
+            Total Hours
+          </p>
+        </Text>
+      </Tile>
+      <Tile
+        id="cardRate"
+        border
+        borderColor="#CFE6DD"
+        background="#FFFFFF"
+        columns={4}
+      >
+        <Text id="cardRateText" marginTop={12} marginBottom={12} columns={12}>
+          <h2 style={{ textAlign: "center" }}>
+            <span style={{ color: "#016844", fontSize: 28 }}>
+              ##rateDisplay##
+            </span>
+          </h2>
+          <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 12 }}>
+            Rate
+          </p>
+        </Text>
+      </Tile>
+      <Tile
+        id="cardAmount"
+        border
+        borderColor="#016844"
+        background="#016844"
+        columns={4}
+      >
+        <Text id="cardAmountText" marginTop={12} marginBottom={12} columns={12}>
+          <h2 style={{ textAlign: "center" }}>
+            <span style={{ color: "#FFFFFF", fontSize: 28 }}>
+              ##grandAmount##
+            </span>
+          </h2>
+          <p style={{ textAlign: "center", color: "#CFE6DD", fontSize: 12 }}>
+            Total Amount
+          </p>
+        </Text>
+      </Tile>
+    </Tile>
+  </Section>
+  <Section id="certificationSection" marginTop={10}>
+    <Text
+      id="certificationText"
+      margin={0}
+      marginTop={6}
+      marginBottom={6}
+      columns={12}
+    >
+      <p style={{ color: "#0B3B2C" }}>
+        I certify that the information recorded above is accurate and complete.
+      </p>
+    </Text>
+    <Signature id="employeeSignature" label="Employee Signature" columns={8} />
+    <Timestamp
+      id="employeeSignatureDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [
+          { elementId: "employeeSignature", comparator: "notEmpty" },
+        ],
+        action: "show",
+      }}
+    />
+  </Section>
+  <Section
+    id="approvalSection"
+    marginTop={10}
+    border
+    borderColor="#CFE6DD"
+    background="#F8FBFA"
+    display="currentStep() !== 'start'"
+  >
+    <Text
+      id="approvalHeader"
+      margin={0}
+      marginTop={6}
+      marginBottom={0}
+      columns={12}
+    >
+      <h3 style={{ textAlign: "left" }}>
+        <span style={{ color: "#016844", fontSize: 16 }}>Approval</span>
+      </h3>
+    </Text>
+    <Text
+      id="approvalInstructions"
+      margin={0}
+      marginTop={0}
+      marginBottom={6}
+      columns={12}
+    >
+      <p style={{ color: "#5A6B62", fontSize: 13 }}>
+        Sign and click <b>Approve</b> to advance. To return this paysheet to the
+        employee for changes, use <b>Send Back</b>.
+      </p>
+    </Text>
+    <Text
+      id="michelleHeading"
+      margin={0}
+      marginTop={4}
+      marginBottom={0}
+      columns={12}
+      display="currentStep() === 'michelleReview' || michelleSignature"
+    >
+      <p style={{ color: "#0B3B2C" }}>
+        <b>Director of Digital Systems</b>
+      </p>
+    </Text>
+    <Signature
+      id="michelleSignature"
+      label="Signature"
+      columns={8}
+      display="currentStep() === 'michelleReview' || michelleSignature"
+    />
+    <Timestamp
+      id="michelleDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [
+          { elementId: "michelleSignature", comparator: "notEmpty" },
+        ],
+        action: "show",
+      }}
+    />
+    <Text
+      id="melissaHeading"
+      margin={0}
+      marginTop={4}
+      marginBottom={0}
+      columns={12}
+      display="currentStep() === 'melissaReview' || melissaSignature"
+    >
+      <p style={{ color: "#0B3B2C" }}>
+        <b>Academic Programs</b>
+      </p>
+    </Text>
+    <Signature
+      id="melissaSignature"
+      label="Signature"
+      columns={8}
+      display="currentStep() === 'melissaReview' || melissaSignature"
+    />
+    <Timestamp
+      id="melissaDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [{ elementId: "melissaSignature", comparator: "notEmpty" }],
+        action: "show",
+      }}
+    />
+    <Text
+      id="principalHeading"
+      margin={0}
+      marginTop={4}
+      marginBottom={0}
+      columns={12}
+      display="currentStep() === 'principalReview' || principalSignature"
+    >
+      <p style={{ color: "#0B3B2C" }}>
+        <b>Primary Administrator: ##principalName##</b>
+      </p>
+    </Text>
+    <Signature
+      id="principalSignature"
+      label="Signature"
+      columns={8}
+      display="currentStep() === 'principalReview' || principalSignature"
+    />
+    <Timestamp
+      id="principalDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [
+          { elementId: "principalSignature", comparator: "notEmpty" },
+        ],
+        action: "show",
+      }}
+    />
+    <Text
+      id="christinaHeading"
+      margin={0}
+      marginTop={4}
+      marginBottom={0}
+      columns={12}
+      display="currentStep() === 'christinaReview' || christinaSignature"
+    >
+      <p style={{ color: "#0B3B2C" }}>
+        <b>Arden Montague</b>
+      </p>
+    </Text>
+    <Signature
+      id="christinaSignature"
+      label="Signature"
+      columns={8}
+      display="currentStep() === 'christinaReview' || christinaSignature"
+    />
+    <Timestamp
+      id="christinaDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [
+          { elementId: "christinaSignature", comparator: "notEmpty" },
+        ],
+        action: "show",
+      }}
+    />
+    <Text
+      id="ericHeading"
+      margin={0}
+      marginTop={4}
+      marginBottom={0}
+      columns={12}
+      display="currentStep() === 'ericReview' || ericSignature"
+    >
+      <p style={{ color: "#0B3B2C" }}>
+        <b>Parker Caldwell</b>
+      </p>
+    </Text>
+    <Signature
+      id="ericSignature"
+      label="Signature"
+      columns={8}
+      display="currentStep() === 'ericReview' || ericSignature"
+    />
+    <Timestamp
+      id="ericDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [{ elementId: "ericSignature", comparator: "notEmpty" }],
+        action: "show",
+      }}
+    />
+    <Text
+      id="katieHeading"
+      margin={0}
+      marginTop={4}
+      marginBottom={0}
+      columns={12}
+      display="currentStep() === 'katieReview' || katieSignature"
+    >
+      <p style={{ color: "#0B3B2C" }}>
+        <b>Payroll: Arden Okafor</b>
+      </p>
+    </Text>
+    <Signature
+      id="katieSignature"
+      label="Signature"
+      columns={8}
+      display="currentStep() === 'katieReview' || katieSignature"
+    />
+    <Timestamp
+      id="katieDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [{ elementId: "katieSignature", comparator: "notEmpty" }],
+        action: "show",
+      }}
+    />
+    <Input
+      id="adjustedTotal"
+      label="Adjusted Total (optional)"
+      hint="Payroll use only. Leave blank to use the calculated total."
+      columns={4}
+      display="currentStep() === 'ericReview' || currentStep() === 'katieReview' || value"
+      required={false}
+    />
+    <Dropdown
+      id="christinaCode"
+      label="Code"
+      columns={4}
+      options={["District", "BOCES", "Teacher Center", "Third Party", "Other"]}
+      hideSearch
+      display="currentStep() === 'christinaReview' || christinaCode"
+    />
+    <Textarea
+      id="reviewerNotes"
+      label="Reviewer Notes (optional)"
+      rows={2}
+      columns={8}
+      display="currentStep() === 'christinaReview' || currentStep() === 'ericReview' || currentStep() === 'katieReview' || value"
+      required={false}
+    />
+  </Section>
+  <Actions
+    display="currentStep() === 'start'"
+    enableReject={false}
+    submitText="Submit Form"
+  />
+  <Actions
+    display="currentStep() !== 'start'"
+    submitText="Approve"
+    rejectText="Reject"
+  />
+  <Section id="computedFields" wide background="#F5EDFD" display="false">
+    <Text
+      id="computedFieldsText"
+      margin={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={12}
+    >
+      <div style={{ color: "#330A5C", textAlign: "left" }}>
+        <h3>
+          <span style={{ color: "#330A5C" }}>Computed Fields</span>
+        </h3>
+        <p>
+          Behind-the-scenes routing, rates, totals, and date helpers. Hidden at
+          every step.
+        </p>
+      </div>
+    </Text>
+    <Computed
+      id="payStructure"
+      label="Pay Structure"
+      columns={3}
+      formula="typeOfWork === 'Tutoring' ? 'timegrid' : (typeOfWork ? 'sessions' : '')"
+    />
+    <Computed
+      id="rateKey"
+      label="Rate Key"
+      columns={3}
+      formula="(typeOfWork === 'Professional Learning' || typeOfWork === 'Grant Stipend' || typeOfWork === 'Committee') ? subtype : (typeOfWork === 'Tutoring' ? 'Tutoring' : (typeOfWork === 'Curriculum Writing' ? 'Curriculum Writing' : ''))"
+    />
+    <Computed
+      id="rateIsManual"
+      label="Rate Is Manual"
+      columns={3}
+      formula="position && positions[position] ? positions[position]['paysheetRate'] === 'manual' : false"
+    />
+    <Computed
+      id="fiscalYear"
+      label="Fiscal Year"
+      columns={3}
+      formula="(()=>{ const d = payPeriodStart ? new Date(payPeriodStart + 'T00:00:00') : new Date(); const y = d.getFullYear(); const s = (d.getMonth() + 1) >= 7 ? y : y - 1; return s + '-' + (s + 1); })()"
+    />
+    <Computed
+      id="is21Type"
+      label="Is 21-hour Type"
+      columns={3}
+      formula="typeOfWork === 'Professional Learning' && (subtype === 'In-House Professional Learning (21 Hour)' || subtype === 'Non-District Professional Learning (ND PL)')"
+    />
+    <Computed
+      id="tutoringRate"
+      label="Tutoring Rate"
+      columns={3}
+      formula="rates[fiscalYear] && rates[fiscalYear]['Tutoring'] ? rates[fiscalYear]['Tutoring'][0] : 0"
+    />
+    <Computed
+      id="rateDisplay"
+      label="Rate Display"
+      columns={3}
+      formula="(()=>{ if (rateIsManual) return payrollRate ? toCurrency(fromCurrency(payrollRate)) : (sum(sessManualRate) > 0 ? 'Varies by row' : 'Set by payroll'); if (payStructure === 'timegrid') return toCurrency(tutoringRate); const rateForDate = (ds) => { const d = ds ? new Date(ds + 'T00:00:00') : new Date(); const y = d.getFullYear(); const s = (d.getMonth() + 1) >= 7 ? y : y - 1; const fy = s + '-' + (s + 1); const o = rateKey && rates[fy] && rates[fy][rateKey] ? rates[fy][rateKey] : []; if (!o.length) return null; let r = o[0]; if (typeOfWork === 'Professional Learning' && plRole === 'Facilitator / Trainer') r = r * 1.25; return r; }; const rows = Array.isArray(sessionsTable) ? sessionsTable.filter(x => x && x.sessDate) : []; if (!rows.length) { const r = rateForDate(''); return r == null ? 'n/a' : toCurrency(r); } const vals = []; rows.forEach(x => { const r = rateForDate(x.sessDate); if (r != null && vals.indexOf(r) < 0) vals.push(r); }); if (!vals.length) return 'n/a'; if (vals.length === 1) return toCurrency(vals[0]); return 'Varies by row'; })()"
+    />
+    <Computed
+      id="principalName"
+      label="Principal Name"
+      columns={3}
+      formula="workLocation ? schoolsDepartments[workLocation]['Administrator']['name'] : ''"
+    />
+    <Computed
+      id="principalEmail"
+      label="Principal Email"
+      columns={3}
+      formula="workLocation ? schoolsDepartments[workLocation]['Administrator']['email'] : ''"
+    />
+    <Computed
+      id="isDistrictOffice"
+      label="Is District Office"
+      columns={3}
+      formula="workLocation === 'District Office'"
+    />
+    <Computed
+      id="michelleApplies"
+      label="Wren Applies"
+      columns={3}
+      formula="typeOfWork === 'Grant Stipend' && subtype === 'Tech & Learning Grant'"
+    />
+    <Computed
+      id="melissaApplies"
+      label="Devin Applies"
+      columns={3}
+      formula="typeOfWork === 'Curriculum Writing'"
+    />
+    <Computed
+      id="principalApplies"
+      label="Principal Applies"
+      columns={3}
+      formula="workLocation && workLocation !== 'District Office'"
+    />
+    <Computed
+      id="christinaApplies"
+      label="Arden Applies"
+      columns={3}
+      formula="!(typeOfWork === 'Committee' && (subtype === 'SIT' || subtype === 'Department/Grade Level Leader'))"
+    />
+    <Computed
+      id="plToday"
+      label="PL Today"
+      columns={3}
+      formula="(()=>{ const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); })()"
+    />
+    <Computed
+      id="plAsOf"
+      label="PL As Of Date"
+      columns={3}
+      formula="(()=>{ const pick = (v) => { const x = v ? new Date(v) : null; return (x && !isNaN(x.getTime())) ? x : null; }; const d = pick(employeeSignatureDate) || pick(formStarted) || new Date(); let iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); const rows = Array.isArray(sessionsTable) ? sessionsTable : []; rows.forEach(r => { const v = r && r.sessDate ? String(r.sessDate) : ''; if (/^\d{4}-\d{2}-\d{2}$/.test(v) && v > iso && v <= plToday) iso = v; }); return iso; })()"
+    />
+    <Computed
+      id="plThisYearWindow"
+      label="PL This Year Window Start"
+      columns={3}
+      formula="(()=>{ const y = parseInt(String(plAsOf).slice(0, 4), 10); const m = parseInt(String(plAsOf).slice(5, 7), 10); return (m >= 9 ? y : y - 1) + '-09-01'; })()"
+    />
+    <Computed
+      id="plLastYearWindow"
+      label="PL Last Year Window Start"
+      columns={3}
+      formula="(parseInt(String(plThisYearWindow).slice(0, 4), 10) - 1) + '-09-01'"
+    />
+    <Computed
+      id="plLastYearOpen"
+      label="PL Last Year Still Open"
+      columns={3}
+      formula="parseInt(String(plAsOf).slice(5, 7), 10) >= 9"
+    />
+    <Computed
+      id="plMinDate"
+      label="PL Earliest Claimable Date"
+      columns={3}
+      formula="plLastYearOpen ? plLastYearWindow : plThisYearWindow"
+    />
+    <Computed
+      id="plThisYearLabel"
+      label="PL This Year Label"
+      columns={3}
+      formula="(()=>{ const y = parseInt(String(plThisYearWindow).slice(0, 4), 10); return y + '-' + String(y + 1).slice(2); })()"
+    />
+    <Computed
+      id="plLastYearLabel"
+      label="PL Last Year Label"
+      columns={3}
+      formula="(()=>{ const y = parseInt(String(plLastYearWindow).slice(0, 4), 10); return y + '-' + String(y + 1).slice(2); })()"
+    />
+    <Computed
+      id="plThisYearStartDisplay"
+      label="PL This Year Start (Display)"
+      columns={3}
+      formula="(()=>{ const M = ['January','February','March','April','May','June','July','August','September','October','November','December']; const p = String(plThisYearWindow).split('-'); if (p.length !== 3) return ''; return M[parseInt(p[1], 10) - 1] + ' ' + parseInt(p[2], 10) + ', ' + p[0]; })()"
+    />
+    <Computed
+      id="plMinDateDisplay"
+      label="PL Earliest Claimable Date (Display)"
+      columns={3}
+      formula="(()=>{ const M = ['January','February','March','April','May','June','July','August','September','October','November','December']; const p = String(plMinDate).split('-'); if (p.length !== 3) return ''; return M[parseInt(p[1], 10) - 1] + ' ' + parseInt(p[2], 10) + ', ' + p[0]; })()"
+    />
+    <Computed
+      id="plLedgerKey"
+      label="PL Ledger Key"
+      columns={3}
+      formula="String(submittedByEmail || '').trim().toLowerCase()"
+    />
+    <Computed
+      id="plThisYearUsed"
+      label="PL Used This Year"
+      columns={3}
+      formula="(()=>{ const row = plLedgerKey ? plLedger[plLedgerKey] : null; if (!row) return 0; let b = null; if (row.windows && typeof row.windows === 'object') b = row.windows[plThisYearWindow] || null; else if (row.windowStart === plThisYearWindow) b = row; if (!b) return 0; const mine = (paysheetId && b.entries && b.entries[paysheetId]) ? (parseFloat(b.entries[paysheetId].hours) || 0) : 0; return Math.max(0, Math.round(((parseFloat(b.used) || 0) - mine) * 100) / 100); })()"
+    />
+    <Computed
+      id="plLastYearUsed"
+      label="PL Used Last Year"
+      columns={3}
+      formula="(()=>{ const row = plLedgerKey ? plLedger[plLedgerKey] : null; if (!row) return 0; let b = null; if (row.windows && typeof row.windows === 'object') b = row.windows[plLastYearWindow] || null; else if (row.windowStart === plLastYearWindow) b = row; if (!b) return 0; const mine = (paysheetId && b.entries && b.entries[paysheetId]) ? (parseFloat(b.entries[paysheetId].hours) || 0) : 0; return Math.max(0, Math.round(((parseFloat(b.used) || 0) - mine) * 100) / 100); })()"
+    />
+    <Computed
+      id="plThisYearClaim"
+      label="PL Hours This Form, This Year"
+      columns={3}
+      formula="(()=>{ if (!is21Type || plRole === 'Facilitator / Trainer') return 0; const rows = Array.isArray(sessionsTable) ? sessionsTable : []; let t = 0; rows.forEach(r => { if (!r) return; const d = r.sessDate; if (!d || d >= plThisYearWindow) t += parseFloat(r.sessHours) || 0; }); return Math.round(t * 100) / 100; })()"
+    />
+    <Computed
+      id="plLastYearClaim"
+      label="PL Hours This Form, Last Year"
+      columns={3}
+      formula="(()=>{ if (!is21Type || plRole === 'Facilitator / Trainer') return 0; const rows = Array.isArray(sessionsTable) ? sessionsTable : []; let t = 0; rows.forEach(r => { if (!r) return; const d = r.sessDate; if (d && d < plThisYearWindow) t += parseFloat(r.sessHours) || 0; }); return Math.round(t * 100) / 100; })()"
+    />
+    <Computed
+      id="plThisHours"
+      label="PL Hours This Form"
+      columns={3}
+      formula="Math.round((plThisYearClaim + plLastYearClaim) * 100) / 100"
+    />
+    <Computed
+      id="plThisYearRemaining"
+      label="PL Remaining This Year"
+      columns={3}
+      formula="Math.max(0, 21 - plThisYearUsed)"
+    />
+    <Computed
+      id="plLastYearRemaining"
+      label="PL Remaining Last Year"
+      columns={3}
+      formula="Math.max(0, 21 - plLastYearUsed)"
+    />
+    <Computed
+      id="plThisYearAfter"
+      label="PL Remaining This Year After This Form"
+      columns={3}
+      formula="Math.max(0, Math.round((21 - plThisYearUsed - plThisYearClaim) * 100) / 100)"
+    />
+    <Computed
+      id="plLastYearAfter"
+      label="PL Remaining Last Year After This Form"
+      columns={3}
+      formula="Math.max(0, Math.round((21 - plLastYearUsed - plLastYearClaim) * 100) / 100)"
+    />
+    <Computed
+      id="plThisYearExceed"
+      label="PL Would Exceed 21 This Year"
+      columns={3}
+      formula="is21Type && plThisYearClaim > 0 && (plThisYearUsed + plThisYearClaim) > 21"
+    />
+    <Computed
+      id="plLastYearExceed"
+      label="PL Would Exceed 21 Last Year"
+      columns={3}
+      formula="is21Type && plLastYearOpen && plLastYearClaim > 0 && (plLastYearUsed + plLastYearClaim) > 21"
+    />
+    <Computed
+      id="plWouldExceed"
+      label="PL Would Exceed 21"
+      columns={3}
+      formula="plThisYearExceed || plLastYearExceed"
+    />
+    <Computed
+      id="plOldDateCount"
+      label="PL Rows Dated Too Early"
+      columns={3}
+      formula="(()=>{ if (!is21Type) return 0; const rows = Array.isArray(sessionsTable) ? sessionsTable : []; return rows.filter(r => r && r.sessDate && (r.sessDate < plMinDate || r.sessDate > plToday)).length; })()"
+    />
+    <Computed
+      id="plOldDateMessage"
+      label="PL Old Date Message"
+      columns={3}
+      formula="(()=>{ const rows = Array.isArray(sessionsTable) ? sessionsTable : []; const early = rows.filter(r => r && r.sessDate && r.sessDate < plMinDate).length; const future = rows.filter(r => r && r.sessDate && r.sessDate > plToday).length; if (!early && !future) return ''; const parts = []; if (early) parts.push((early === 1 ? 'One session is dated before ' : early + ' sessions are dated before ') + plMinDateDisplay + ', and hours from before that date can no longer be claimed on a 21-hour Professional Learning form.'); if (future) parts.push((future === 1 ? 'One session is dated after today.' : future + ' sessions are dated after today.') + ' Only work already completed can be claimed.'); return parts.join(' ') + ((early + future) === 1 ? ' Please correct or remove that date.' : ' Please correct or remove those dates.'); })()"
+    />
+    <Computed
+      id="plFillPct"
+      label="PL Fill Percent"
+      columns={3}
+      formula="Math.min(100, Math.round((plThisYearUsed + plThisYearClaim) / 21 * 100))"
+    />
+    <Computed
+      id="plBarBucket"
+      label="PL Bar Bucket"
+      columns={3}
+      formula="(plThisYearUsed + plThisYearClaim) > 0 ? Math.max(1, Math.min(10, Math.round(plFillPct / 10))) : 0"
+    />
+    <Computed
+      id="plThisYearRows"
+      label="PL Rows Dated This Year"
+      columns={3}
+      formula="(()=>{ if (!is21Type) return 0; const rows = Array.isArray(sessionsTable) ? sessionsTable : []; return rows.filter(r => r && (r.sessDate ? r.sessDate >= plThisYearWindow : (parseFloat(r.sessHours) || 0) > 0)).length; })()"
+    />
+    <Computed
+      id="plLastYearRows"
+      label="PL Rows Dated Last Year"
+      columns={3}
+      formula="(()=>{ if (!is21Type) return 0; const rows = Array.isArray(sessionsTable) ? sessionsTable : []; return rows.filter(r => r && r.sessDate && r.sessDate < plThisYearWindow).length; })()"
+    />
+    <Computed
+      id="plShowLastYear"
+      label="PL Show Last Year"
+      columns={3}
+      formula="is21Type && plLastYearOpen && plLastYearRows > 0"
+    />
+    <Computed
+      id="plShowThisYear"
+      label="PL Show This Year"
+      columns={3}
+      formula="!plShowLastYear || plThisYearRows > 0"
+    />
+    <Computed
+      id="plLastFillPct"
+      label="PL Fill Percent Last Year"
+      columns={3}
+      formula="Math.min(100, Math.round((plLastYearUsed + plLastYearClaim) / 21 * 100))"
+    />
+    <Computed
+      id="plLastBarBucket"
+      label="PL Bar Bucket Last Year"
+      columns={3}
+      formula="(plLastYearUsed + plLastYearClaim) > 0 ? Math.max(1, Math.min(10, Math.round(plLastFillPct / 10))) : 0"
+    />
+    <Computed
+      id="claimedDates"
+      label="Claimed Dates"
+      columns={3}
+      formula="(()=>{ if (!Array.isArray(sessionsTable)) return ''; const ds = []; sessionsTable.forEach(r => { const d = r && r.sessDate; if (d && ds.indexOf(d) < 0) ds.push(d); }); return ds.sort().join(','); })()"
+    />
+    <Computed
+      id="overlapList"
+      label="Overlap List"
+      columns={3}
+      formula="(()=>{ if (!claimedDates || !plLedgerKey) return []; const led = plLedger[plLedgerKey]; if (!led) return []; const buckets = []; if (led.windows && typeof led.windows === 'object') { Object.keys(led.windows).forEach(w => { const b = led.windows[w]; if (b && b.entries && typeof b.entries === 'object') buckets.push(b.entries); }); } if (led.entries && typeof led.entries === 'object') buckets.push(led.entries); const mine = claimedDates.split(','); const rows = []; buckets.forEach(entries => { Object.keys(entries).forEach(k => { if (k === paysheetId) return; const e = entries[k] || {}; const inter = (e.dates || []).filter(d => mine.indexOf(d) >= 0); if (inter.length) rows.push({ dates: inter.sort(), type: e.type || 'Logged hours', hours: (e.hours != null ? e.hours : '') }); }); }); rows.sort((a,b) => (a.dates[0] < b.dates[0] ? -1 : (a.dates[0] > b.dates[0] ? 1 : 0))); return rows; })()"
+    />
+    <Computed
+      id="overlapCount"
+      label="Overlap Count"
+      columns={3}
+      formula="Array.isArray(overlapList) ? overlapList.length : 0"
+    />
+    <Computed
+      id="overlapRowCount"
+      label="Overlap Row Count"
+      columns={3}
+      formula="Math.min(overlapCount, 8)"
+    />
+    <Computed
+      id="overlapDatesArr"
+      label="Overlap Dates List"
+      columns={3}
+      formula="(()=>{ const L = Array.isArray(overlapList) ? overlapList : []; const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; const fmt = (d) => { const p = String(d).split('-'); if (p.length !== 3) return String(d); return M[parseInt(p[1],10)-1] + ' ' + parseInt(p[2],10) + ', ' + p[0]; }; return L.slice(0,8).map(r => (r.dates || []).map(fmt).join(', ')); })()"
+    />
+    <Computed
+      id="overlapTypes"
+      label="Overlap Types"
+      columns={3}
+      formula="(Array.isArray(overlapList) ? overlapList : []).slice(0,8).map(r => r.type)"
+    />
+    <Computed
+      id="overlapHours"
+      label="Overlap Hours"
+      columns={3}
+      formula="(Array.isArray(overlapList) ? overlapList : []).slice(0,8).map(r => ((r.hours === '' || r.hours == null) ? '' : (r.hours + (r.hours === 1 ? ' hr' : ' hrs'))))"
+    />
+    <Computed
+      id="overlapMessage"
+      label="Overlap Message"
+      columns={3}
+      formula="(()=>{ const L = Array.isArray(overlapList) ? overlapList : []; const seen = {}; L.forEach(r => (r.dates || []).forEach(d => { seen[d] = 1; })); const n = Object.keys(seen).length; const lead = n <= 1 ? 'This date already has hours logged for this employee.' : 'These dates already have hours logged for this employee.'; const tail = n <= 1 ? ' If this is separate, pre-approved work, you can continue. Otherwise please review before submitting.' : ' If these are separate, pre-approved work, you can continue. Otherwise please review before submitting.'; return lead + tail; })()"
+    />
+    <Computed
+      id="expectedPayDate"
+      label="Expected Pay Date"
+      columns={3}
+      formula="(()=>{ const M = ['January','February','March','April','May','June','July','August','September','October','November','December']; const D = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']; const fmt = (iso) => { const p = new Date(iso + 'T00:00:00'); return D[p.getDay()] + ', ' + M[p.getMonth()] + ' ' + p.getDate() + ', ' + p.getFullYear(); }; if (payStructure === 'timegrid' && payPeriod && payCalendar[payPeriod]) return fmt(payCalendar[payPeriod]['checkDate']); const pick = (v) => { const d = v ? new Date(v) : null; return (d && !isNaN(d.getTime())) ? d : null; }; const now = pick(employeeSignatureDate) || pick(formStarted) || new Date(); const keys = Object.keys(payCalendar).filter(k => payCalendar[k].appliesToHourly).sort((a,b) => new Date(payCalendar[a].checkDate + 'T00:00:00') - new Date(payCalendar[b].checkDate + 'T00:00:00')); for (let i = 0; i < keys.length; i++) { const cd = payCalendar[keys[i]]['checkDate']; const pay = new Date(cd + 'T00:00:00'); const cutoff = new Date(pay.getTime() - 8 * 86400000); cutoff.setHours(23, 59, 59, 999); if (now.getTime() <= cutoff.getTime()) return fmt(cd); } return 'the next scheduled payroll'; })()"
+    />
+    <Computed
+      id="grandHours"
+      label="Grand Hours"
+      columns={3}
+      formula="payStructure === 'timegrid' ? (sum(w1Hours) + sum(w2Hours)) : sum(sessHours)"
+    />
+    <Computed
+      id="grandAmount"
+      label="Grand Amount"
+      columns={3}
+      formula="(()=>{ if (payStructure === 'timegrid') return toCurrency((sum(w1Hours) + sum(w2Hours)) * tutoringRate); if (rateIsManual) { const t = sum(sessAmount); return t > 0 ? toCurrency(t) : 'Set by payroll'; } return toCurrency(sum(sessAmount)); })()"
+    />
+    <Computed
+      id="summaryLine"
+      label="Summary Line"
+      columns={3}
+      formula="grandHours + ' hrs · ' + grandAmount"
+    />
+    <Computed
+      id="payPeriodStart"
+      label="Pay Period Start"
+      columns={3}
+      formula="(()=>{ if (payStructure !== 'timegrid' || !payPeriod) return ''; const left = String(payPeriod).split('-')[0].trim(); const p = left.split('/'); if (p.length !== 3) return ''; const mm = String(parseInt(p[0], 10)).padStart(2, '0'); const dd = String(parseInt(p[1], 10)).padStart(2, '0'); return p[2] + '-' + mm + '-' + dd; })()"
+    />
+    <Computed
+      id="week1Dates"
+      label="Week 1 Dates"
+      columns={3}
+      formula="(()=>{ if (!payPeriodStart) return []; const start = new Date(payPeriodStart + 'T00:00:00'); return Array.from({ length: 7 }, (_, i) => { const d = new Date(start.getTime() + i * 86400000); const mm = String(d.getMonth() + 1).padStart(2, '0'); const dd = String(d.getDate()).padStart(2, '0'); return `${mm}/${dd}`; }); })()"
+    />
+    <Computed
+      id="week2Dates"
+      label="Week 2 Dates"
+      columns={3}
+      formula="(()=>{ if (!payPeriodStart) return []; const start = new Date(payPeriodStart + 'T00:00:00'); return Array.from({ length: 7 }, (_, i) => { const d = new Date(start.getTime() + (i + 7) * 86400000); const mm = String(d.getMonth() + 1).padStart(2, '0'); const dd = String(d.getDate()).padStart(2, '0'); return `${mm}/${dd}`; }); })()"
+    />
+    <Computed
+      id="week1Ending"
+      label="Week 1 Ending"
+      columns={3}
+      formula="(()=>{ if (!payPeriodStart) return ''; const d = new Date(new Date(payPeriodStart + 'T00:00:00').getTime() + 6 * 86400000); return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`; })()"
+    />
+    <Computed
+      id="week2Ending"
+      label="Week 2 Ending"
+      columns={3}
+      formula="(()=>{ if (!payPeriodStart) return ''; const d = new Date(new Date(payPeriodStart + 'T00:00:00').getTime() + 13 * 86400000); return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`; })()"
+    />
+  </Section>
+</Form>

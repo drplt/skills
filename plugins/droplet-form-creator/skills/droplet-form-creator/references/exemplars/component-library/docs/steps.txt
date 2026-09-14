@@ -1,0 +1,36 @@
+{
+  "start": {
+    "permissions": {
+      "submittedByName": "editable",
+      "submittedByEmail": "editable",
+      "textarea1": "editable",
+      "radio1": "editable",
+      "checkbox1": "editable",
+      "dropdown1": "editable",
+      "boolean1": "editable",
+      "column1": "editable",
+      "column2": "editable",
+      "column3": "editable",
+      "table1": "editable",
+      "datetime1": "editable",
+      "signature1": "editable",
+      "upload1": "editable",
+      "section1": "readonly",
+      "address1": "editable",
+      "address2": "editable",
+      "distance1": "editable",
+      "input1": "editable",
+      "datetime2": "editable",
+      "section2": "readonly",
+      "signature2": "editable",
+      "upload2": "editable",
+      "section3": "readonly",
+      "computed1": "readonly"
+    }
+  },
+  "completed": {
+    "permissions": {
+      "_actions": "hidden"
+    }
+  }
+}

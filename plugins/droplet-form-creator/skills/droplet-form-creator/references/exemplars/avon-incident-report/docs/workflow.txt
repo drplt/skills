@@ -1,0 +1,42 @@
+{
+  "test": {},
+  "steps": {
+    "start": {
+      "onSubmit": [
+        {
+          "target": "incidentReview"
+        }
+      ],
+      "position": [
+        160,
+        80
+      ]
+    },
+    "incidentReview": {
+      "status": "pending",
+      "label": "Review",
+      "onEnter": {
+        "assign": {
+          "name": "Parker Caldwell",
+          "email": "parker.caldwell@example.org"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "completed"
+        }
+      ],
+      "position": [
+        544,
+        80
+      ]
+    },
+    "completed": {
+      "status": "completed",
+      "position": [
+        920,
+        80
+      ]
+    }
+  }
+}

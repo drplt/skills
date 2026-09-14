@@ -1,0 +1,87 @@
+<Form color="#000000">
+  <Section>
+    <Input
+      id="submittedByName"
+      label="Submitter Name"
+      mask="/(8)[0-9]"
+      columns={6}
+    />
+    <Input
+      id="submittedByEmail"
+      label="Submitter Email"
+      type="email"
+      columns={6}
+    />
+    <Textarea id="textarea1" label="Textarea" columns={12} />
+    <Input
+      id="input1"
+      label="Input"
+      mask="/[0-1]/[0-9]/[/]/[0-9]/[0-9]"
+      columns={6}
+    />
+    <Radio
+      id="radio1"
+      label="Radio"
+      columns={3}
+      options={["Option 1", "Option 2", "Option 3"]}
+    />
+    <Checkbox
+      id="checkbox1"
+      label="Checkbox"
+      columns={3}
+      options={["Option 1", "Option 2", "Option 3"]}
+    />
+    <Dropdown
+      id="dropdown1"
+      label="Dropdown"
+      columns={3}
+      options={["Option 1", "Option 2", "Option 3"]}
+    />
+    <Boolean id="boolean1" label="Boolean" text="Boolean Text" columns={3} />
+    <Datetime id="datetime2" label="Date" columns={2} />
+    <Table id="table1" label="Table" initialRows={3}>
+      <TableColumn id="column1" label="Column 1" />
+      <TableColumn id="column2" label="Column 2" />
+      <TableColumn id="column3" label="Column 3" />
+    </Table>
+    <Datetime id="datetime1" label="Date" columns={3} />
+    <Signature id="signature1" label="Signature" columns={4} />
+    <Upload id="upload1" label="Upload" columns={3} />
+    <Upload id="upload2" label="Upload" columns={2} />
+  </Section>
+  <Section id="section1">
+    <Address id="address1" label="Starting Address" columns={5} />
+    <Address id="address2" label="Ending Address" columns={5} />
+    <Distance
+      id="distance1"
+      label="Distance"
+      columns={2}
+      startAddress="address1"
+      endAddress="address2"
+      distanceUnits="mi"
+    />
+  </Section>
+  <Section id="section2">
+    <Signature id="signature2" label="Signature" columns={8} />
+    <Timestamp
+      id="signature2DateSigned"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [{ elementId: "signature2", comparator: "notEmpty" }],
+        action: "show",
+      }}
+    />
+  </Section>
+  <Section id="section3">
+    <Computed
+      id="computed1"
+      label="Computed"
+      columns={6}
+      formula="(()=>{
+// You can write IIFEs or simple single-string javascript formulas in Computed components.
+})()"
+    />
+  </Section>
+  <Actions />
+</Form>

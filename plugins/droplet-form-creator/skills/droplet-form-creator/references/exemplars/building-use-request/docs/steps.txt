@@ -1,0 +1,51 @@
+{
+  "start": {
+    "permissions": {
+      "submittedByName": "editable",
+      "submittedByEmail": "editable",
+      "text5": "readonly",
+      "sectionComputedFields": "hidden",
+      "section1": "readonly",
+      "spacer1": "hidden",
+      "spacer2": "hidden",
+      "section2": "readonly",
+      "section3": "readonly",
+      "spacerTop": "readonly",
+      "campus": "editable",
+      "school": "editable",
+      "club": "editable",
+      "tile1": "readonly",
+      "submissionId": "readonly",
+      "image1": "readonly",
+      "signature1": "editable",
+      "section4": "readonly",
+      "checkbox1": "editable",
+      "section5": "readonly",
+      "section6": "readonly",
+      "datetime1": "editable",
+      "input1": "editable",
+      "computed1": "readonly"
+    }
+  },
+  "rejected": {
+    "permissions": {
+      "_actions": "hidden",
+      "sectionComputedFields": "hidden",
+      "spacer1": "hidden",
+      "spacer2": "hidden"
+    },
+    "actions": {}
+  },
+  "completed": {
+    "permissions": {
+      "_actions": "hidden",
+      "sectionComputedFields": "hidden",
+      "spacer1": "hidden",
+      "spacer2": "hidden"
+    }
+  },
+  "step1": {
+    "permissions": {},
+    "actions": {}
+  }
+}

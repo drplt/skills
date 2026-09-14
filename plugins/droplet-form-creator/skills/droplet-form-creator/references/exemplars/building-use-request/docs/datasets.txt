@@ -1,0 +1,296 @@
+{
+  "local": {},
+  "global": {
+    "schools": {}
+  },
+  "resolved": {
+    "schools": {
+      "value": {
+        "Departments": {
+          "CTE": {
+            "assistant": {
+              "name": "Morgan Lindqvist",
+              "email": "casey.lindqvist@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "CTE Director"
+            }
+          },
+          "Technology": {
+            "assistant": {
+              "name": "Quinn Delacroix",
+              "email": "quinn.delacroix@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Director of Technology"
+            }
+          },
+          "Food Services": {
+            "assistant": {
+              "name": "Emerson Holloway",
+              "email": "emerson.holloway@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Director of Food Services"
+            }
+          },
+          "Communications": {
+            "assistant": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Chief Communications Officer"
+            }
+          },
+          "Superintendent": {
+            "assistant": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Superintendent"
+            }
+          },
+          "Transportation": {
+            "assistant": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Director of Transportation"
+            }
+          },
+          "Human Resources": {
+            "assistant": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Director of Human Resources"
+            }
+          },
+          "Student Services": {
+            "assistant": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Assistant Superintendent for Student Services"
+            }
+          },
+          "Special Education": {
+            "assistant": {
+              "name": "Tatum Donovan",
+              "email": "tatum.donovan@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Director of Special Education"
+            }
+          },
+          "Business & Finance": {
+            "assistant": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Assistant Superintndent for Business & Finance"
+            }
+          },
+          "Facilities & Operations": {
+            "assistant": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Director of Facilities"
+            }
+          },
+          "Curriculum & Instruction": {
+            "assistant": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Assistant Superintendent for Curriculum & Instruction"
+            }
+          },
+          "Professional Development": {
+            "assistant": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "PD Coordinator"
+            }
+          },
+          "Social-Emotional Learning": {
+            "assistant": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org"
+            },
+            "administrator": {
+              "name": "Morgan Castellano",
+              "email": "morgan.castellano@example.org",
+              "title": "Director of Counseling"
+            }
+          }
+        },
+        "Sunset High School": {
+          "clubs": [
+            "Robotics Club",
+            "Debate Team",
+            "Drama Club",
+            "Environmental Club",
+            "Chess Club",
+            "Yearbook Committee",
+            "Mathletes",
+            "Science Olympiad",
+            "Model United Nations",
+            "Coding Club",
+            "Art Society",
+            "Music Ensemble",
+            "Literary Magazine",
+            "Photography Club",
+            "Film Society",
+            "Student Government",
+            "Creative Writing Club",
+            "Biology Club",
+            "Economics Club",
+            "Community Service Club"
+          ],
+          "grades": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "principal": {
+            "name": "Taylor Delacroix",
+            "email": "taylor.delacroix@example.org",
+            "title": "Principal"
+          }
+        },
+        "Brookfield Middle School": {
+          "clubs": [
+            "Robotics Club",
+            "Drama Club",
+            "Art Club",
+            "Math Club",
+            "Science Club",
+            "Gardening Club",
+            "Chess Club",
+            "Running Club",
+            "Book Club",
+            "Journalism Club"
+          ],
+          "grades": [
+            6,
+            7,
+            8
+          ],
+          "principal": {
+            "name": "Reese Vasquez",
+            "email": "reese.vasquez@example.org",
+            "title": "Principal"
+          }
+        },
+        "Lakeside Elementary School": {
+          "grades": [
+            "K",
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "principal": {
+            "name": "Emerson Kowalski",
+            "email": "emerson.kowalski@example.org",
+            "title": "Principal"
+          }
+        },
+        "Willow Creek Middle School": {
+          "clubs": [
+            "Robotics Club",
+            "Drama Club",
+            "Art Club",
+            "Math Club",
+            "Science Club",
+            "Cooking Club",
+            "Anime Club",
+            "Environmental Club",
+            "Cycling Club",
+            "Public Speaking Club"
+          ],
+          "grades": [
+            6,
+            7,
+            8
+          ],
+          "principal": {
+            "name": "Rowan Fontaine",
+            "email": "rowan.fontaine@example.org",
+            "title": "Principal"
+          }
+        },
+        "Maple Grove Elementary School": {
+          "grades": [
+            "K",
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "principal": {
+            "name": "Skyler Ferreira",
+            "email": "skyler.ferreira@example.org",
+            "title": "Principal"
+          }
+        },
+        "Riverbank Central Elementary School": {
+          "grades": [
+            "K",
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "principal": {
+            "name": "Finley Halvorsen",
+            "email": "finley.halvorsen@example.org",
+            "title": "Principal"
+          }
+        }
+      }
+    }
+  }
+}

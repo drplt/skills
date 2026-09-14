@@ -1,0 +1,5 @@
+{
+  "School": "school",
+  "Grade": "grade",
+  "School Year": "schoolYear"
+}

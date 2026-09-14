@@ -1,0 +1,13 @@
+{
+  "name": "droplet-forms",
+  "owner": {
+    "name": "Droplet"
+  },
+  "plugins": [
+    {
+      "name": "droplet-form-creator",
+      "source": "./plugins/droplet-form-creator",
+      "description": "Build and edit Droplet Forms and Workflows .drplt files from a plain-language description."
+    }
+  ]
+}

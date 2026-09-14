@@ -1,0 +1,42 @@
+{
+  "test": {},
+  "steps": {
+    "start": {
+      "onSubmit": [
+        {
+          "target": "step1"
+        }
+      ],
+      "position": [
+        160,
+        80
+      ]
+    },
+    "rejected": {
+      "status": "rejected",
+      "position": [
+        160,
+        336
+      ]
+    },
+    "completed": {
+      "status": "completed",
+      "position": [
+        928,
+        80
+      ]
+    },
+    "step1": {
+      "status": "pending",
+      "onSubmit": [
+        {
+          "target": "completed"
+        }
+      ],
+      "position": [
+        544,
+        80
+      ]
+    }
+  }
+}

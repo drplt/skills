@@ -1,0 +1,27 @@
+{
+  "incidentReview": {
+    "onEnter": {
+      "type": "assignment",
+      "template": {
+        "subject": "Incident Report ##incidentReportId## needs your review",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Incident Report</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br /><b>##submittedByName##</b> submitted incident report <b>##incidentReportId##</b>.<br /><br /><b>Injured person:</b> ##injuredPersonName## (##injuredPersonRole##)<br /><b>Location:</b> ##locationOfIncident##, ##placeOfIncident##<br /><br />Review the report and click Mark as Reviewed to complete it.</p></td></tr></table></td></tr><tr><td align='center'><a href='##assignmentUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>Review Report</a></td></tr></table>"
+      }
+    }
+  },
+  "completed": {
+    "onEnter": {
+      "template": {
+        "subject": "Incident Report ##incidentReportId## reviewed and completed",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Incident Report</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br />Incident report <b>##incidentReportId##</b> submitted by <b>##submittedByName##</b> has been reviewed and marked complete. A PDF of the full report is attached for your records.<br /><br /><b>Injured person:</b> ##injuredPersonName## (##injuredPersonRole##)<br /><b>Location:</b> ##locationOfIncident##, ##placeOfIncident##<br /><br />No action is needed. This is for your awareness.</p></td></tr></table></td></tr><tr><td align='center'><a href='##submissionUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>View Report</a></td></tr></table>"
+      },
+      "recipients": [
+        {
+          "type": "static",
+          "name": "Sage Espinoza",
+          "email": "sage.espinoza@example.org"
+        }
+      ],
+      "attachSubmissionPdf": true
+    }
+  }
+}

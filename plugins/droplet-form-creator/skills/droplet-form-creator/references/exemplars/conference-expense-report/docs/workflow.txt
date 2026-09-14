@@ -1,0 +1,151 @@
+{
+  "test": {},
+  "steps": {
+    "start": {
+      "onEnter": {
+        "sendToSubmitter": true
+      },
+      "onSubmit": [
+        {
+          "target": "step1"
+        }
+      ],
+      "position": [
+        -944,
+        80
+      ]
+    },
+    "supervisor": {
+      "status": "pending",
+      "label": "Budget Manager",
+      "onEnter": {
+        "assign": {
+          "nameElementId": "apApproverName",
+          "emailElementId": "apApproverEmail"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "completed"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "start",
+          "if": {
+            "conditions": [
+              {
+                "elementId": "nextAction",
+                "comparator": "equal",
+                "value": "Return to Employee"
+              }
+            ]
+          }
+        },
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        336,
+        80
+      ]
+    },
+    "completed": {
+      "status": "completed",
+      "position": [
+        784,
+        -16
+      ]
+    },
+    "rejected": {
+      "status": "rejected",
+      "label": "Rejected",
+      "position": [
+        784,
+        176
+      ]
+    },
+    "step1": {
+      "status": "pending",
+      "label": "Approver",
+      "onEnter": {
+        "assign": {
+          "nameElementId": "approverName",
+          "emailElementId": "approverEmail"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "step2"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "start",
+          "if": {
+            "conditions": [
+              {
+                "elementId": "nextAction",
+                "comparator": "equal",
+                "value": "Return to Employee"
+              }
+            ]
+          }
+        },
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        -512,
+        80
+      ]
+    },
+    "step2": {
+      "status": "pending",
+      "label": "Grant Approver",
+      "onEnter": {
+        "assign": {
+          "nameElementId": "grantApproverName",
+          "emailElementId": "grantApproverEmail"
+        },
+        "if": {
+          "conditions": [
+            {
+              "elementId": "isGrant",
+              "comparator": "truthy"
+            }
+          ],
+          "action": "run"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "supervisor"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "start",
+          "if": {
+            "conditions": [
+              {
+                "elementId": "nextAction",
+                "comparator": "equal",
+                "value": "Return to Employee"
+              }
+            ]
+          }
+        },
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        -80,
+        80
+      ]
+    }
+  }
+}

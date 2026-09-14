@@ -1,0 +1,1857 @@
+<Form color="#333A92">
+  <Section id="top">
+    <Image
+      id="image1"
+      src="https://api.droplet.io/v1/assets/drplt-fi-p-6AJOz0-ya4AJ0-zWB9Oyn8PviV5vW5ok3nFkw7VoX-225-225.png"
+      columns={12}
+      width={17}
+    />
+    <Spacer id="spacer4" columns={3} />
+    <Text
+      id="text2"
+      margin={0}
+      marginLeft={0}
+      marginRight={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={12}
+    >
+      <div
+        style={{
+          fontWeight: "bold",
+          fontSize: 24,
+          color: "#000235",
+          textAlign: "center",
+        }}
+      >
+        Request for Use of Facilities
+      </div>
+    </Text>
+  </Section>
+  <Section id="section3">
+    <Spacer id="spacerTop" columns={12} />
+  </Section>
+  <Section
+    id="sectionCorrections"
+    wide
+    border={false}
+    background="#FDEFED"
+    display="typeof _reason !== 'undefined'"
+    clear={false}
+  >
+    <Text
+      id="text1"
+      margin={0}
+      marginLeft={0}
+      marginRight={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={12}
+    >
+      <div style={{ color: "#e44f38", textAlign: "left" }}>
+        <h3>
+          <b>Corrections Needed</b>
+        </h3>
+        <p>
+          This submission was flagged for corrections. Please ensure that the
+          following issues are addressed:
+        </p>
+        ##_reason##
+      </div>
+    </Text>
+  </Section>
+  <Section
+    id="sectionInstructions"
+    marginBottom={10}
+    marginTop={10}
+    wide
+    border={false}
+    background="#F0F1F9"
+    clear={false}
+  >
+    <Text
+      id="text3"
+      margin={0}
+      marginLeft={0}
+      marginRight={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={12}
+    >
+      <div style={{ color: "#333A92", textAlign: "left" }}>
+        <h3>
+          <b>Instructions</b>
+        </h3>
+        <p>
+          Submit this form to request to use space in one of our facilities. You
+          must submit this request at least three (3) weeks prior to the event.
+        </p>
+      </div>
+    </Text>
+  </Section>
+  <Section id="sectionOrg" border borderColor="#333A92">
+    <Tile id="tile142942" background="#333A92" columns={12}>
+      <Text id="text142942" columns={12}>
+        <div style={{ fontSize: 16, color: "#ffffff" }}>
+          Organization Information
+        </div>
+      </Text>
+    </Tile>
+    <Tile id="tile142942_1" columns={12}>
+      <Input id="nameOfOrg" label="Name of Organization" columns={6} />
+      <Input id="personResponsible" label="Contact Person" columns={6} />
+      <Input id="address" label="Address" columns={12} />
+      <Input id="city" label="City" columns={6} />
+      <Dropdown
+        id="state"
+        label="State"
+        columns={2}
+        options="states"
+        initialValue="NY"
+      />
+      <Input
+        id="zip"
+        label="Zip"
+        mask="/(5)9"
+        guide
+        placeholder="_____"
+        columns={4}
+      />
+      <Computed
+        id="fullAddress"
+        display="false"
+        formula="address + ', ' + city + ', ' + state + ' ' + zip"
+      />
+      <Input
+        id="phone"
+        label="Telephone Number"
+        mask="/{phone}"
+        guide
+        placeholder="(___) ___-____"
+        columns={6}
+      />
+      <Input
+        id="personResponsibleEmail"
+        label="Email"
+        type="email"
+        columns={6}
+      />
+      <Radio
+        id="orgType"
+        label="Your Organization Type"
+        columns={12}
+        horizontal
+        options={[
+          { internal: "Internal (Peekskill City Schools)" },
+          { external: "External" },
+        ]}
+      />
+      <Radio
+        id="insuranceCertificate"
+        label="Insurance Certificate?"
+        columns={4}
+        options={[
+          { attached: "Attached" },
+          { alreadyOnFile: "Already on file" },
+          { purgatory: "Will be submitted" },
+        ]}
+        display="orgType === 'external'"
+        clear
+      />
+      <Input
+        id="insCertSubmitter"
+        label="Who will be responsible for this?  When?"
+        hint="Please note that, while you can still submit your request, it will not be reviewed until you have attached the insurance certificate."
+        columns={8}
+        display="insuranceCertificate.includes('submitted')"
+      />
+      <Upload
+        id="insCertAttachment"
+        label="Attach Insurance Certificate here"
+        multiple
+        maxSize={60}
+        columns={8}
+        display="insuranceCertificate === 'attached'"
+      />
+    </Tile>
+    <Tile
+      background="#FDEFED"
+      columns={12}
+      display="currentStep() === 'start' && insuranceCertificate === 'purgatory'"
+    >
+      <Text id="text18" columns={12}>
+        <p>
+          <b>
+            <span style={{ color: "#E44F38" }}>Please Note:</span>
+          </b>
+          <span style={{ color: "#E44F38" }}>
+            {" "}
+            You can submit your request without a Certificate of Insurance.
+            However, you must return provide the certificate to Peekskill City
+            Schools before your request can be approved.
+          </span>
+        </p>
+      </Text>
+    </Tile>
+  </Section>
+  <Actions
+    display="currentStep() === 'insurancePurgatory' && insuranceCertificate !== 'purgatory'"
+    enableReject={false}
+    enableNext={false}
+    enableBack={false}
+    submitText="Certificate Now Attached"
+  />
+  <Section id="sectionDatesTimes" border borderColor="#333A92">
+    <Tile id="tile163555" background="#333A92" columns={12}>
+      <Text id="text163555" columns={12}>
+        <span style={{ color: "#ffffff", fontSize: 16 }}>Event Timing</span>
+      </Text>
+    </Tile>
+    <Text id="text13" columns={12}>
+      <p>
+        In the table below, list the dates and times of your request.{" "}
+        <b>Sundays</b> result in a rate increase for personnel.
+      </p>
+    </Text>
+    <Text id="text17" columns={10}>
+      <p>
+        <b>Setup Time</b> is the time you will arrive to the location
+      </p>
+      <p>
+        <b>Start Time</b> is the time your event opens to the public/begins
+      </p>
+    </Text>
+    <Table
+      id="times"
+      label="Date(s) and Times Requested"
+      hint="If this event has multiple instances or repeats, please use the plus button on the right to add additional dates and times."
+      initialRows={1}
+      maxRows={100}
+      enableDelete
+    >
+      <TableColumn
+        id="startDate"
+        type="date"
+        label="Date"
+        width={15}
+        validate="getCell(value)"
+      />
+      <TableColumn
+        id="setupTime"
+        type="time"
+        label="Setup Time"
+        width={15}
+        required
+      />
+      <TableColumn
+        id="startTime"
+        type="time"
+        label="Start Time"
+        width={15}
+        validate="getCell(value)"
+      />
+      <TableColumn
+        id="endTime"
+        type="time"
+        label="End Time"
+        width={15}
+        validate="getCell(value)"
+      />
+      <TableColumn
+        id="note"
+        label="Rate"
+        width={10}
+        formula="new Date(getCell(startDate)).getDay() === 6 ? 'Double' : 'Standard'"
+      />
+      <TableColumn
+        id="timeHoursTable"
+        type="text"
+        label="Hours"
+        width={10}
+        formula="(function () {
+    const setup = getCell(setupTime), end = getCell(endTime);
+    return setup && end && setup < end ? ((new Date('1970-01-01T' + end) - new Date('1970-01-01T' + setup)) / 3600000).toFixed(2) : '';
+})()
+"
+        validate="getCell(value)"
+      />
+    </Table>
+    <Spacer id="spacer1" columns={10} />
+    <Computed
+      id="totalHours"
+      label="Total Hours"
+      columns={2}
+      formula="sum(timeHoursTable) > 0 ? sum(timeHoursTable) : ''"
+    />
+    <Tile
+      background="#FDEFED"
+      columns={12}
+      display="new Date(Math.min(...startDate.map(date => new Date(date)))) < new Date(new Date().setDate(new Date().getDate() + 21))"
+    >
+      <Text id="text4" columns={12}>
+        <span style={{ color: "#e44f38" }}>
+          You are submitting for an event that begins within the next three (3)
+          weeks and it <b>may</b> be denied on that basis alone. Please submit
+          requests at least three (3) weeks in advance of your event.
+        </span>
+      </Text>
+    </Tile>
+  </Section>
+  <Section id="sectionBuildings" border borderColor="#333A92">
+    <Tile id="tile083458" background="#333A92" columns={12}>
+      <Text id="text083458" columns={12}>
+        <div style={{ fontSize: 16, color: "#ffffff" }}>
+          Building(s) & Equipment
+        </div>
+      </Text>
+    </Tile>
+    <Dropdown
+      id="building"
+      label="Building"
+      hint="For requests involving multiple buildings, please submit a separate form for each building."
+      columns={12}
+      options="Object.keys(buildings).sort()"
+    />
+    <Checkbox
+      id="attributes"
+      label="Attributes"
+      columns={4}
+      options="Object.keys(buildings[building].buildingAttributes).filter(key => !key.includes('Custodian') && !key.includes('Security')).sort()"
+      display="building"
+    />
+    <Tile id="tile4" columns={8}>
+      <Text
+        id="text19"
+        marginBottom={0}
+        columns={8}
+        display="attributes.includes('Kitchen')"
+      >
+        <div style={{ fontSize: 12, color: "#333A92" }}>
+          Kitchen use will require hiring of food service personnel (see
+          District policy).
+        </div>
+      </Text>
+      <Tile id="tile5" columns={8}>
+        <Text
+          id="text26"
+          marginBottom={0}
+          columns={8}
+          display="attributes.includes('Auditorium')"
+        >
+          <div style={{ fontSize: 12, color: "#333A92" }}>
+            Auditorium use may require hiring of lighting/sound personnel (see
+            District policy).
+            <br />
+            The auditorium has capacity for ##auditoriumOccupancy## people.
+          </div>
+        </Text>
+      </Tile>
+    </Tile>
+    <Group display="attributes.includes('Classrooms')">
+      <Tile id="tileClassrooms" background="#F8F8FC" columns={12}>
+        <Text id="text20" columns={2}>
+          <b>Classrooms</b>
+        </Text>
+        <Input
+          id="classrooms"
+          label="Number Requested"
+          type="number"
+          columns={3}
+        />
+        <Text id="text24" columns={7} display="classrooms > 0">
+          Note that this will provide you with about ##classroomOccupancy##
+          chairs (25 per classroom).
+        </Text>
+      </Tile>
+      <Spacer id="spacer5" columns={12} />
+    </Group>
+    <Group display="attributes.includes('Folding Chairs')">
+      <Tile id="tile7" background="#F8F8FC" columns={12}>
+        <Text id="text21" columns={2}>
+          <b>Folding Chairs</b>
+        </Text>
+        <Input
+          id="chairs"
+          label="Number Requested"
+          type="number"
+          columns={3}
+          validate="chairs <= 50"
+        />
+        <Text id="text22" columns={7}>
+          Maximum of ##chairNote##
+        </Text>
+      </Tile>
+      <Spacer id="spacer6" columns={12} />
+    </Group>
+    <Group display="attributes.includes('Folding Tables')">
+      <Tile id="tile79" background="#F8F8FC" columns={12}>
+        <Text id="text229" columns={2}>
+          <b>Folding Tables</b>
+        </Text>
+        <Input
+          id="tables"
+          label="Number Requested"
+          type="number"
+          columns={3}
+          validate="tables <= 6"
+        />
+        <Text id="text23" columns={7}>
+          Maximum of 6
+        </Text>
+      </Tile>
+      <Spacer id="spacer7" columns={12} />
+    </Group>
+    <Group display="attributes.includes('Microphones')">
+      <Tile background="#F8F8FC" columns={12}>
+        <Text id="text29" columns={2}>
+          <b>Microphones</b>
+        </Text>
+        <Input
+          id="micsHandheld"
+          label="How many handheld mics?"
+          type="number"
+          columns={4}
+        />
+        <Input
+          id="micsStationary"
+          label="How many stationary mics?"
+          type="number"
+          columns={4}
+        />
+      </Tile>
+      <Spacer columns={12} />
+    </Group>
+    <Group display="attributes.includes('Internet Access')">
+      <Tile background="#F8F8FC" columns={12}>
+        <Text id="text30" columns={2}>
+          <b>Internet Access</b>
+        </Text>
+        <Checkbox
+          id="internetType"
+          label="What type of internet access do you need?"
+          columns={10}
+          horizontal
+          options={["Wifi Access (Wireless)", "Ethernet Access (Hard-wired)"]}
+        />
+      </Tile>
+      <Spacer columns={12} />
+    </Group>
+    <Group display="attributes.includes('Stage')">
+      <Tile background="#F8F8FC" columns={12}>
+        <Text id="text31" columns={2}>
+          <b>Stage</b>
+        </Text>
+        <Radio
+          id="risers"
+          label="Do you need risers for the stage?"
+          columns={10}
+          horizontal
+          options={["Yes", "No"]}
+        />
+      </Tile>
+      <Spacer columns={12} />
+    </Group>
+    <Group display="attributes.includes('Athletic Field') && building === 'Woodside Elementary School'">
+      <Tile background="#F8F8FC" columns={12}>
+        <Text id="text32" columns={2}>
+          <b>Athletic Fields at Woodside</b>
+        </Text>
+        <Checkbox
+          id="whichField"
+          label="Which field(s) do you need?"
+          columns={10}
+          horizontal
+          options={["Front Field", "Back Field"]}
+        />
+      </Tile>
+      <Spacer columns={12} />
+    </Group>
+    <Computed
+      id="chairNote"
+      hint="Chair Note"
+      columns={3}
+      display="false"
+      formula="(attributes.includes('Classrooms') && attributes.includes('Chairs')) ? '50; Classrooms already contain about 25 chairs' : '50'"
+    />
+    <Computed
+      id="classroomOccupancy"
+      hint="Classroom Occupancy"
+      columns={3}
+      display="false"
+      formula="classrooms * 25"
+    />
+    <Computed
+      id="auditoriumOccupancy"
+      hint="Auditorium Occupancy"
+      columns={3}
+      display="false"
+      formula="buildings[building]['buildingAttributes']['Auditorium']['occupancy'] || ''"
+    />
+    <Textarea
+      id="textarea1"
+      label="Describe your technology needs."
+      rows={4}
+      required={false}
+      validate="isOptional()"
+    />
+    <Computed
+      id="includeAthletics"
+      hint="Include Athletics?"
+      columns={3}
+      display="false"
+      formula='attributes.some(attr => ["Gym: Showers and Lockers", "Gym", "Athletic Field", "Gymnasium/Indoor Turf", "Torpy Field/Track", "Turf Field (Torpy)", "Turf Field w/ Lights (Torpy)"].includes(attr))'
+    />
+    <Computed
+      id="includeFoodServices"
+      hint="Include Food Services?"
+      columns={3}
+      display="false"
+      formula='attributes.some(attr => ["Cafeteria", "Kitchen"].includes(attr))'
+    />
+    <Computed
+      id="includeTechnology"
+      hint="Include Technology?"
+      columns={3}
+      display="false"
+      formula='attributes.some(attr => ["Microphones", "Tech Assistant", "Internet Access", "Projector/Screen","Sound Technician", "Lighting Technician"].includes(attr))'
+    />
+    <Computed
+      id="includeTheater"
+      hint="Include Theater?"
+      columns={3}
+      display="false"
+      formula='attributes.some(attr => ["Auditorium"].includes(attr))'
+    />
+    <Spacer height={1} />
+  </Section>
+  <Section id="sectionDates" border borderColor="#333A92">
+    <Tile id="tile0834581" background="#333A92" columns={12}>
+      <Text id="text0834581" columns={12}>
+        <div style={{ fontSize: 16, color: "#ffffff" }}>Event Details</div>
+      </Text>
+    </Tile>
+    <Input id="eventTitle" label="Title of Event" columns={12} />
+    <Textarea
+      id="purposeForRental"
+      label="Describe the purpose for which you are requesting to use the space"
+    />
+    <Text id="text33" columns={2}>
+      <div style={{ textAlign: "center" }}>
+        <b>Expected Attendance</b>
+      </div>
+    </Text>
+    <Line id="line1" vertical weight={2} />
+    <Input id="adults" label="Adults" type="number" columns={2} />
+    <Input id="children" label="Children" type="number" columns={2} />
+    <Computed
+      id="security"
+      label="Security"
+      columns={2}
+      formula="Math.ceil(sum(adults,children) / 100)"
+    />
+    <Computed
+      id="custodians"
+      label="Custodians"
+      columns={2}
+      formula="totalHours > 0 ? sum(adults,children) < 50 ? 1 : 1 + Math.ceil(sum(adults,children) / 200) : 0"
+    />
+    <Spacer height={1} />
+    <Radio
+      id="admission"
+      label="Is there an admission fee?"
+      columns={5}
+      horizontal
+      options={["Yes", "Donations Only", "No"]}
+    />
+    <Input
+      id="input1"
+      label="How much?"
+      mask="/{currency}"
+      columns={3}
+      display="admission === 'Yes'"
+    />
+    <Textarea
+      id="explainProceeds"
+      label="For what will the proceeds be used?"
+      rows={3}
+      display="admission === 'Yes' || admission === 'Donations Only'"
+    />
+    <Textarea
+      id="additionalNeeds"
+      label="Additional Needs?"
+      rows={4}
+      hint="Optional"
+      validate="isOptional()"
+    />
+  </Section>
+  <Section
+    id="sectionQuote"
+    border
+    borderColor="#333A92"
+    display="building && totalHours"
+  >
+    <Tile id="tile165941" background="#333A92" columns={12}>
+      <Text id="text165941" columns={12}>
+        <span style={{ color: "#ffffff", fontSize: 16 }}>Estimated Cost</span>
+      </Text>
+    </Tile>
+    <Text id="text25" columns={12}>
+      Please note: the figures provided below are a preliminary, top-line
+      estimate intended to give you a general idea of potential costs. This is
+      the maximum you could be charged based on the information available at
+      this time.
+    </Text>
+    <Tile id="tile165941_1" columns={12}>
+      <Tile id="tile2" background="#F2FFDE" columns={12} display="false">
+        <Computed
+          id="filteredAttributes"
+          hint="Filtered Attributes"
+          columns={12}
+          formula='(()=>{
+// This removes attributes that have special pricing from the attributes array.
+const excludeAttributes = ["Microphones", "Tech Assistant", "Classrooms"];
+return attributes.filter(value => value && !excludeAttributes.includes(value));
+})()'
+        />
+        <Computed
+          id="rateCustodians"
+          hint="rateCustodians"
+          columns={3}
+          formula="toCurrency(buildings[building].buildingAttributes['Custodian'].hourlyRate)"
+        />
+        <Computed
+          id="rateSecurity"
+          hint="rateSecurity"
+          columns={3}
+          formula="toCurrency(buildings[building].buildingAttributes['Security'].hourlyRate)"
+        />
+        <Computed
+          id="rateTechAssistant"
+          hint="rateTechAssistant"
+          columns={3}
+          formula="toCurrency(buildings[building].buildingAttributes['Tech Assistant'].hourlyRate)"
+        />
+        <Computed
+          id="rateClassrooms"
+          hint="rateClassrooms"
+          columns={3}
+          formula="toCurrency(buildings[building].buildingAttributes['Classrooms'].hourlyRate)"
+        />
+        <Computed
+          id="rateMicrophones"
+          hint="rateMicrophones"
+          columns={3}
+          formula="toCurrency(buildings[building].buildingAttributes['Microphones'].flatRate)"
+        />
+        <Computed
+          id="rate0"
+          hint="rate0"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[0] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[0]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate1"
+          hint="rate1"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[1] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[1]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate2"
+          hint="rate2"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[2] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[2]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate3"
+          hint="rate3"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[3] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[3]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate4"
+          hint="rate4"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[4] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[4]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate5"
+          hint="rate5"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[5] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[5]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate6"
+          hint="rate6"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[6] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[6]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate7"
+          hint="rate7"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[7] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[7]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate8"
+          hint="rate8"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[8] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[8]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate9"
+          hint="rate9"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[9] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[9]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate10"
+          hint="rate10"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[10] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[10]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate11"
+          hint="rate11"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[11] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[11]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate12"
+          hint="rate12"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[12] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[12]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate13"
+          hint="rate13"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[13] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[13]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate14"
+          hint="rate14"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[14] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[14]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate15"
+          hint="rate15"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[15] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[15]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate16"
+          hint="rate16"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[16] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[16]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate17"
+          hint="rate17"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[17] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[17]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate18"
+          hint="rate18"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[18] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[18]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate19"
+          hint="rate19"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[19] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[19]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="rate20"
+          hint="rate20"
+          columns={3}
+          formula="(()=>{
+
+let classroomMultiplier = filteredAttributes[20] === 'Classrooms' ? classrooms : 1;
+
+const result = buildings[building].buildingAttributes[filteredAttributes[20]].hourlyRate * classroomMultiplier;
+
+return toCurrency(result);
+
+})()"
+        />
+        <Computed
+          id="sundayHours"
+          hint="Sunday Hours"
+          columns={3}
+          formula='times
+    .filter(time => time.note === "Double")
+    .map(time => parseFloat(time.timeHoursTable))
+    .reduce((acc, curr) => acc + curr, 0);'
+        />
+      </Tile>
+      <Spacer id="spacer2" columns={4} />
+      <Text id="text8" columns={3}>
+        <u>Rate</u>
+      </Text>
+      <Text id="text9" columns={5}>
+        <u>Subtotal</u>
+      </Text>
+      <Tile id="tile1" columns={12} display="custodians">
+        <Text
+          id="text5"
+          marginLeft={10}
+          marginTop={20}
+          marginBottom={20}
+          columns={4}
+        >
+          Custodians × ##custodians##
+        </Text>
+        <Text id="text6" marginTop={20} marginBottom={20} columns={3}>
+          ##rateCustodians## / hr
+        </Text>
+        <Computed
+          id="subCustodians"
+          hint="subCustodians"
+          columns={2}
+          display="false"
+          formula="toCurrency(totalHours * fromCurrency(rateCustodians) * custodians)"
+        />
+        <Text id="text7" marginTop={20} marginBottom={20} columns={3}>
+          ##subCustodians##
+        </Text>
+      </Tile>
+      <Tile id="tile20" columns={12} display="security">
+        <Text
+          id="text100"
+          marginLeft={10}
+          marginTop={20}
+          marginBottom={20}
+          columns={4}
+        >
+          Security × ##security##
+        </Text>
+        <Text id="text70" marginTop={20} marginBottom={20} columns={3}>
+          ##rateSecurity## / hr
+        </Text>
+        <Computed
+          id="subSecurity"
+          hint="subSecurity"
+          columns={2}
+          display="false"
+          formula="toCurrency(totalHours * fromCurrency(rateSecurity) * security)"
+        />
+        <Text id="text81" marginTop={20} marginBottom={20} columns={3}>
+          ##subSecurity##
+        </Text>
+      </Tile>
+      <Tile
+        id="tileTechAssistant"
+        columns={12}
+        display="attributes.includes('Tech Assistant')"
+      >
+        <Text
+          id="textTA"
+          marginLeft={10}
+          marginTop={20}
+          marginBottom={20}
+          columns={4}
+        >
+          Tech Assistant
+        </Text>
+        <Text id="textTA2" marginTop={20} marginBottom={20} columns={3}>
+          ##rateTechAssistant## / hr
+        </Text>
+        <Computed
+          id="subTechAssistant"
+          hint="subTechAssistant"
+          columns={2}
+          display="false"
+          formula="attributes.includes('Tech Assistant') ? toCurrency(totalHours * fromCurrency(rateTechAssistant)) : 0"
+        />
+        <Text id="textTA3" marginTop={20} marginBottom={20} columns={3}>
+          ##subTechAssistant##
+        </Text>
+      </Tile>
+      <Tile columns={12} display="attributes.includes('Classrooms')">
+        <Text
+          id="textClassrooms"
+          marginLeft={10}
+          marginTop={20}
+          marginBottom={20}
+          columns={4}
+        >
+          Classrooms × ##classrooms##
+        </Text>
+        <Text id="textClassrooms2" marginTop={20} marginBottom={20} columns={3}>
+          ##rateClassrooms## / hr
+        </Text>
+        <Computed
+          id="subClassrooms"
+          hint="subClassrooms"
+          columns={2}
+          display="false"
+          formula="toCurrency(totalHours * fromCurrency(rateClassrooms) * classrooms)"
+        />
+        <Text id="textClassrooms3" marginTop={20} marginBottom={20} columns={3}>
+          ##subClassrooms##
+        </Text>
+      </Tile>
+      <Tile columns={12} display="attributes.includes('Microphones')">
+        <Text
+          id="text34"
+          marginLeft={10}
+          marginTop={20}
+          marginBottom={20}
+          columns={4}
+        >
+          Microphones
+        </Text>
+        <Text
+          id="textMicrophones2"
+          marginTop={20}
+          marginBottom={20}
+          columns={3}
+        >
+          ##rateMicrophones## (Flat Rate)
+        </Text>
+        <Computed
+          id="subMicrophones"
+          hint="subMicrophones"
+          columns={2}
+          display="false"
+          formula="attributes.includes('Microphones') ? toCurrency(fromCurrency(rateClassrooms)) : 0"
+        />
+        <Text id="textMicrophones" marginTop={20} marginBottom={20} columns={3}>
+          ##subMicrophones##
+        </Text>
+      </Tile>
+    </Tile>
+    <Tile id="attributeTile0" columns={12} display="filteredAttributes[0]">
+      <Text
+        id="text10"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[0]##
+      </Text>
+      <Text id="text11" marginTop={20} marginBottom={20} columns={3}>
+        ##rate0## / hr
+      </Text>
+      <Computed
+        id="sub0"
+        hint="sub0"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate0))"
+      />
+      <Text id="text12" marginTop={20} marginBottom={20} columns={3}>
+        ##sub0##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile1" columns={12} display="filteredAttributes[1]">
+      <Text
+        id="text2196"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[1]##
+      </Text>
+      <Text id="text2985" marginTop={20} marginBottom={20} columns={3}>
+        ##rate1## / hr
+      </Text>
+      <Computed
+        id="sub1"
+        hint="sub1"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate1))"
+      />
+      <Text id="text9325" marginTop={20} marginBottom={20} columns={3}>
+        ##sub1##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile2" columns={12} display="filteredAttributes[2]">
+      <Text
+        id="text8956"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[2]##
+      </Text>
+      <Text id="text4387" marginTop={20} marginBottom={20} columns={3}>
+        ##rate2## / hr
+      </Text>
+      <Computed
+        id="sub2"
+        hint="sub2"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate2))"
+      />
+      <Text id="text5763" marginTop={20} marginBottom={20} columns={3}>
+        ##sub2##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile3" columns={12} display="filteredAttributes[3]">
+      <Text
+        id="text8691"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[3]##
+      </Text>
+      <Text id="text2169" marginTop={20} marginBottom={20} columns={3}>
+        ##rate3## / hr
+      </Text>
+      <Computed
+        id="sub3"
+        hint="sub3"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate3))"
+      />
+      <Text id="text1581" marginTop={20} marginBottom={20} columns={3}>
+        ##sub3##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile4" columns={12} display="filteredAttributes[4]">
+      <Text
+        id="text9680"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[4]##
+      </Text>
+      <Text id="text9116" marginTop={20} marginBottom={20} columns={3}>
+        ##rate4## / hr
+      </Text>
+      <Computed
+        id="sub4"
+        hint="sub4"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate4))"
+      />
+      <Text id="text5878" marginTop={20} marginBottom={20} columns={3}>
+        ##sub4##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile5" columns={12} display="filteredAttributes[5]">
+      <Text
+        id="text1328"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[5]##
+      </Text>
+      <Text id="text3742" marginTop={20} marginBottom={20} columns={3}>
+        ##rate5## / hr
+      </Text>
+      <Computed
+        id="sub5"
+        hint="sub5"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate5))"
+      />
+      <Text id="text4805" marginTop={20} marginBottom={20} columns={3}>
+        ##sub5##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile6" columns={12} display="filteredAttributes[6]">
+      <Text
+        id="text8020"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[6]##
+      </Text>
+      <Text id="text8372" marginTop={20} marginBottom={20} columns={3}>
+        ##rate6## / hr
+      </Text>
+      <Computed
+        id="sub6"
+        hint="sub6"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate6))"
+      />
+      <Text id="text2919" marginTop={20} marginBottom={20} columns={3}>
+        ##sub6##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile7" columns={12} display="filteredAttributes[7]">
+      <Text
+        id="text6520"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[7]##
+      </Text>
+      <Text id="text8606" marginTop={20} marginBottom={20} columns={3}>
+        ##rate7## / hr
+      </Text>
+      <Computed
+        id="sub7"
+        hint="sub7"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate7))"
+      />
+      <Text id="text4876" marginTop={20} marginBottom={20} columns={3}>
+        ##sub7##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile8" columns={12} display="filteredAttributes[8]">
+      <Text
+        id="text1709"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[8]##
+      </Text>
+      <Text id="text3495" marginTop={20} marginBottom={20} columns={3}>
+        ##rate8## / hr
+      </Text>
+      <Computed
+        id="sub8"
+        hint="sub8"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate8))"
+      />
+      <Text id="text7812" marginTop={20} marginBottom={20} columns={3}>
+        ##sub8##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile9" columns={12} display="filteredAttributes[9]">
+      <Text
+        id="text8644"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[9]##
+      </Text>
+      <Text id="text2209" marginTop={20} marginBottom={20} columns={3}>
+        ##rate9## / hr
+      </Text>
+      <Computed
+        id="sub9"
+        hint="sub9"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate9))"
+      />
+      <Text id="text4166" marginTop={20} marginBottom={20} columns={3}>
+        ##sub9##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile10" columns={12} display="filteredAttributes[10]">
+      <Text
+        id="text8574"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[10]##
+      </Text>
+      <Text id="text7362" marginTop={20} marginBottom={20} columns={3}>
+        ##rate10## / hr
+      </Text>
+      <Computed
+        id="sub10"
+        hint="sub10"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate10))"
+      />
+      <Text id="text9200" marginTop={20} marginBottom={20} columns={3}>
+        ##sub10##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile11" columns={12} display="filteredAttributes[11]">
+      <Text
+        id="text85741"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[11]##
+      </Text>
+      <Text id="text73621" marginTop={20} marginBottom={20} columns={3}>
+        ##rate11## / hr
+      </Text>
+      <Computed
+        id="sub11"
+        hint="sub11"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate11))"
+      />
+      <Text id="text92001" marginTop={20} marginBottom={20} columns={3}>
+        ##sub11##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile12" columns={12} display="filteredAttributes[12]">
+      <Text
+        id="text85742"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[12]##
+      </Text>
+      <Text id="text73622" marginTop={20} marginBottom={20} columns={3}>
+        ##rate12## / hr
+      </Text>
+      <Computed
+        id="sub12"
+        hint="sub12"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate12))"
+      />
+      <Text id="text92002" marginTop={20} marginBottom={20} columns={3}>
+        ##sub12##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile13" columns={12} display="filteredAttributes[13]">
+      <Text
+        id="text85743"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[13]##
+      </Text>
+      <Text id="text73623" marginTop={20} marginBottom={20} columns={3}>
+        ##rate13## / hr
+      </Text>
+      <Computed
+        id="sub13"
+        hint="sub13"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate13))"
+      />
+      <Text id="text92003" marginTop={20} marginBottom={20} columns={3}>
+        ##sub13##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile14" columns={12} display="filteredAttributes[14]">
+      <Text
+        id="text85744"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[14]##
+      </Text>
+      <Text id="text73624" marginTop={20} marginBottom={20} columns={3}>
+        ##rate14## / hr
+      </Text>
+      <Computed
+        id="sub14"
+        hint="sub14"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate14))"
+      />
+      <Text id="text92004" marginTop={20} marginBottom={20} columns={3}>
+        ##sub14##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile15" columns={12} display="filteredAttributes[15]">
+      <Text
+        id="text85745"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[15]##
+      </Text>
+      <Text id="text73625" marginTop={20} marginBottom={20} columns={3}>
+        ##rate15## / hr
+      </Text>
+      <Computed
+        id="sub15"
+        hint="sub15"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate15))"
+      />
+      <Text id="text92005" marginTop={20} marginBottom={20} columns={3}>
+        ##sub15##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile16" columns={12} display="filteredAttributes[16]">
+      <Text
+        id="text85746"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[16]##
+      </Text>
+      <Text id="text73626" marginTop={20} marginBottom={20} columns={3}>
+        ##rate16## / hr
+      </Text>
+      <Computed
+        id="sub16"
+        hint="sub16"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate16))"
+      />
+      <Text id="text92006" marginTop={20} marginBottom={20} columns={3}>
+        ##sub16##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile17" columns={12} display="filteredAttributes[17]">
+      <Text
+        id="text85747"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[17]##
+      </Text>
+      <Text id="text73627" marginTop={20} marginBottom={20} columns={3}>
+        ##rate17## / hr
+      </Text>
+      <Computed
+        id="sub17"
+        hint="sub17"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate17))"
+      />
+      <Text id="text92007" marginTop={20} marginBottom={20} columns={3}>
+        ##sub17##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile18" columns={12} display="filteredAttributes[18]">
+      <Text
+        id="text85748"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[18]##
+      </Text>
+      <Text id="text73628" marginTop={20} marginBottom={20} columns={3}>
+        ##rate18## / hr
+      </Text>
+      <Computed
+        id="sub18"
+        hint="sub18"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate18))"
+      />
+      <Text id="text92008" marginTop={20} marginBottom={20} columns={3}>
+        ##sub18##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile19" columns={12} display="filteredAttributes[19]">
+      <Text
+        id="text85749"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[19]##
+      </Text>
+      <Text id="text73629" marginTop={20} marginBottom={20} columns={3}>
+        ##rate19## / hr
+      </Text>
+      <Computed
+        id="sub19"
+        hint="sub19"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate19))"
+      />
+      <Text id="text92009" marginTop={20} marginBottom={20} columns={3}>
+        ##sub19##
+      </Text>
+    </Tile>
+    <Tile id="attributeTile20" columns={12} display="filteredAttributes[20]">
+      <Text
+        id="text85750"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={4}
+      >
+        ##filteredAttributes[20]##
+      </Text>
+      <Text id="text73630" marginTop={20} marginBottom={20} columns={3}>
+        ##rate20## / hr
+      </Text>
+      <Computed
+        id="sub20"
+        hint="sub20"
+        columns={2}
+        display="false"
+        formula="toCurrency(totalHours * fromCurrency(rate20))"
+      />
+      <Text id="text92010" marginTop={20} marginBottom={20} columns={3}>
+        ##sub20##
+      </Text>
+    </Tile>
+    <Tile
+      id="tile8"
+      background="#D8ECFF"
+      columns={12}
+      display="sundayHours > 0"
+    >
+      <Text
+        id="text27"
+        marginLeft={10}
+        marginTop={20}
+        marginBottom={20}
+        columns={7}
+      >
+        <b>SUNDAYS: ADDITIONAL CHARGE FOR STAFF DOUBLE-RATE</b>
+      </Text>
+      <Computed
+        id="subSunday"
+        hint="subSunday"
+        columns={2}
+        display="false"
+        formula="toCurrency(sum(fromCurrency(rateCustodians) * custodians, fromCurrency(rateSecurity) * security, fromCurrency(rateTechAssistant)) * sundayHours)"
+      />
+      <Text id="text28" marginTop={20} marginBottom={20} columns={3}>
+        ##subSunday##
+      </Text>
+    </Tile>
+    <Tile id="tile3" background="#60B2FF" columns={12}>
+      <Text
+        id="text1300"
+        marginLeft={10}
+        marginTop={15}
+        marginBottom={15}
+        columns={4}
+      >
+        <span style={{ color: "#ffffff", fontSize: 18 }}>
+          <b>TOTAL</b>
+        </span>
+      </Text>
+      <Spacer id="spacer3" columns={3} />
+      <Computed
+        id="total"
+        hint="Total"
+        columns={2}
+        display="false"
+        formula="sum(subCustodians, subSecurity, sub0, sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8, sub9, sub10, sub11, sub12, sub13, sub14, sub15, sub16, sub17, sub18, sub19, sub20, subSunday, subClassrooms, subMicrophones, subTechAssistant)"
+      />
+      <Text id="text1301" marginTop={15} marginBottom={15} columns={3}>
+        <span style={{ color: "#ffffff", fontSize: 18 }}>
+          <b>##total##</b>
+        </span>
+      </Text>
+    </Tile>
+  </Section>
+  <Section border>
+    <Text id="text35">
+      <div style={{ textAlign: "left" }}>
+        <h3>Agreement</h3>
+      </div>
+    </Text>
+    <Text id="text36">
+      <p>
+        The undersigned certifies that they are over 21 years of age and are
+        authorized by the named organization to enter into this agreement.
+        He/she certifies that they have read this form and the District Use of
+        Facilities policy and agree to comply all the terms and conditions.
+        He/she, on behalf of the above named organization does hereby covenant
+        and agree to indemnify and hold harmless the Peekskill City School
+        District from and against any and all liability, loss, damages, claims
+        or actions (including costs and attorney fees) for bodily injury and/or
+        property damage, to the extent permitted by law, arising out of or in
+        connection with the actual use of the Peekskill City School District’s
+        property, facilities and/or services by the above named organization.
+      </p>
+    </Text>
+  </Section>
+  <Section border>
+    <Text id="text37">
+      <div style={{ textAlign: "left" }}>
+        <h3>Submitter Information</h3>
+      </div>
+    </Text>
+    <Input id="submittedByName" label="Your Name" columns={6} />
+    <Input id="applicantTitle" label="Your Title" columns={6} />
+    <Input id="submittedByEmail" label="Your Email" type="email" columns={6} />
+    <Input
+      id="applicantPhone"
+      label="Your Phone Number"
+      mask="/{phone}"
+      guide
+      placeholder="(___)___-____"
+      columns={6}
+    />
+    <Signature id="applicantSignature" label="Signature" columns={8} />
+    <Timestamp
+      id="applicantSignatureDate"
+      label="Date"
+      columns={4}
+      display="applicantSignature"
+      type="date"
+    />
+  </Section>
+  <Section id="section1" border>
+    <Tile id="sectionApprovals">
+      <Tile id="tile6" background="#F0F0F0" columns={12}>
+        <Text id="text15" columns={12}>
+          APPROVALS
+        </Text>
+      </Tile>
+      <Tile id="tileSuperintendent" columns={12}>
+        <Text id="text140" marginTop={30} columns={3}>
+          Superintendent
+        </Text>
+        <Dropdown
+          id="decisionSuperintendent"
+          label="Decision"
+          tooltip='This is the initial check by the Superintendent&apos;s Office to determine if the request is appropriate in a public school facility.  If it is, indicate "May Proceed" so the request can be reviewed by other relevant reviewers in the district.'
+          columns={3}
+          options={["May Proceed", "Must Revise", "Reject"]}
+        />
+        <Signature
+          id="sigSuperintendent"
+          label="Signature"
+          columns={4}
+          display="decisionSuperintendent === 'May Proceed'"
+        />
+        <Timestamp
+          id="dateSuperintendent"
+          label="Date"
+          columns={2}
+          display="sigSuperintendent"
+          type="date"
+        />
+      </Tile>
+      <Tile id="tileAthletics" columns={12} display="includeAthletics">
+        <Text id="text16" marginTop={30} columns={3}>
+          Athletics
+        </Text>
+        <Dropdown
+          id="decisionAthletics"
+          label="Decision"
+          tooltip='If something must be changed before you can approve, choose "Must Revise."  You will then be prompted to provide a reason when returning for corrections.'
+          columns={3}
+          options={["Approve", "Must Revise", "Reject"]}
+        />
+        <Signature
+          id="sigAthletics"
+          label="Signature"
+          columns={4}
+          display="decisionAthletics === 'Approve'"
+        />
+        <Timestamp
+          id="dateAthletics"
+          label="Date"
+          columns={2}
+          display="sigAthletics"
+          type="date"
+        />
+      </Tile>
+      <Tile id="tileTheater" columns={12} display="includeTheater">
+        <Text id="text1400" marginTop={30} columns={3}>
+          Theater Manager
+        </Text>
+        <Dropdown
+          id="decisionTheater"
+          label="Decision"
+          tooltip='If something must be changed before you can approve, choose "Must Revise."  You will then be prompted to provide a reason when returning for corrections.'
+          columns={3}
+          options={["Approve", "Must Revise", "Reject"]}
+        />
+        <Signature
+          id="sigTheater"
+          label="Signature"
+          columns={4}
+          display="decisionTheater === 'Approve'"
+        />
+        <Timestamp
+          id="dateTheater"
+          label="Date"
+          columns={2}
+          display="sigTheater"
+          type="date"
+        />
+      </Tile>
+    </Tile>
+  </Section>
+  <Section id="section5">
+    <Tile
+      id="tile9"
+      border
+      borderColor="#FFE254"
+      background="#FFFCEA"
+      columns={12}
+    >
+      <Boolean
+        id="entered"
+        label="Enter this request into SchoolDude."
+        text="This request has been entered."
+        columns={12}
+      />
+    </Tile>
+  </Section>
+  <Section id="section2" border display="false">
+    <Text id="text14" columns={12}>
+      <b>Hidden Components for Notifications</b>
+    </Text>
+    <Computed
+      id="facilityRequestEmail"
+      hint="Enter Request"
+      columns={4}
+      formula="buildings[building].facilityRequest.email || ''"
+    />
+    <Computed
+      id="facilityNotifyEmail"
+      hint="Notify About Request"
+      columns={4}
+      formula="(()=>{
+let arr = [];
+arr.push(buildings[building].facilityNotify.email);
+
+if ((building === 'Administration Building' || building === 'Peekskill High School' || building === 'Peekskill Middle School') && (attributes.includes('Auditorium'))) {
+    arr.push('sage.donovan@example.org');
+}
+
+return arr.filter(value => value);
+})()"
+    />
+  </Section>
+  <Actions
+    display="currentStep() === 'start'"
+    enableReject={false}
+    submitText="Submit Request"
+  />
+  <Actions
+    display="currentStep() === 'insurancePurgatory' && insuranceCertificate && insuranceCertificate !== 'purgatory'"
+    enableReject={false}
+    enableNext={false}
+    enableBack={false}
+    submitText="Certificate Now Attached"
+  />
+  <Actions
+    display="currentStep() === 'insurancePurgatory'"
+    enableSubmit={false}
+    enableNext={false}
+    enableBack={false}
+    rejectText="Cancel Request"
+  />
+  <Actions
+    display="(currentStep() === 'superintendentStep' && decisionSuperintendent === 'May Proceed') || (currentStep() === 'athleticsStep' && decisionAthletics === 'Approve') || (currentStep() === 'theaterStep' && decisionTheater === 'Approve')"
+    enableReject={false}
+    submitText="Approve"
+  />
+  <Actions
+    display="(currentStep() === 'superintendentStep' && decisionSuperintendent === 'Must Revise') || (currentStep() === 'athleticsStep' && decisionAthletics === 'Must Revise') || (currentStep() === 'theaterStep' && decisionTheater === 'Must Revise')"
+    enableSubmit={false}
+    rejectText="Request Revision"
+  />
+  <Actions
+    display="(currentStep() === 'superintendentStep' && decisionSuperintendent === 'Reject') || (currentStep() === 'athleticsStep' && decisionAthletics === 'Reject') ||(currentStep() === 'theaterStep' && decisionTheater === 'Reject')"
+    enableSubmit={false}
+    rejectText="Reject"
+  />
+  <Actions
+    display="currentStep() === 'entryStep'"
+    enableReject={false}
+    submitText="Request Entered in SchoolDude"
+  />
+</Form>

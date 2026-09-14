@@ -1,0 +1,105 @@
+{
+  "test": {},
+  "steps": {
+    "start": {
+      "onSubmit": [
+        {
+          "target": "registrarReview"
+        }
+      ],
+      "position": [
+        160,
+        80
+      ]
+    },
+    "registrarReview": {
+      "status": "pending",
+      "label": "Registrar Review",
+      "onEnter": {
+        "assign": {
+          "nameElementId": "registrarName",
+          "emailElementId": "registrarEmail"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "reviewParallel"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        560,
+        80
+      ]
+    },
+    "reviewParallel": {
+      "type": "parallel",
+      "label": "Nurse and Transportation Review",
+      "substeps": [
+        "nurseReview",
+        "transportationReview"
+      ],
+      "onSubmit": [
+        {
+          "target": "completed"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        960,
+        80
+      ]
+    },
+    "nurseReview": {
+      "status": "pending",
+      "label": "School Nurse Review",
+      "onEnter": {
+        "assign": {
+          "nameElementId": "nurseName",
+          "emailElementId": "nurseEmail"
+        }
+      },
+      "position": [
+        24,
+        88
+      ]
+    },
+    "transportationReview": {
+      "status": "pending",
+      "label": "Transportation Review",
+      "onEnter": {
+        "assign": {
+          "nameElementId": "transportationName",
+          "emailElementId": "transportationEmail"
+        }
+      },
+      "position": [
+        24,
+        266
+      ]
+    },
+    "completed": {
+      "status": "completed",
+      "position": [
+        1360,
+        -16
+      ]
+    },
+    "rejected": {
+      "status": "rejected",
+      "label": "Declined",
+      "position": [
+        1360,
+        176
+      ]
+    }
+  }
+}

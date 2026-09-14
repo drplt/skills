@@ -1,0 +1,52 @@
+{
+  "superintendentStep": {
+    "onEnter": [
+      {
+        "template": {
+          "subject": "FYI: New Facilities Use Request (##submittedByName##)",
+          "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-6AJOz0-ya4AJ0-zWB9Oyn8PviV5vW5ok3nFkw7VoX-225-225.png' alt='Logo' style='display: block; max-width: 150px; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #333A92; font-weight: bold; margin: 0; font-family: sans-serif;'>New Request for Use of Facilities</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>##submittedByName## has entered a new request to use ##building##.  You can view the full request by clicking the button below.<br /><br />Kendall Ingram is the current assignee on the submission and can take action on it.  You are included in this notification for awareness only.<br><br>Thank you!</p></td></tr></table></td></tr><tr><td align='center'><a href='##notificationUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #333A92; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>View Request</a></td></tr></table>"
+        },
+        "recipients": [
+          "sage.donovan@example.org",
+          "ellis.montague@example.org"
+        ]
+      },
+      {
+        "template": {
+          "subject": "Received: Your Facilities Use Request",
+          "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-6AJOz0-ya4AJ0-zWB9Oyn8PviV5vW5ok3nFkw7VoX-225-225.png' alt='Logo' style='display: block; max-width: 150px; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #333A92; font-weight: bold; margin: 0; font-family: sans-serif;'>Received</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Your Facilities Use Request for ##building## has been received and is now under review by the necessary administrators. You can track the progress at any time by clicking the button below. We will reach out if we need more information or to inform you of the outcome.<br><br>Thank you!</p></td></tr></table></td></tr><tr><td align='center'><a href='##notificationUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #333A92; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>View Request</a></td></tr></table>"
+        },
+        "sendToSubmitter": true
+      }
+    ]
+  },
+  "start": {
+    "onEnter": {
+      "type": "assignment",
+      "template": {
+        "subject": "Changes Needed: Your Facilities Use Request",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-6AJOz0-ya4AJ0-zWB9Oyn8PviV5vW5ok3nFkw7VoX-225-225.png' alt='Logo' style='display: block; max-width: 150px; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #e44f38; font-weight: bold; margin: 0; font-family: sans-serif;'>Edits Needed</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Your Facilities Use Request for ##building## has been reviewed, and we need you to make some changes.<br><br>The reason for the required changes is:<br><b>##_reason##</b><br><br>Please update your request and resubmit it as soon as possible. You can access your request by clicking the button below.<br><br>Thank you!</p></td></tr></table></td></tr><tr><td align='center'><a href='##assignmentUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #e44f38; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>Edit & Resubmit</a></td></tr></table>"
+      }
+    },
+    "onExit": {
+      "template": {
+        "subject": "Insurance Hold: Facilities Use Request from ##submittedByName##",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-6AJOz0-ya4AJ0-zWB9Oyn8PviV5vW5ok3nFkw7VoX-225-225.png' alt='Logo' style='display: block; max-width: 150px; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #333A92; font-weight: bold; margin: 0; font-family: sans-serif;'>New Request for Use of Facilities</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>##submittedByName## has entered a new request to use ##building##. The request has advanced along the workflow, but should not be fully approved until you we received a certificate of insurance (COI). The submitter has been notified that a COI is required for full approval. No action is required on your part; you are included in this notification for awareness only.<br><br>Thank you!</p></td></tr></table></td></tr><tr><td align='center'><a href='##notificationUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #333A92; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>View Request</a></td></tr></table>"
+      },
+      "recipients": [
+        "sage.donovan@example.org",
+        "devin.whitfield@example.org"
+      ],
+      "if": {
+        "conditions": [
+          {
+            "elementId": "insuranceCertificate",
+            "comparator": "equal",
+            "value": "purgatory"
+          }
+        ],
+        "action": "send"
+      }
+    }
+  }
+}

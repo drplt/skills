@@ -1,0 +1,23 @@
+{
+  "local": {},
+  "global": {
+    "schoolsDepartments": {
+      "datasetId": "9ZQ36Y"
+    },
+    "rates": {
+      "datasetId": "8Z7VDw"
+    },
+    "positions": {
+      "datasetId": "KYVBkY"
+    },
+    "budgetCodes": {
+      "datasetId": "Gw6rRw"
+    },
+    "plLedger": {
+      "datasetId": "GwJbAw"
+    },
+    "payCalendar": {
+      "datasetId": "xYN2lY"
+    }
+  }
+}

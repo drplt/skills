@@ -1,0 +1,652 @@
+{
+  "local": {
+    "states": {
+      "value": [
+        "AK",
+        "AL",
+        "AR",
+        "AS",
+        "AZ",
+        "CA",
+        "CO",
+        "CT",
+        "DC",
+        "DE",
+        "FL",
+        "GA",
+        "GU",
+        "HI",
+        "IA",
+        "ID",
+        "IL",
+        "IN",
+        "KS",
+        "KY",
+        "LA",
+        "MA",
+        "MD",
+        "ME",
+        "MI",
+        "MN",
+        "MO",
+        "MS",
+        "MT",
+        "NC",
+        "ND",
+        "NE",
+        "NH",
+        "NJ",
+        "NM",
+        "NV",
+        "NY",
+        "OH",
+        "OK",
+        "OR",
+        "PA",
+        "PR",
+        "RI",
+        "SC",
+        "SD",
+        "TN",
+        "TX",
+        "UT",
+        "VA",
+        "VI",
+        "VT",
+        "WA",
+        "WI",
+        "WV",
+        "WY"
+      ]
+    }
+  },
+  "holidays": {
+    "value": [
+      "07/04/2023",
+      "03/17/2023"
+    ]
+  },
+  "global": {
+    "holidayOptions": {},
+    "buildings": {}
+  },
+  "resolved": {
+    "buildings": {
+      "value": {
+        "Peekskill High School": {
+          "principal": {
+            "name": "Wren Galloway",
+            "email": "wren.galloway@example.org"
+          },
+          "shortName": "PHS",
+          "facilityNotify": {
+            "name": "Wren Galloway",
+            "email": "wren.galloway@example.org"
+          },
+          "facilityRequest": {
+            "name": "Devin Iverson",
+            "email": "devin.iverson@example.org"
+          },
+          "buildingAttributes": {
+            "Kitchen": {
+              "hourlyRate": "0"
+            },
+            "Library": {
+              "hourlyRate": "30"
+            },
+            "Lecterns": {
+              "hourlyRate": "0"
+            },
+            "Security": {
+              "hourlyRate": "65"
+            },
+            "Cafeteria": {
+              "hourlyRate": "60"
+            },
+            "Custodian": {
+              "hourlyRate": "68"
+            },
+            "Auditorium": {
+              "occupancy": "555",
+              "hourlyRate": "150"
+            },
+            "Classrooms": {
+              "hourlyRate": "30"
+            },
+            "Microphones": {
+              "flatRate": "10"
+            },
+            "Music Suite": {
+              "hourlyRate": "75"
+            },
+            "Athletic Field": {
+              "hourlyRate": "75"
+            },
+            "Folding Chairs": {
+              "hourlyRate": "0"
+            },
+            "Folding Tables": {
+              "hourlyRate": "0"
+            },
+            "Tech Assistant": {
+              "hourlyRate": "65"
+            },
+            "Internet Access": {
+              "hourlyRate": "0"
+            },
+            "Projector/Screen": {
+              "hourlyRate": "0"
+            },
+            "Sound Technician": {
+              "hourlyRate": "60"
+            },
+            "Turf Field (Torpy)": {
+              "hourlyRate": "150"
+            },
+            "Lighting Technician": {
+              "hourlyRate": "60"
+            },
+            "Music Stands and Chairs": {
+              "hourlyRate": "50"
+            },
+            "Gym: Showers and Lockers": {
+              "hourlyRate": "100"
+            },
+            "Turf Field w/ Lights (Torpy)": {
+              "hourlyRate": "200"
+            }
+          }
+        },
+        "Parent Resource Center": {
+          "principal": {
+            "name": "Remy Lachlan",
+            "email": "remy.lachlan@example.org"
+          },
+          "shortName": "PRC",
+          "facilityNotify": {
+            "name": "Remy Lachlan",
+            "email": "remy.lachlan@example.org"
+          },
+          "facilityRequest": {
+            "name": "Remy Lachlan",
+            "email": "remy.lachlan@example.org"
+          },
+          "buildingAttributes": {
+            "Security": {
+              "hourlyRate": "65"
+            },
+            "Custodian": {
+              "hourlyRate": "68"
+            },
+            "Microphones": {
+              "flatRate": "10"
+            },
+            "Folding Chairs": {
+              "hourlyRate": "0"
+            },
+            "Folding Tables": {
+              "hourlyRate": "0"
+            },
+            "Tech Assistant": {
+              "hourlyRate": "65"
+            },
+            "Internet Access": {
+              "hourlyRate": "0"
+            },
+            "Projector/Screen": {
+              "hourlyRate": "0"
+            },
+            "Sound Technician": {
+              "hourlyRate": "60"
+            }
+          }
+        },
+        "Administration Building": {
+          "shortName": "Administration",
+          "facilityNotify": {
+            "name": "",
+            "email": ""
+          },
+          "facilityRequest": {
+            "name": "Kendall Ingram",
+            "email": "kendall.ingram@example.org"
+          },
+          "buildingAttributes": {
+            "Security": {
+              "hourlyRate": "65"
+            },
+            "Custodian": {
+              "hourlyRate": "68"
+            },
+            "Auditorium": {
+              "occupancy": "286",
+              "hourlyRate": "125"
+            },
+            "Classrooms": {
+              "hourlyRate": "30"
+            },
+            "Tech Assistant": {
+              "hourlyRate": "65"
+            },
+            "Internet Access": {
+              "hourlyRate": "0"
+            },
+            "Projector/Screen": {
+              "hourlyRate": "0"
+            },
+            "Torpy Field/Track": {
+              "hourlyRate": "150"
+            },
+            "Gymnasium/Indoor Turf": {
+              "hourlyRate": "100"
+            }
+          }
+        },
+        "Peekskill Middle School": {
+          "principal": {
+            "name": "Arden Whitfield",
+            "email": "arden.whitfield@example.org"
+          },
+          "shortName": "PMS",
+          "facilityNotify": {
+            "name": "Arden Whitfield",
+            "email": "arden.whitfield@example.org"
+          },
+          "facilityRequest": {
+            "name": "Jordan Marchetti",
+            "email": "jordan.marchetti@example.org"
+          },
+          "buildingAttributes": {
+            "Pool": {
+              "hourlyRate": "150"
+            },
+            "Kitchen": {
+              "hourlyRate": "0"
+            },
+            "Library": {
+              "hourlyRate": "30"
+            },
+            "Lecterns": {
+              "hourlyRate": "0"
+            },
+            "Security": {
+              "hourlyRate": "65"
+            },
+            "Cafeteria": {
+              "hourlyRate": "60"
+            },
+            "Custodian": {
+              "hourlyRate": "68"
+            },
+            "Auditorium": {
+              "occupancy": "555",
+              "hourlyRate": "150"
+            },
+            "Classrooms": {
+              "hourlyRate": "30"
+            },
+            "Microphones": {
+              "flatRate": "10"
+            },
+            "Music Suite": {
+              "hourlyRate": "75"
+            },
+            "Folding Chairs": {
+              "hourlyRate": "0"
+            },
+            "Folding Tables": {
+              "hourlyRate": "0"
+            },
+            "Tech Assistant": {
+              "hourlyRate": "65"
+            },
+            "Internet Access": {
+              "hourlyRate": "0"
+            },
+            "Projector/Screen": {
+              "hourlyRate": "0"
+            },
+            "Sound Technician": {
+              "hourlyRate": "60"
+            },
+            "Lighting Technician": {
+              "hourlyRate": "60"
+            },
+            "Music Stands and Chairs": {
+              "hourlyRate": "50"
+            },
+            "Gym: Showers and Lockers": {
+              "hourlyRate": "100"
+            }
+          }
+        },
+        "Oakside Elementary School": {
+          "principal": {
+            "name": "Riley Nakamura",
+            "email": "riley.nakamura@example.org"
+          },
+          "shortName": "Oakside",
+          "facilityNotify": {
+            "name": "Riley Nakamura",
+            "email": "riley.nakamura@example.org"
+          },
+          "facilityRequest": {
+            "name": "Taylor Abernathy",
+            "email": "taylor.abernathy@example.org"
+          },
+          "buildingAttributes": {
+            "Kitchen": {
+              "hourlyRate": "0"
+            },
+            "Library": {
+              "hourlyRate": "30"
+            },
+            "Lecterns": {
+              "hourlyRate": "0"
+            },
+            "Security": {
+              "hourlyRate": "65"
+            },
+            "Cafeteria": {
+              "hourlyRate": "60"
+            },
+            "Custodian": {
+              "hourlyRate": "68"
+            },
+            "Classrooms": {
+              "hourlyRate": "30"
+            },
+            "Microphones": {
+              "flatRate": "10"
+            },
+            "Athletic Field": {
+              "hourlyRate": "75"
+            },
+            "Folding Chairs": {
+              "hourlyRate": "0"
+            },
+            "Folding Tables": {
+              "hourlyRate": "0"
+            },
+            "Tech Assistant": {
+              "hourlyRate": "65"
+            },
+            "Internet Access": {
+              "hourlyRate": "0"
+            },
+            "Projector/Screen": {
+              "hourlyRate": "0"
+            },
+            "Music Stands and Chairs": {
+              "hourlyRate": "50"
+            },
+            "Gym: Showers and Lockers": {
+              "hourlyRate": "75"
+            }
+          }
+        },
+        "Woodside Elementary School": {
+          "principal": {
+            "name": "Reese Holloway",
+            "email": "reese.holloway@example.org"
+          },
+          "shortName": "Woodside",
+          "facilityNotify": {
+            "name": "Reese Holloway",
+            "email": "reese.holloway@example.org"
+          },
+          "facilityRequest": {
+            "name": "Emerson Brennan",
+            "email": "emerson.brennan@example.org"
+          },
+          "buildingAttributes": {
+            "Gym": {
+              "hourlyRate": "75"
+            },
+            "Stage": {
+              "hourlyRate": "0"
+            },
+            "Kitchen": {
+              "hourlyRate": "0"
+            },
+            "Library": {
+              "hourlyRate": "30"
+            },
+            "Lecterns": {
+              "hourlyRate": "0"
+            },
+            "Security": {
+              "hourlyRate": "65"
+            },
+            "Cafeteria": {
+              "hourlyRate": "60"
+            },
+            "Custodian": {
+              "hourlyRate": "68"
+            },
+            "STEAM Lab": {
+              "hourlyRate": "0"
+            },
+            "Classrooms": {
+              "hourlyRate": "30"
+            },
+            "Microphones": {
+              "flatRate": "10"
+            },
+            "Athletic Field": {
+              "hourlyRate": "75"
+            },
+            "Folding Chairs": {
+              "hourlyRate": "0"
+            },
+            "Folding Tables": {
+              "hourlyRate": "0"
+            },
+            "Tech Assistant": {
+              "hourlyRate": "65"
+            },
+            "Internet Access": {
+              "hourlyRate": "0"
+            },
+            "Projector/Screen": {
+              "hourlyRate": "0"
+            },
+            "Music Stands and Chairs": {
+              "hourlyRate": "50"
+            }
+          }
+        },
+        "Hillcrest Elementary School": {
+          "principal": {
+            "name": "Rowan Ashworth",
+            "email": "rowan.ashworth@example.org"
+          },
+          "shortName": "Hillcrest",
+          "facilityNotify": {
+            "name": "Rowan Ashworth",
+            "email": "rowan.ashworth@example.org"
+          },
+          "facilityRequest": {
+            "name": "Skyler Thornbury",
+            "email": "skyler.thornbury@example.org"
+          },
+          "buildingAttributes": {
+            "Kitchen": {
+              "hourlyRate": "0"
+            },
+            "Library": {
+              "hourlyRate": "30"
+            },
+            "Lecterns": {
+              "hourlyRate": "0"
+            },
+            "Security": {
+              "hourlyRate": "65"
+            },
+            "Cafeteria": {
+              "hourlyRate": "60"
+            },
+            "Custodian": {
+              "hourlyRate": "68"
+            },
+            "Classrooms": {
+              "hourlyRate": "30"
+            },
+            "Microphones": {
+              "flatRate": "10"
+            },
+            "Athletic Field": {
+              "hourlyRate": "75"
+            },
+            "Folding Chairs": {
+              "hourlyRate": "0"
+            },
+            "Folding Tables": {
+              "hourlyRate": "0"
+            },
+            "Tech Assistant": {
+              "hourlyRate": "65"
+            },
+            "Internet Access": {
+              "hourlyRate": "0"
+            },
+            "Projector/Screen": {
+              "hourlyRate": "0"
+            },
+            "Music Stands and Chairs": {
+              "hourlyRate": "50"
+            },
+            "Gym: Showers and Lockers": {
+              "hourlyRate": "75"
+            }
+          }
+        },
+        "Uriah Hill Elementary School": {
+          "principal": {
+            "name": "Finley Ramsay",
+            "email": "finley.ramsay@example.org"
+          },
+          "shortName": "Uriah Hill",
+          "facilityNotify": {
+            "name": "Finley Ramsay",
+            "email": "finley.ramsay@example.org"
+          },
+          "facilityRequest": {
+            "name": "Kendall Salazar",
+            "email": "kendall.salazar@example.org"
+          },
+          "buildingAttributes": {
+            "Kitchen": {
+              "hourlyRate": "0"
+            },
+            "Library": {
+              "hourlyRate": "30"
+            },
+            "Lecterns": {
+              "hourlyRate": "0"
+            },
+            "Security": {
+              "hourlyRate": "65"
+            },
+            "Cafeteria": {
+              "hourlyRate": "60"
+            },
+            "Custodian": {
+              "hourlyRate": "68"
+            },
+            "Classrooms": {
+              "hourlyRate": "30"
+            },
+            "Microphones": {
+              "flatRate": "10"
+            },
+            "Athletic Field": {
+              "hourlyRate": "75"
+            },
+            "Folding Chairs": {
+              "hourlyRate": "0"
+            },
+            "Folding Tables": {
+              "hourlyRate": "0"
+            },
+            "Tech Assistant": {
+              "hourlyRate": "65"
+            },
+            "Internet Access": {
+              "hourlyRate": "0"
+            },
+            "Projector/Screen": {
+              "hourlyRate": "0"
+            },
+            "Music Stands and Chairs": {
+              "hourlyRate": "50"
+            },
+            "Gym: Showers and Lockers": {
+              "hourlyRate": "75"
+            }
+          }
+        }
+      }
+    },
+    "holidayOptions": {},
+    "states": {
+      "value": [
+        "AK",
+        "AL",
+        "AR",
+        "AS",
+        "AZ",
+        "CA",
+        "CO",
+        "CT",
+        "DC",
+        "DE",
+        "FL",
+        "GA",
+        "GU",
+        "HI",
+        "IA",
+        "ID",
+        "IL",
+        "IN",
+        "KS",
+        "KY",
+        "LA",
+        "MA",
+        "MD",
+        "ME",
+        "MI",
+        "MN",
+        "MO",
+        "MS",
+        "MT",
+        "NC",
+        "ND",
+        "NE",
+        "NH",
+        "NJ",
+        "NM",
+        "NV",
+        "NY",
+        "OH",
+        "OK",
+        "OR",
+        "PA",
+        "PR",
+        "RI",
+        "SC",
+        "SD",
+        "TN",
+        "TX",
+        "UT",
+        "VA",
+        "VI",
+        "VT",
+        "WA",
+        "WI",
+        "WV",
+        "WY"
+      ]
+    }
+  }
+}

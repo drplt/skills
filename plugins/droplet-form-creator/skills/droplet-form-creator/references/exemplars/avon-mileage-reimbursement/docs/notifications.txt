@@ -1,0 +1,47 @@
+{
+  "principalReview": {
+    "onEnter": {
+      "type": "assignment",
+      "template": {
+        "subject": "Mileage Reimbursement ##mileageId## needs your review",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Mileage Reimbursement</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br /><b>##submittedByName##</b> at <b>##location##</b> submitted mileage reimbursement <b>##mileageId##</b> for <b>##total##</b> (##totalMiles## miles). Review the claim, sign, and click Approve to send it on to Parker Caldwell for district review. If the claim should not be paid, click Reject and add a reason, which is emailed to the employee.</p></td></tr></table></td></tr><tr><td align='center'><a href='##assignmentUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>Review and Approve</a></td></tr></table>"
+      }
+    }
+  },
+  "review": {
+    "onEnter": {
+      "type": "assignment",
+      "template": {
+        "subject": "Mileage Reimbursement ##mileageId## needs your review",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Mileage Reimbursement</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br /><b>##submittedByName##</b> submitted mileage reimbursement <b>##mileageId##</b> for <b>##total##</b> (##totalMiles## miles). Review the claim, sign, and click Approve to send it on to Sage Espinoza for final approval. If the claim should not be paid, click Reject and add a reason, which is emailed to the employee.</p></td></tr></table></td></tr><tr><td align='center'><a href='##assignmentUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>Review and Approve</a></td></tr></table>"
+      }
+    }
+  },
+  "approval": {
+    "onEnter": {
+      "type": "assignment",
+      "template": {
+        "subject": "Mileage Reimbursement ##mileageId## is ready for final approval",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Mileage Reimbursement</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br /><b>##submittedByName##</b> submitted mileage reimbursement <b>##mileageId##</b> for <b>##total##</b> (##totalMiles## miles), and it has been reviewed and approved by Parker Caldwell. Click Approve to finalize it. If the claim should not be paid, click Reject and add a reason, which is emailed to the employee.</p></td></tr></table></td></tr><tr><td align='center'><a href='##assignmentUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>Review and Approve</a></td></tr></table>"
+      }
+    }
+  },
+  "completed": {
+    "onEnter": {
+      "template": {
+        "subject": "Your mileage reimbursement ##mileageId## was approved",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Approved</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br />Your mileage reimbursement <b>##mileageId##</b> for <b>##total##</b> was approved.</p></td></tr></table></td></tr><tr><td align='center'><a href='##submissionUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>View Submission</a></td></tr></table>"
+      },
+      "sendToSubmitter": true
+    }
+  },
+  "rejected": {
+    "onEnter": {
+      "template": {
+        "subject": "Your mileage reimbursement ##mileageId## was not approved",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Not Approved</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br />Your mileage reimbursement <b>##mileageId##</b> was not approved.<br /><br /><b>Reason:</b> ##_reason##</p></td></tr></table></td></tr><tr><td align='center'><a href='##submissionUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>View Submission</a></td></tr></table>"
+      },
+      "sendToSubmitter": true
+    }
+  }
+}

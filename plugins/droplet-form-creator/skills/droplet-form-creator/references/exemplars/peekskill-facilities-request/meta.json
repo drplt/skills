@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "form": {
+    "name": "Request for Use of Facilities",
+    "description": "This form accepts requests for the use of school district facilities for a variety of events and activities.",
+    "loginRequired": false,
+    "submitAsLoggedIn": false
+  }
+}

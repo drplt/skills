@@ -1,0 +1,1097 @@
+<Form color="#016844">
+  <View type="web">
+    <Section id="header" marginBottom={7.5} marginTop={7.5} wide>
+      <Image
+        id="logo"
+        src="https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png"
+        columns={3}
+        align="left"
+      />
+      <Text
+        id="formHeaderTitleText"
+        marginLeft={0}
+        marginRight={0}
+        marginTop={25}
+        marginBottom={10}
+        columns={9}
+      >
+        <h1 style={{ textAlign: "right" }}>Mileage Reimbursement</h1>
+      </Text>
+    </Section>
+    <Section
+      id="rejectionSection"
+      marginBottom={10}
+      marginTop={10}
+      border
+      borderColor="#D64545"
+      background="#FDECEC"
+      display="_reason"
+    >
+      <Text
+        id="rejectionText"
+        margin={0}
+        marginTop={10}
+        marginBottom={10}
+        columns={12}
+      >
+        <p style={{ color: "#A01C1C" }}>
+          <b>Not Approved</b>
+        </p>
+        <p>##_reason##</p>
+      </Text>
+    </Section>
+    <Section
+      id="instructionsSection"
+      marginBottom={10}
+      marginTop={10}
+      border
+      borderColor="#CFE6DD"
+      background="#F2F9F6"
+    >
+      <Text
+        id="instructionsText"
+        margin={0}
+        marginTop={10}
+        marginBottom={10}
+        columns={9}
+      >
+        <div style={{ color: "#0B3B2C", textAlign: "left" }}>
+          <h3>
+            <span style={{ color: "#016844" }}>Instructions</span>
+          </h3>
+          <p>
+            Request reimbursement for travel in your personal vehicle.
+            Reimbursement is based on your work location for calculation purposes:
+            all trips are treated as starting from 191 Clinton St, Avon, even if
+            you left from home, and the origin is filled in for you. Enter each
+            trip with the date, return date, and destination, and check Round Trip
+            if you drove both ways. Every trip needs a return date, use the same
+            date for same day round trips. If a leg started somewhere else, such
+            as a hotel during a multi day conference, check the box below the
+            first table.
+          </p>
+        </div>
+      </Text>
+      <Identifier
+        id="mileageId"
+        label="Mileage ID"
+        mode="auto"
+        columns={3}
+        formula="`MR${padStart(String(getSequenceId()), 6, '0')}`"
+      />
+    </Section>
+    <Section id="employeeInfo">
+      <Tile id="bannerEmployeeInfo" background="#F2F9F6" columns={12}>
+        <Text id="bannerEmployeeInfoText" columns={12}>
+          <div style={{ fontSize: 16, color: "#016844" }}>
+            <b>Employee Information</b>
+          </div>
+        </Text>
+      </Tile>
+      <Input id="submittedByName" label="Employee Name" columns={6} />
+      <Input
+        id="submittedByEmail"
+        label="Employee Email"
+        type="email"
+        columns={6}
+      />
+      <Tile id="locationTile" columns={6}>
+        <Dropdown
+          id="location"
+          label="Location"
+          columns={12}
+          options="Object.keys(schoolsDepartments).sort().concat(['District Wide/Administrator'])"
+          hideSearch
+        />
+        <Text
+          id="locationAdminNote"
+          margin={0}
+          marginTop={4}
+          marginBottom={2}
+          columns={12}
+          display={{
+            conditions: [
+              { elementId: "locationAdminName", comparator: "notEmpty" },
+            ],
+            action: "show",
+          }}
+        >
+          <p style={{ color: "#5A6B62", fontSize: 13 }}>
+            <b>Administrator:</b> ##locationAdminName##
+          </p>
+        </Text>
+      </Tile>
+    </Section>
+    <Section id="travelSection" marginTop={10}>
+      <Tile id="bannerTravel" background="#F2F9F6" columns={12}>
+        <Text id="bannerTravelText" columns={12}>
+          <div style={{ fontSize: 16, color: "#016844" }}>
+            <b>Travel Details</b>
+          </div>
+        </Text>
+      </Tile>
+      <Textarea id="reason" label="Reason for Travel" rows={3} />
+      <Table
+        id="mileageTable"
+        label="Trips Starting from Avon"
+        hint="Origin is filled in for you. Use the symbols to the right of the table to add or delete rows. If the location does not pop up when you search by name, copy and paste the exact address. Every trip needs a return date, use the same date for same day round trips."
+        initialRows={1}
+      >
+        <TableColumn id="dateOther" type="date" label="Date" width={9} required />
+        <TableColumn
+          id="returnDate"
+          type="date"
+          label="Return Date"
+          width={9}
+          required
+          validate="getCell(returnDate) && getCell(dateOther) ? getCell(returnDate) >= getCell(dateOther) : true"
+        />
+        <TableColumn
+          id="startOther"
+          type="address"
+          label="Origin"
+          width={20}
+          display={{ action: "alwaysHide" }}
+          values={[
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+            "191 Clinton St, Avon, NY 14414",
+          ]}
+        />
+        <TableColumn
+          id="destinationOther"
+          type="address"
+          label="Destination"
+          width={18}
+          required
+        />
+        <TableColumn
+          id="miles"
+          type="distance"
+          label="One Way Miles"
+          width={8}
+          startAddress="startOther"
+          endAddress="destinationOther"
+          distanceUnits="mi"
+        />
+        <TableColumn
+          id="roundTrip"
+          type="checkbox"
+          label="Round Trip"
+          width={8}
+        />
+        <TableColumn
+          id="payableMiles"
+          label="Payable Miles"
+          width={12}
+          align="center"
+          formula="(()=>{ const m = getCell(roundTrip) ? multiply(getCell(miles), 2) : multiply(getCell(miles), 1); return m ? Math.round(m * 10) / 10 : ''; })()"
+        />
+        <TableColumn
+          id="rowRate"
+          label="Rate"
+          width={8}
+          align="center"
+          formula="(()=>{ const d = getCell(dateOther); if (!d) return ''; const ks = Object.keys(mileageRate).filter((k) => d >= k).sort(); return ks.length ? '$' + String(mileageRate[ks[ks.length - 1]]['rate']) : ''; })()"
+        />
+        <TableColumn
+          id="rowAmount"
+          label="Amount"
+          width={14}
+          align="right"
+          sum
+          formula="(()=>{ const d = getCell(dateOther); if (!d) return ''; const ks = Object.keys(mileageRate).filter((k) => d >= k).sort(); if (!ks.length) return ''; return toCurrency(multiply(getCell(payableMiles), parseFloat(mileageRate[ks[ks.length - 1]]['rate'])) || 0); })()"
+        />
+      </Table>
+      <Boolean
+        id="hasOutsideTrips"
+        label="Travel Starting Somewhere Else"
+        text="Part of my travel started somewhere other than Avon, such as a hotel at a multi day conference"
+        tooltip="Check this only for legs that did not start at 191 Clinton St. Everything starting from Avon belongs in the table above."
+        columns={12}
+      />
+      <Table
+        id="outsideTripsTable"
+        label="Trips Starting Somewhere Else"
+        hint="Enter the actual starting point for each of these legs. If the location does not pop up when you search by name, copy and paste the exact address. Every trip needs a return date, use the same date for same day round trips."
+        initialRows={1}
+        display="hasOutsideTrips"
+      >
+        <TableColumn id="outDate" type="date" label="Date" width={9} required />
+        <TableColumn
+          id="outReturnDate"
+          type="date"
+          label="Return Date"
+          width={9}
+          required
+          validate="getCell(outReturnDate) && getCell(outDate) ? getCell(outReturnDate) >= getCell(outDate) : true"
+        />
+        <TableColumn
+          id="outStart"
+          type="address"
+          label="Origin"
+          width={17}
+          required
+        />
+        <TableColumn
+          id="outDestination"
+          type="address"
+          label="Destination"
+          width={17}
+          required
+        />
+        <TableColumn
+          id="outMiles"
+          type="distance"
+          label="One Way Miles"
+          width={8}
+          startAddress="outStart"
+          endAddress="outDestination"
+          distanceUnits="mi"
+        />
+        <TableColumn
+          id="outRoundTrip"
+          type="checkbox"
+          label="Round Trip"
+          width={8}
+        />
+        <TableColumn
+          id="outPayableMiles"
+          label="Payable Miles"
+          width={12}
+          align="center"
+          formula="(()=>{ const m = getCell(outRoundTrip) ? multiply(getCell(outMiles), 2) : multiply(getCell(outMiles), 1); return m ? Math.round(m * 10) / 10 : ''; })()"
+        />
+        <TableColumn
+          id="outRowRate"
+          label="Rate"
+          width={8}
+          align="center"
+          formula="(()=>{ const d = getCell(outDate); if (!d) return ''; const ks = Object.keys(mileageRate).filter((k) => d >= k).sort(); return ks.length ? '$' + String(mileageRate[ks[ks.length - 1]]['rate']) : ''; })()"
+        />
+        <TableColumn
+          id="outRowAmount"
+          label="Amount"
+          width={14}
+          align="right"
+          sum
+          formula="(()=>{ const d = getCell(outDate); if (!d) return ''; const ks = Object.keys(mileageRate).filter((k) => d >= k).sort(); if (!ks.length) return ''; return toCurrency(multiply(getCell(outPayableMiles), parseFloat(mileageRate[ks[ks.length - 1]]['rate'])) || 0); })()"
+        />
+      </Table>
+      <Tile
+        id="totalsTile"
+        border
+        borderColor="#CFE6DD"
+        background="#F2F9F6"
+        columns={12}
+      >
+        <Text
+          id="totalsHeader"
+          margin={0}
+          marginTop={6}
+          marginBottom={8}
+          columns={12}
+        >
+          <h3 style={{ textAlign: "left" }}>
+            <span style={{ color: "#016844", fontSize: 16 }}>Totals</span>
+          </h3>
+        </Text>
+        <Tile
+          id="cardMiles"
+          border
+          borderColor="#CFE6DD"
+          background="#FFFFFF"
+          columns={4}
+        >
+          <Text id="cardMilesText" marginTop={12} marginBottom={12} columns={12}>
+            <h2 style={{ textAlign: "center" }}>
+              <span style={{ color: "#016844", fontSize: 28 }}>
+                ##totalMiles##
+              </span>
+            </h2>
+            <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 12 }}>
+              Total Miles
+            </p>
+          </Text>
+        </Tile>
+        <Tile
+          id="cardRate"
+          border
+          borderColor="#CFE6DD"
+          background="#FFFFFF"
+          columns={4}
+        >
+          <Text id="cardRateText" marginTop={12} marginBottom={12} columns={12}>
+            <h2 style={{ textAlign: "center" }}>
+              <span style={{ color: "#016844", fontSize: 28 }}>##rate##</span>
+            </h2>
+            <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 12 }}>
+              Rate in Effect
+            </p>
+          </Text>
+        </Tile>
+        <Tile
+          id="cardAmount"
+          border
+          borderColor="#016844"
+          background="#016844"
+          columns={4}
+        >
+          <Text id="cardAmountText" marginTop={12} marginBottom={12} columns={12}>
+            <h2 style={{ textAlign: "center" }}>
+              <span style={{ color: "#FFFFFF", fontSize: 28 }}>##total##</span>
+            </h2>
+            <p style={{ textAlign: "center", color: "#FFFFFF", fontSize: 12 }}>
+              Total Reimbursement
+            </p>
+          </Text>
+        </Tile>
+      </Tile>
+    </Section>
+    <Section id="certificationSection" marginTop={10}>
+      <Tile id="bannerCertification" background="#F2F9F6" columns={12}>
+        <Text id="bannerCertificationText" columns={12}>
+          <div style={{ fontSize: 16, color: "#016844" }}>
+            <b>Employee Certification</b>
+          </div>
+        </Text>
+      </Tile>
+      <Text
+        id="certificationText"
+        margin={0}
+        marginTop={6}
+        marginBottom={6}
+        columns={12}
+      >
+        <p style={{ color: "#0B3B2C" }}>
+          I certify that the mileage recorded above is accurate and was driven in
+          the course of district business.
+        </p>
+      </Text>
+      <Signature id="signature" label="Employee Signature" columns={8} />
+      <Timestamp
+        id="signatureDate"
+        label="Date Signed"
+        columns={4}
+        display={{
+          conditions: [{ elementId: "signature", comparator: "notEmpty" }],
+          action: "show",
+        }}
+        type="date"
+      />
+    </Section>
+    <Section
+      id="approvalSection"
+      marginTop={10}
+      border
+      borderColor="#CFE6DD"
+      background="#F8FBFA"
+    >
+      <Tile id="bannerApproval" background="#F2F9F6" columns={12}>
+        <Text id="bannerApprovalText" columns={12}>
+          <div style={{ fontSize: 16, color: "#016844" }}>
+            <b>Approval</b>
+          </div>
+        </Text>
+      </Tile>
+      <Text
+        id="approvalInstructions"
+        margin={0}
+        marginTop={0}
+        marginBottom={6}
+        columns={12}
+      >
+        <p style={{ color: "#5A6B62", fontSize: 13 }}>
+          School claims are reviewed by the building principal, then the district
+          office, then sent for final approval. District Wide and Administrator
+          claims go straight to the district office. Each approver signs and
+          clicks Approve to advance it, or clicks Reject to decline it with a
+          reason emailed to the employee.
+        </p>
+      </Text>
+      <Signature
+        id="signaturePrincipal"
+        label="Principal Signature"
+        columns={8}
+        display="currentStep() === 'principalReview' || signaturePrincipal"
+      />
+      <Timestamp
+        id="signatureDatePrincipal"
+        label="Date Signed"
+        columns={4}
+        display="signaturePrincipal"
+        type="date"
+      />
+      <Signature
+        id="signatureSupervisor"
+        label="Approver Signature"
+        columns={8}
+        display="(currentStep() !== 'start' && currentStep() !== 'principalReview') || signatureSupervisor"
+      />
+      <Timestamp
+        id="signatureDateSupervisor"
+        label="Date Signed"
+        columns={4}
+        display="signatureSupervisor"
+        type="date"
+      />
+    </Section>
+    <Section
+      id="hiddenFields"
+      wide
+      background="#F5EDFD"
+      display={{ action: "alwaysHide" }}
+    >
+      <Text
+        id="hiddenText"
+        margin={0}
+        marginTop={10}
+        marginBottom={10}
+        columns={12}
+      >
+        <div style={{ color: "#330A5C", textAlign: "left" }}>
+          <h3>
+            <span style={{ color: "#330A5C" }}>Computed Fields</span>
+          </h3>
+          <p>
+            Behind-the-scenes rate and totals used to power the form. Hidden at
+            every step.
+          </p>
+        </div>
+      </Text>
+      <Computed
+        id="locationAdminName"
+        label="Location Administrator Name"
+        columns={4}
+        formula="location && schoolsDepartments[location] && schoolsDepartments[location]['Administrator'] ? schoolsDepartments[location]['Administrator']['name'] : ''"
+      />
+      <Computed
+        id="locationAdminEmail"
+        label="Location Administrator Email"
+        columns={4}
+        formula="location && schoolsDepartments[location] && schoolsDepartments[location]['Administrator'] ? schoolsDepartments[location]['Administrator']['email'] : ''"
+      />
+      <Computed
+        id="rate"
+        label="Rate in Effect"
+        hint="The rate that applies to the trip dates entered, looked up by effective date from the mileageRate dataset. Shows a range when the trips span a rate change."
+        columns={4}
+        formula="(()=>{
+    const keyFor = (d) => { if (!d) return null; const ks = Object.keys(mileageRate).filter((k) => d >= k).sort(); return ks.length ? ks[ks.length - 1] : null; };
+    const rows = Array.isArray(mileageTable) ? mileageTable : [];
+    const outRows = hasOutsideTrips && Array.isArray(outsideTripsTable) ? outsideTripsTable : [];
+    let keys = rows.map((r) => keyFor(r && r.dateOther)).concat(outRows.map((r) => keyFor(r && r.outDate))).filter((k) => k);
+    if (!keys.length) { const all = Object.keys(mileageRate).sort(); keys = all.length ? [all[all.length - 1]] : []; }
+    if (!keys.length) return '';
+    const num = (k) => parseFloat(mileageRate[k]['rate']);
+    let lo = keys[0];
+    let hi = keys[0];
+    keys.forEach((k) => { if (num(k) < num(lo)) lo = k; if (num(k) > num(hi)) hi = k; });
+    const show = (k) => '$' + String(mileageRate[k]['rate']);
+    return lo === hi ? show(lo) : show(lo) + ' to ' + show(hi);
+  })()"
+      />
+      <Computed
+        id="totalMiles"
+        label="Total Miles"
+        hint="Sum of the payable miles across both trip tables, after round trip doubling."
+        columns={4}
+        formula="(()=>{ const n = (v) => parseFloat(String(v).replace(/[^0-9.-]/g, '')) || 0; const out = hasOutsideTrips ? n(sum(outPayableMiles)) : 0; return Math.round((n(sum(payableMiles)) + out) * 10) / 10; })()"
+      />
+      <Computed
+        id="total"
+        label="Total"
+        hint="Sum of the per row amounts across both trip tables, each calculated at the rate in effect on that trip date."
+        columns={4}
+        formula="(()=>{ const n = (v) => parseFloat(String(v).replace(/[^0-9.-]/g, '')) || 0; const out = hasOutsideTrips ? n(sum(outRowAmount)) : 0; return toCurrency(n(sum(rowAmount)) + out); })()"
+      />
+      <Computed
+        id="printStatus"
+        label="Print Status"
+        hint="Plain language workflow status shown in the print view header."
+        columns={4}
+        formula="(()=>{ const s = typeof currentStep === 'function' ? currentStep() : ''; const map = { start: 'not yet submitted', principalReview: 'awaiting principal review', review: 'awaiting district review', approval: 'awaiting final approval', completed: 'approved for payment', rejected: 'not approved' }; return map[s] || 'in review'; })()"
+      />
+      <Computed
+        id="printTripSummary"
+        label="Print Trip Summary"
+        hint="Trip count line for the print view summary, across both trip tables."
+        columns={4}
+        formula="(()=>{ const a = Array.isArray(mileageTable) ? mileageTable.filter((r) => r && r.destinationOther).length : 0; const b = hasOutsideTrips && Array.isArray(outsideTripsTable) ? outsideTripsTable.filter((r) => r && r.outDestination).length : 0; const n = a + b; if (!n) return 'No trips entered'; const rt = (Array.isArray(mileageTable) ? mileageTable.filter((r) => r && r.destinationOther && (r.roundTrip === true || String(r.roundTrip).toLowerCase() === 'true')).length : 0) + (hasOutsideTrips && Array.isArray(outsideTripsTable) ? outsideTripsTable.filter((r) => r && r.outDestination && (r.outRoundTrip === true || String(r.outRoundTrip).toLowerCase() === 'true')).length : 0); return n + (n === 1 ? ' trip' : ' trips') + (rt ? ', ' + rt + ' round trip' + (rt === 1 ? '' : 's') : ''); })()"
+      />
+      <Computed
+        id="printDateRange"
+        label="Print Travel Period"
+        hint="Earliest and latest trip date across both trip tables, for the print view summary."
+        columns={4}
+        formula="(()=>{ const fmt = (d) => { const s = String(d); return /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(s) ? s.slice(5, 7) + '/' + s.slice(8, 10) + '/' + s.slice(0, 4) : s; }; const a = Array.isArray(mileageTable) ? mileageTable.map((r) => r && r.dateOther) : []; const b = hasOutsideTrips && Array.isArray(outsideTripsTable) ? outsideTripsTable.map((r) => r && r.outDate) : []; const ds = a.concat(b).filter((d) => d).map((d) => String(d)).sort(); if (!ds.length) return ''; return ds[0] === ds[ds.length - 1] ? fmt(ds[0]) : fmt(ds[0]) + ' to ' + fmt(ds[ds.length - 1]); })()"
+      />
+      <Computed
+        id="printSignedDate"
+        label="Print Employee Signed Date"
+        hint="Employee signature timestamp formatted MM/DD/YYYY for the print view."
+        columns={4}
+        formula="(()=>{ const v = signatureDate; if (!v) return ''; const s = String(v); if (/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(s)) return s.slice(5, 7) + '/' + s.slice(8, 10) + '/' + s.slice(0, 4); const d = v instanceof Date ? v : new Date(v); if (isNaN(d.getTime())) return s; return String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0') + '/' + d.getFullYear(); })()"
+      />
+      <Computed
+        id="printPrincipalSignedDate"
+        label="Print Principal Signed Date"
+        hint="Principal signature timestamp formatted MM/DD/YYYY for the print view."
+        columns={4}
+        formula="(()=>{ const v = signatureDatePrincipal; if (!v) return ''; const s = String(v); if (/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(s)) return s.slice(5, 7) + '/' + s.slice(8, 10) + '/' + s.slice(0, 4); const d = v instanceof Date ? v : new Date(v); if (isNaN(d.getTime())) return s; return String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0') + '/' + d.getFullYear(); })()"
+      />
+      <Computed
+        id="printDistrictSignedDate"
+        label="Print District Signed Date"
+        hint="District review signature timestamp formatted MM/DD/YYYY for the print view."
+        columns={4}
+        formula="(()=>{ const v = signatureDateSupervisor; if (!v) return ''; const s = String(v); if (/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(s)) return s.slice(5, 7) + '/' + s.slice(8, 10) + '/' + s.slice(0, 4); const d = v instanceof Date ? v : new Date(v); if (isNaN(d.getTime())) return s; return String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0') + '/' + d.getFullYear(); })()"
+      />
+    </Section>
+  </View>
+  <View type="print">
+    <Section id="printHeader" marginTop={0} marginBottom={0}>
+      <Image
+        id="printLogo"
+        src="https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png"
+        columns={2}
+        align="left"
+        width={85}
+      />
+      <Text
+        id="printTitle"
+        margin={0}
+        marginTop={12}
+        marginBottom={0}
+        columns={10}
+      >
+        <h1 style={{ textAlign: "right" }}>
+          <span style={{ color: "#016844", fontSize: 24 }}>
+            Mileage Reimbursement
+          </span>
+        </h1>
+        <p style={{ textAlign: "right", color: "#5A6B62", fontSize: 12 }}>
+          Avon Central School District, 191 Clinton Street, Avon, NY 14414
+        </p>
+        <p style={{ textAlign: "right", color: "#0B3B2C", fontSize: 13 }}>
+          <b>Claim ##mileageId##</b>, ##printStatus##
+        </p>
+      </Text>
+    </Section>
+    <Section
+      id="printRejected"
+      marginTop={6}
+      marginBottom={6}
+      border
+      borderColor="#D64545"
+      background="#FDECEC"
+      display="_reason"
+    >
+      <Text
+        id="printRejectedText"
+        margin={0}
+        marginTop={6}
+        marginBottom={6}
+        columns={12}
+      >
+        <p style={{ color: "#A01C1C" }}>
+          <b>Not Approved.</b> ##_reason##
+        </p>
+      </Text>
+    </Section>
+    <Section
+      id="printSummary"
+      marginTop={6}
+      marginBottom={6}
+      border
+      borderColor="#CFE6DD"
+      background="#F8FBFA"
+    >
+      <Text
+        id="printSummaryEmployee"
+        margin={0}
+        marginTop={4}
+        marginBottom={4}
+        columns={4}
+      >
+        <p style={{ color: "#5A6B62", fontSize: 11 }}>EMPLOYEE</p>
+        <p style={{ color: "#0B3B2C" }}>
+          <b>##submittedByName##</b>
+          <br />
+          ##submittedByEmail##
+        </p>
+      </Text>
+      <Text
+        id="printSummaryLocation"
+        margin={0}
+        marginTop={4}
+        marginBottom={4}
+        columns={4}
+        display="locationAdminName"
+      >
+        <p style={{ color: "#5A6B62", fontSize: 11 }}>LOCATION</p>
+        <p style={{ color: "#0B3B2C" }}>
+          <b>##location##</b>
+          <br />
+          Administrator: ##locationAdminName##
+        </p>
+      </Text>
+      <Text
+        id="printSummaryLocationDistrict"
+        margin={0}
+        marginTop={4}
+        marginBottom={4}
+        columns={4}
+        display="!locationAdminName"
+      >
+        <p style={{ color: "#5A6B62", fontSize: 11 }}>LOCATION</p>
+        <p style={{ color: "#0B3B2C" }}>
+          <b>##location##</b>
+          <br />
+          Reviewed by the district office
+        </p>
+      </Text>
+      <Text
+        id="printSummaryTravel"
+        margin={0}
+        marginTop={4}
+        marginBottom={4}
+        columns={4}
+      >
+        <p style={{ color: "#5A6B62", fontSize: 11 }}>TRAVEL PERIOD</p>
+        <p style={{ color: "#0B3B2C" }}>
+          <b>##printDateRange##</b>
+          <br />
+          ##printTripSummary##
+        </p>
+      </Text>
+      <Text
+        id="printSummaryReason"
+        margin={0}
+        marginTop={0}
+        marginBottom={4}
+        columns={12}
+      >
+        <p style={{ color: "#5A6B62", fontSize: 11 }}>REASON FOR TRAVEL</p>
+        <p style={{ color: "#0B3B2C" }}>##reason##</p>
+      </Text>
+    </Section>
+    <Section id="printTrips" marginTop={6} marginBottom={0}>
+      <Tile id="printTripsBanner" background="#F2F9F6" columns={12}>
+        <Text id="printTripsBannerText" columns={12}>
+          <div style={{ fontSize: 15, color: "#016844" }}>
+            <b>Travel Detail</b>
+          </div>
+        </Text>
+      </Tile>
+      <Text
+        id="printTripsCaption"
+        margin={0}
+        marginTop={4}
+        marginBottom={0}
+        columns={12}
+      >
+        <p style={{ color: "#5A6B62", fontSize: 12 }}>
+          Every trip in the first table starts from 191 Clinton Street, Avon, NY
+          14414. One way miles come from Google Maps for the destination
+          address, round trips are doubled in Payable Miles, and each row is
+          paid at the rate in effect on its trip date.
+        </p>
+      </Text>
+      <Table
+        id="printAvonTrips"
+        label="Trips Starting from Avon"
+        initialRows={1}
+        displayRows="Array.isArray(mileageTable) ? mileageTable.length : 0"
+      >
+        <TableColumn
+          id="printDate"
+          label="Date"
+          width={11}
+          align="center"
+          formula="(()=>{ const i = getCurrentRowIndex(); const v = Array.isArray(dateOther) ? dateOther[i] : ''; if (!v) return ''; const s = String(v); return /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(s) ? s.slice(5, 7) + '/' + s.slice(8, 10) + '/' + s.slice(0, 4) : s; })()"
+        />
+        <TableColumn
+          id="printReturn"
+          label="Return Date"
+          width={11}
+          align="center"
+          formula="(()=>{ const i = getCurrentRowIndex(); const v = Array.isArray(returnDate) ? returnDate[i] : ''; if (!v) return ''; const s = String(v); return /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(s) ? s.slice(5, 7) + '/' + s.slice(8, 10) + '/' + s.slice(0, 4) : s; })()"
+        />
+        <TableColumn
+          id="printDestination"
+          label="Destination"
+          width={35}
+          formula="(()=>{ const i = getCurrentRowIndex(); const v = Array.isArray(destinationOther) ? destinationOther[i] : ''; if (!v) return ''; if (typeof v === 'string') return v; if (v.formatted) return v.formatted; if (v.fullAddress) return v.fullAddress; if (v.label) return v.label; const parts = []; ['street', 'street2', 'line1', 'line2', 'address', 'city', 'state', 'zip', 'zipcode', 'postalCode'].forEach((k) => { if (v[k] && parts.indexOf(v[k]) === -1) parts.push(v[k]); }); return parts.join(', '); })()"
+        />
+        <TableColumn
+          id="printMiles"
+          label="One Way Miles"
+          width={8}
+          align="center"
+          formula="(()=>{ const i = getCurrentRowIndex(); const num = (x) => { if (x == null || x === '') return 0; if (typeof x === 'number') return x; if (typeof x === 'object') { x = x.value != null ? x.value : (x.distance != null ? x.distance : (x.miles != null ? x.miles : '')); } const n = parseFloat(String(x).replace(/[^0-9.-]/g, '')); return isNaN(n) ? 0 : n; }; const m = num(Array.isArray(miles) ? miles[i] : ''); return m ? Math.round(m * 10) / 10 : ''; })()"
+        />
+        <TableColumn
+          id="printRoundTrip"
+          label="Round Trip"
+          width={8}
+          align="center"
+          formula="(()=>{ const i = getCurrentRowIndex(); const v = Array.isArray(roundTrip) ? roundTrip[i] : false; const dest = Array.isArray(destinationOther) ? destinationOther[i] : ''; if (!dest) return ''; return v === true || String(v).toLowerCase() === 'true' ? 'Yes' : 'No'; })()"
+        />
+        <TableColumn
+          id="printPayable"
+          label="Payable Miles"
+          width={9}
+          align="center"
+          sum
+          formula="(()=>{ const i = getCurrentRowIndex(); const num = (x) => { if (x == null || x === '') return 0; if (typeof x === 'number') return x; if (typeof x === 'object') { x = x.value != null ? x.value : (x.distance != null ? x.distance : (x.miles != null ? x.miles : '')); } const n = parseFloat(String(x).replace(/[^0-9.-]/g, '')); return isNaN(n) ? 0 : n; }; const m = num(Array.isArray(miles) ? miles[i] : ''); if (!m) return ''; const rt = Array.isArray(roundTrip) ? roundTrip[i] : false; const p = rt === true || String(rt).toLowerCase() === 'true' ? m * 2 : m; return Math.round(p * 10) / 10; })()"
+        />
+        <TableColumn
+          id="printRate"
+          label="Rate"
+          width={7}
+          align="center"
+          formula="(()=>{ const i = getCurrentRowIndex(); const raw = Array.isArray(dateOther) ? dateOther[i] : ''; const s = String(raw || ''); const mm = s.match(/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})/); const d = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(s) ? s.slice(0, 10) : (mm ? mm[3] + '-' + mm[1].padStart(2, '0') + '-' + mm[2].padStart(2, '0') : ''); if (!d) return ''; const ks = Object.keys(mileageRate).filter((k) => d >= k).sort(); return ks.length ? '$' + String(mileageRate[ks[ks.length - 1]]['rate']) : ''; })()"
+        />
+        <TableColumn
+          id="printAmount"
+          label="Amount"
+          width={11}
+          align="right"
+          sum
+          formula="(()=>{ const i = getCurrentRowIndex(); const num = (x) => { if (x == null || x === '') return 0; if (typeof x === 'number') return x; if (typeof x === 'object') { x = x.value != null ? x.value : (x.distance != null ? x.distance : (x.miles != null ? x.miles : '')); } const n = parseFloat(String(x).replace(/[^0-9.-]/g, '')); return isNaN(n) ? 0 : n; }; const m = num(Array.isArray(miles) ? miles[i] : ''); if (!m) return ''; const rt = Array.isArray(roundTrip) ? roundTrip[i] : false; const p = Math.round((rt === true || String(rt).toLowerCase() === 'true' ? m * 2 : m) * 10) / 10; const raw = Array.isArray(dateOther) ? dateOther[i] : ''; const s = String(raw || ''); const mm = s.match(/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})/); const d = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(s) ? s.slice(0, 10) : (mm ? mm[3] + '-' + mm[1].padStart(2, '0') + '-' + mm[2].padStart(2, '0') : ''); if (!d) return ''; const ks = Object.keys(mileageRate).filter((k) => d >= k).sort(); if (!ks.length) return ''; return toCurrency(p * parseFloat(mileageRate[ks[ks.length - 1]]['rate'])); })()"
+        />
+      </Table>
+      <Text
+        id="printOutsideCaption"
+        margin={0}
+        marginTop={8}
+        marginBottom={0}
+        columns={12}
+        display="hasOutsideTrips"
+      >
+        <p style={{ color: "#5A6B62", fontSize: 12 }}>
+          The trips below started somewhere other than Avon, such as a hotel
+          during a multi day conference. Miles are calculated from the origin
+          shown to the destination shown.
+        </p>
+      </Text>
+      <Table
+        id="printOutsideTrips"
+        label="Trips Starting Somewhere Else"
+        initialRows={1}
+        displayRows="Array.isArray(outsideTripsTable) ? outsideTripsTable.length : 0"
+        display="hasOutsideTrips"
+      >
+        <TableColumn
+          id="printOutDate"
+          label="Date"
+          width={10}
+          align="center"
+          formula="(()=>{ const i = getCurrentRowIndex(); const v = Array.isArray(outDate) ? outDate[i] : ''; if (!v) return ''; const s = String(v); return /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(s) ? s.slice(5, 7) + '/' + s.slice(8, 10) + '/' + s.slice(0, 4) : s; })()"
+        />
+        <TableColumn
+          id="printOutReturn"
+          label="Return Date"
+          width={10}
+          align="center"
+          formula="(()=>{ const i = getCurrentRowIndex(); const v = Array.isArray(outReturnDate) ? outReturnDate[i] : ''; if (!v) return ''; const s = String(v); return /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(s) ? s.slice(5, 7) + '/' + s.slice(8, 10) + '/' + s.slice(0, 4) : s; })()"
+        />
+        <TableColumn
+          id="printOutOrigin"
+          label="Origin"
+          width={21}
+          formula="(()=>{ const i = getCurrentRowIndex(); const v = Array.isArray(outStart) ? outStart[i] : ''; if (!v) return ''; if (typeof v === 'string') return v; if (v.formatted) return v.formatted; if (v.fullAddress) return v.fullAddress; if (v.label) return v.label; const parts = []; ['street', 'street2', 'line1', 'line2', 'address', 'city', 'state', 'zip', 'zipcode', 'postalCode'].forEach((k) => { if (v[k] && parts.indexOf(v[k]) === -1) parts.push(v[k]); }); return parts.join(', '); })()"
+        />
+        <TableColumn
+          id="printOutDestination"
+          label="Destination"
+          width={22}
+          formula="(()=>{ const i = getCurrentRowIndex(); const v = Array.isArray(outDestination) ? outDestination[i] : ''; if (!v) return ''; if (typeof v === 'string') return v; if (v.formatted) return v.formatted; if (v.fullAddress) return v.fullAddress; if (v.label) return v.label; const parts = []; ['street', 'street2', 'line1', 'line2', 'address', 'city', 'state', 'zip', 'zipcode', 'postalCode'].forEach((k) => { if (v[k] && parts.indexOf(v[k]) === -1) parts.push(v[k]); }); return parts.join(', '); })()"
+        />
+        <TableColumn
+          id="printOutMiles"
+          label="One Way Miles"
+          width={7}
+          align="center"
+          formula="(()=>{ const i = getCurrentRowIndex(); const num = (x) => { if (x == null || x === '') return 0; if (typeof x === 'number') return x; if (typeof x === 'object') { x = x.value != null ? x.value : (x.distance != null ? x.distance : (x.miles != null ? x.miles : '')); } const n = parseFloat(String(x).replace(/[^0-9.-]/g, '')); return isNaN(n) ? 0 : n; }; const m = num(Array.isArray(outMiles) ? outMiles[i] : ''); return m ? Math.round(m * 10) / 10 : ''; })()"
+        />
+        <TableColumn
+          id="printOutRoundTrip"
+          label="Round Trip"
+          width={7}
+          align="center"
+          formula="(()=>{ const i = getCurrentRowIndex(); const v = Array.isArray(outRoundTrip) ? outRoundTrip[i] : false; const dest = Array.isArray(outDestination) ? outDestination[i] : ''; if (!dest) return ''; return v === true || String(v).toLowerCase() === 'true' ? 'Yes' : 'No'; })()"
+        />
+        <TableColumn
+          id="printOutPayable"
+          label="Payable Miles"
+          width={7}
+          align="center"
+          sum
+          formula="(()=>{ const i = getCurrentRowIndex(); const num = (x) => { if (x == null || x === '') return 0; if (typeof x === 'number') return x; if (typeof x === 'object') { x = x.value != null ? x.value : (x.distance != null ? x.distance : (x.miles != null ? x.miles : '')); } const n = parseFloat(String(x).replace(/[^0-9.-]/g, '')); return isNaN(n) ? 0 : n; }; const m = num(Array.isArray(outMiles) ? outMiles[i] : ''); if (!m) return ''; const rt = Array.isArray(outRoundTrip) ? outRoundTrip[i] : false; const p = rt === true || String(rt).toLowerCase() === 'true' ? m * 2 : m; return Math.round(p * 10) / 10; })()"
+        />
+        <TableColumn
+          id="printOutRate"
+          label="Rate"
+          width={6}
+          align="center"
+          formula="(()=>{ const i = getCurrentRowIndex(); const raw = Array.isArray(outDate) ? outDate[i] : ''; const s = String(raw || ''); const mm = s.match(/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})/); const d = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(s) ? s.slice(0, 10) : (mm ? mm[3] + '-' + mm[1].padStart(2, '0') + '-' + mm[2].padStart(2, '0') : ''); if (!d) return ''; const ks = Object.keys(mileageRate).filter((k) => d >= k).sort(); return ks.length ? '$' + String(mileageRate[ks[ks.length - 1]]['rate']) : ''; })()"
+        />
+        <TableColumn
+          id="printOutAmount"
+          label="Amount"
+          width={10}
+          align="right"
+          sum
+          formula="(()=>{ const i = getCurrentRowIndex(); const num = (x) => { if (x == null || x === '') return 0; if (typeof x === 'number') return x; if (typeof x === 'object') { x = x.value != null ? x.value : (x.distance != null ? x.distance : (x.miles != null ? x.miles : '')); } const n = parseFloat(String(x).replace(/[^0-9.-]/g, '')); return isNaN(n) ? 0 : n; }; const m = num(Array.isArray(outMiles) ? outMiles[i] : ''); if (!m) return ''; const rt = Array.isArray(outRoundTrip) ? outRoundTrip[i] : false; const p = Math.round((rt === true || String(rt).toLowerCase() === 'true' ? m * 2 : m) * 10) / 10; const raw = Array.isArray(outDate) ? outDate[i] : ''; const s = String(raw || ''); const mm = s.match(/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})/); const d = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(s) ? s.slice(0, 10) : (mm ? mm[3] + '-' + mm[1].padStart(2, '0') + '-' + mm[2].padStart(2, '0') : ''); if (!d) return ''; const ks = Object.keys(mileageRate).filter((k) => d >= k).sort(); if (!ks.length) return ''; return toCurrency(p * parseFloat(mileageRate[ks[ks.length - 1]]['rate'])); })()"
+        />
+      </Table>
+    </Section>
+    <Section id="printTotals" marginTop={6} marginBottom={0}>
+      <Tile
+        id="printTotalsTile"
+        border
+        borderColor="#CFE6DD"
+        background="#F2F9F6"
+        columns={12}
+      >
+        <Tile
+          id="printCardMiles"
+          border
+          borderColor="#CFE6DD"
+          background="#FFFFFF"
+          columns={4}
+        >
+          <Text
+            id="printCardMilesText"
+            marginTop={8}
+            marginBottom={8}
+            columns={12}
+          >
+            <h2 style={{ textAlign: "center" }}>
+              <span style={{ color: "#016844", fontSize: 22 }}>
+                ##totalMiles##
+              </span>
+            </h2>
+            <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 11 }}>
+              Total Payable Miles
+            </p>
+          </Text>
+        </Tile>
+        <Tile
+          id="printCardRate"
+          border
+          borderColor="#CFE6DD"
+          background="#FFFFFF"
+          columns={4}
+        >
+          <Text
+            id="printCardRateText"
+            marginTop={8}
+            marginBottom={8}
+            columns={12}
+          >
+            <h2 style={{ textAlign: "center" }}>
+              <span style={{ color: "#016844", fontSize: 22 }}>##rate##</span>
+            </h2>
+            <p style={{ textAlign: "center", color: "#5A6B62", fontSize: 11 }}>
+              Rate in Effect
+            </p>
+          </Text>
+        </Tile>
+        <Tile
+          id="printCardAmount"
+          border
+          borderColor="#016844"
+          background="#016844"
+          columns={4}
+        >
+          <Text
+            id="printCardAmountText"
+            marginTop={8}
+            marginBottom={8}
+            columns={12}
+          >
+            <h2 style={{ textAlign: "center" }}>
+              <span style={{ color: "#FFFFFF", fontSize: 22 }}>##total##</span>
+            </h2>
+            <p style={{ textAlign: "center", color: "#FFFFFF", fontSize: 11 }}>
+              Total Reimbursement
+            </p>
+          </Text>
+        </Tile>
+      </Tile>
+    </Section>
+    <Section id="printCertification" marginTop={6} marginBottom={0}>
+      <Tile id="printCertBanner" background="#F2F9F6" columns={12}>
+        <Text id="printCertBannerText" columns={12}>
+          <div style={{ fontSize: 15, color: "#016844" }}>
+            <b>Employee Certification</b>
+          </div>
+        </Text>
+      </Tile>
+      <Text
+        id="printCertText"
+        margin={0}
+        marginTop={4}
+        marginBottom={0}
+        columns={12}
+      >
+        <p style={{ color: "#0B3B2C", fontSize: 12 }}>
+          I certify that the mileage recorded above is accurate and was driven
+          in the course of district business.
+        </p>
+      </Text>
+      <Text
+        id="printEmployeeSig"
+        margin={0}
+        marginTop={0}
+        marginBottom={4}
+        columns={8}
+      >
+        <p style={{ color: "#5A6B62", fontSize: 11 }}>Employee Signature</p>
+        <p>
+          <span style={{ fontFamily: "signature", fontSize: 26 }}>
+            ##signature##
+          </span>
+        </p>
+      </Text>
+      <Text
+        id="printEmployeeSigDate"
+        margin={0}
+        marginTop={0}
+        marginBottom={4}
+        columns={4}
+      >
+        <p style={{ color: "#5A6B62", fontSize: 11 }}>Date Signed</p>
+        <p style={{ color: "#0B3B2C" }}>##printSignedDate##</p>
+      </Text>
+    </Section>
+    <Section
+      id="printApprovals"
+      marginTop={6}
+      marginBottom={10}
+      border
+      borderColor="#CFE6DD"
+      background="#F8FBFA"
+    >
+      <Tile id="printApprovalsBanner" background="#F2F9F6" columns={12}>
+        <Text id="printApprovalsBannerText" columns={12}>
+          <div style={{ fontSize: 15, color: "#016844" }}>
+            <b>Approvals</b>
+          </div>
+        </Text>
+      </Tile>
+      <Tile id="printPrincipalTile" columns={12} display="signaturePrincipal">
+        <Text
+          id="printPrincipalSig"
+          margin={0}
+          marginTop={4}
+          marginBottom={0}
+          columns={8}
+        >
+          <p style={{ color: "#5A6B62", fontSize: 11 }}>
+            Principal Review, ##locationAdminName##
+          </p>
+          <p>
+            <span style={{ fontFamily: "signature", fontSize: 26 }}>
+              ##signaturePrincipal##
+            </span>
+          </p>
+        </Text>
+        <Text
+          id="printPrincipalSigDate"
+          margin={0}
+          marginTop={4}
+          marginBottom={0}
+          columns={4}
+        >
+          <p style={{ color: "#5A6B62", fontSize: 11 }}>Date Signed</p>
+          <p style={{ color: "#0B3B2C" }}>##printPrincipalSignedDate##</p>
+        </Text>
+      </Tile>
+      <Tile id="printDistrictTile" columns={12} display="signatureSupervisor">
+        <Text
+          id="printDistrictSig"
+          margin={0}
+          marginTop={4}
+          marginBottom={0}
+          columns={8}
+        >
+          <p style={{ color: "#5A6B62", fontSize: 11 }}>District Review</p>
+          <p>
+            <span style={{ fontFamily: "signature", fontSize: 26 }}>
+              ##signatureSupervisor##
+            </span>
+          </p>
+        </Text>
+        <Text
+          id="printDistrictSigDate"
+          margin={0}
+          marginTop={4}
+          marginBottom={0}
+          columns={4}
+        >
+          <p style={{ color: "#5A6B62", fontSize: 11 }}>Date Signed</p>
+          <p style={{ color: "#0B3B2C" }}>##printDistrictSignedDate##</p>
+        </Text>
+      </Tile>
+      <Text
+        id="printFinalApproval"
+        margin={0}
+        marginTop={4}
+        marginBottom={4}
+        columns={12}
+        display="currentStep() === 'completed'"
+      >
+        <p style={{ color: "#016844", fontSize: 12 }}>
+          <b>
+            Final approval recorded by the Business Office. Approved for
+            payment.
+          </b>
+        </p>
+      </Text>
+      <Text
+        id="printApprovalsPending"
+        margin={0}
+        marginTop={4}
+        marginBottom={4}
+        columns={12}
+        display="!signaturePrincipal && !signatureSupervisor && currentStep() !== 'completed' && currentStep() !== 'rejected'"
+      >
+        <p style={{ color: "#5A6B62", fontSize: 12 }}>
+          No approvals have been recorded yet.
+        </p>
+      </Text>
+    </Section>
+  </View>
+  <Actions
+    display="currentStep() === 'start'"
+    enableReject={false}
+    submitText="Submit Form"
+  />
+  <Actions
+    display="currentStep() !== 'start'"
+    submitText="Approve"
+    rejectText="Reject"
+  />
+</Form>

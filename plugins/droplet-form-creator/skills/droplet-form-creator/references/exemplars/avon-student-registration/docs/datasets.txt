@@ -1,0 +1,8 @@
+{
+  "local": {},
+  "global": {
+    "schoolsDepartments": {
+      "datasetId": "9ZQ36Y"
+    }
+  }
+}

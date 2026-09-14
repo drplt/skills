@@ -1,0 +1,113 @@
+{
+  "test": {},
+  "steps": {
+    "start": {
+      "onEnter": {},
+      "onSubmit": [
+        {
+          "target": "principalReview"
+        }
+      ],
+      "position": [
+        -96,
+        80
+      ]
+    },
+    "principalReview": {
+      "status": "pending",
+      "label": "Principal Review",
+      "onEnter": {
+        "assign": {
+          "nameElementId": "locationAdminName",
+          "emailElementId": "locationAdminEmail"
+        },
+        "if": {
+          "conditions": [
+            {
+              "elementId": "locationAdminEmail",
+              "comparator": "notEmpty"
+            }
+          ],
+          "action": "run"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "review"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        336,
+        80
+      ]
+    },
+    "review": {
+      "status": "pending",
+      "label": "District Review",
+      "onEnter": {
+        "assign": {
+          "name": "Parker Caldwell",
+          "email": "parker.caldwell@example.org"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "approval"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        784,
+        80
+      ]
+    },
+    "approval": {
+      "status": "pending",
+      "label": "Final Approval",
+      "onEnter": {
+        "assign": {
+          "name": "Sage Espinoza",
+          "email": "sage.espinoza@example.org"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "completed"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        1232,
+        80
+      ]
+    },
+    "completed": {
+      "status": "completed",
+      "position": [
+        1680,
+        -16
+      ]
+    },
+    "rejected": {
+      "status": "rejected",
+      "label": "Rejected",
+      "position": [
+        1680,
+        176
+      ]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "form": {
+    "name": "Conference Expense Report",
+    "description": "expense, out-of-pocket, refund, travel, mileage, event, tuition",
+    "loginRequired": true,
+    "submitAsLoggedIn": true
+  }
+}

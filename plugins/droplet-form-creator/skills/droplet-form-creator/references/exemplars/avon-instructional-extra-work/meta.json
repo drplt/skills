@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "form": {
+    "name": "Instructional Extra Work Form",
+    "description": "",
+    "loginRequired": true,
+    "submitAsLoggedIn": true
+  }
+}

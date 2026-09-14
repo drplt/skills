@@ -1,0 +1,7 @@
+{
+  "step1": {
+    "submittedByName": "fullName",
+    "school": "customAttribute1",
+    "submittedByEmail": "primaryEmail"
+  }
+}

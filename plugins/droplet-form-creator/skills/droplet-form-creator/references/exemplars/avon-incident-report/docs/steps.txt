@@ -1,0 +1,66 @@
+{
+  "start": {
+    "permissions": {
+      "submittedByName": "editable",
+      "submittedByEmail": "editable",
+      "personReporting": "editable",
+      "injuredPersonName": "editable",
+      "injuredPersonRole": "editable",
+      "grade": "editable",
+      "dateOfBirth": "editable",
+      "sex": "editable",
+      "injuredPersonAddress": "editable",
+      "injuredPersonPhone": "editable",
+      "dateOfIncident": "editable",
+      "placeOfIncident": "editable",
+      "reasonPresent": "editable",
+      "witnesses": "editable",
+      "incidentDescription": "editable",
+      "bodyParts": "editable",
+      "sideOfBody": "editable",
+      "treatmentGiven": "editable",
+      "treatmentGivenBy": "editable",
+      "additionalNotes": "editable",
+      "parentNotified": "editable",
+      "parentNotifiedBy": "editable",
+      "signature": "editable",
+      "signatureDate": "readonly",
+      "incidentReportId": "readonly",
+      "header": "readonly",
+      "logo": "readonly",
+      "formHeaderTitleText": "readonly",
+      "instructionsSection": "readonly",
+      "instructionsText": "readonly",
+      "reporterSection": "readonly",
+      "bannerReporter": "readonly",
+      "bannerReporterText": "readonly",
+      "injuredPersonSection": "readonly",
+      "bannerInjuredPerson": "readonly",
+      "bannerInjuredPersonText": "readonly",
+      "incidentDetailsSection": "readonly",
+      "bannerIncidentDetails": "readonly",
+      "bannerIncidentDetailsText": "readonly",
+      "injurySection": "readonly",
+      "bannerInjury": "readonly",
+      "bannerInjuryText": "readonly",
+      "parentNotificationSection": "readonly",
+      "bannerParentNotification": "readonly",
+      "bannerParentNotificationText": "readonly",
+      "certificationSection": "readonly",
+      "bannerCertification": "readonly",
+      "bannerCertificationText": "readonly",
+      "certificationText": "readonly",
+      "dateTimeParentNotified": "editable",
+      "locationOfIncident": "editable"
+    }
+  },
+  "completed": {
+    "permissions": {
+      "_actions": "hidden"
+    }
+  },
+  "incidentReview": {
+    "permissions": {},
+    "actions": {}
+  }
+}

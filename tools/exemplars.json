@@ -1,0 +1,72 @@
+{
+  "sources_root": "..",
+  "keep_domains": [
+    "example.org",
+    "example.com",
+    "dundermifflin.com"
+  ],
+  "extra_people": [
+    "Cortney Farley",
+    "Carl Monterone"
+  ],
+  "exemplars": [
+    {
+      "slug": "component-library",
+      "name": "Component Library",
+      "source": "Component Library.drplt",
+      "complexity": "Low",
+      "shows": "Every basic component with minimal props on a single-step form. Read first if the layout syntax is new."
+    },
+    {
+      "slug": "building-use-request",
+      "name": "Building Use Request",
+      "source": "Building Use Request.drplt",
+      "complexity": "Medium",
+      "shows": "One approval step, dataset-driven dropdowns, profile auto-fill through attributes, a validate conditions object, a hidden section of computed fields, and a sheet integration on completed."
+    },
+    {
+      "slug": "peekskill-facilities-request",
+      "name": "Peekskill Request for Use of Facilities",
+      "source": "American Prep Mileage Reimbursement/Peekskill Request for Use of Facilities (reference).drplt",
+      "complexity": "High",
+      "shows": "Sequential superintendent, athletic director, and theater reviews, each able to send the request back to start or reject it, then a request-entry step assigned per building from a dataset through a legacy expression assign, with a full set of notification emails."
+    },
+    {
+      "slug": "avon-incident-report",
+      "name": "Incident Report (Avon)",
+      "source": "AVON/Incident Report",
+      "complexity": "Medium",
+      "shows": "A public form with no login, banner tiles per section, an Identifier, a dataset dropdown with an appended option, date min and max rules, one review step with its own Actions bar, and an FYI notification with the submission PDF attached."
+    },
+    {
+      "slug": "avon-mileage-reimbursement",
+      "name": "Mileage Reimbursement (Avon)",
+      "source": "AVON/Mileage Reimbursement",
+      "complexity": "High",
+      "shows": "Two trip tables with distance columns, a per-row mileage rate looked up by effective date, a principal step skipped through onEnter.if when no principal exists, two static approvers, reject to terminal, notifications carrying the reject reason, and a print view built with View wrappers and mirrored read-only tables."
+    },
+    {
+      "slug": "avon-student-registration",
+      "name": "Student Registration (Avon)",
+      "source": "AVON/Registration",
+      "complexity": "High",
+      "shows": "A long community-facing registration form: a grade selector that computes the school, sections gated by grade and gender, Checkbox tiles for health history, two signatures, registrar review, then parallel nurse and transportation substeps with the nurse assigned per building from a dataset.",
+      "note": "Drafted from a district's paper packet and not yet imported at the time of packaging; treat it as a pattern reference."
+    },
+    {
+      "slug": "avon-instructional-extra-work",
+      "name": "Instructional Extra Work Form (Avon)",
+      "source": "AVON/Paysheet",
+      "complexity": "Very high",
+      "shows": "One form that reshapes itself from a type-of-work selector: sessions tables or a pay-period grid, fiscal-year rate lookups, a pay calendar dataset, a running hours ledger read from a dataset with per-year buckets, a chain of up to five approvers with per-step skip flags, a frozen expected pay date anchored on the signature timestamp, and outbound webhooks on start and rejected that write the ledger back.",
+      "note": "Webhook endpoints, tokens, and connection ids are placeholders; the ledger write-back needs an external script."
+    },
+    {
+      "slug": "conference-expense-report",
+      "name": "Conference Expense Report",
+      "source": "Conference Expense Report.drplt",
+      "complexity": "High",
+      "shows": "Multi-table expense math with getCell and sum, a date-range generator, per-diem lookups from datasets, mileage through Distance, dynamic approver assignment with self-approval prevention, onEnter.if to skip steps, hidden computed sections, and return-to-submitter routing."
+    }
+  ]
+}

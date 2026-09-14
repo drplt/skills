@@ -1,0 +1,162 @@
+<Form color="#0084ff">
+  <Section
+    id="sectionFormHeader"
+    marginBottom={7.5}
+    marginTop={7.5}
+    wide
+    border={false}
+    clear={false}
+  >
+    <Image
+      src="https://demo1.api.droplet.io/v1/assets/drplt-fi-p-7JPKg0-oVz9x3-7r7wlOQ8oVT4pwrmklvYS6V8DXN-1780-668.png"
+      columns={12}
+      align="center"
+      width={50}
+    />
+  </Section>
+  <Section id="section2" display="currentStep() === 'start'">
+    <Image
+      id="image1"
+      src="https://demo1.api.droplet.io/v1/assets/drplt-fi-p-7JPKg0-oVz9x3-YKZWQlVqE4FMEgD4p80kIqAPBKl-3995-1029.png"
+      columns={12}
+    />
+  </Section>
+  <Section id="section3">
+    <Spacer id="spacerTop" columns={12} />
+  </Section>
+  <Section
+    id="sectionInstructions"
+    marginBottom={10}
+    marginTop={10}
+    wide
+    border={false}
+    background="#EBF4FF"
+    clear={false}
+  >
+    <Text
+      id="text3"
+      margin={0}
+      marginLeft={0}
+      marginRight={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={9}
+    >
+      <div style={{ color: "#000235", textAlign: "left" }}>
+        <h3>
+          <b>Instructions</b>
+        </h3>
+        <p>Submit this form to request to use space on one of our campuses.</p>
+      </div>
+    </Text>
+    <Identifier
+      id="submissionId"
+      label="Submission ID"
+      mode="auto"
+      columns={3}
+    />
+  </Section>
+  <Section>
+    <Input id="submittedByName" label="Submitter Name" columns={6} />
+    <Input
+      id="submittedByEmail"
+      label="Submitter Email"
+      type="email"
+      columns={6}
+      validate={{
+        conditions: [
+          {
+            elementId: "submittedByEmail",
+            comparator: "includes",
+            value: "@example.com",
+          },
+        ],
+        action: "valid",
+      }}
+    />
+    <Dropdown
+      id="school"
+      label="Location"
+      columns={4}
+      options="Object['keys'](schools)"
+    />
+    <Dropdown
+      id="club"
+      label="Student Club"
+      hint="If you are reserving a space on behalf of a student club, please select your club."
+      columns={4}
+      options="[...schools[school].clubs, { label: 'Other', value: 'Other' }]"
+      display="school && !school.includes('Elementary')"
+      required={false}
+    />
+    <Input
+      id="input1"
+      label="Specify Other"
+      columns={4}
+      display={{
+        conditions: [
+          { elementId: "club", comparator: "equal", value: "Other" },
+        ],
+        action: "show",
+      }}
+    />
+    <Datetime id="datetime1" label="Event Date" columns={4} />
+    <Computed
+      id="computed1"
+      label="Computed"
+      columns={6}
+      formula="multiply(5, 6)"
+    />
+  </Section>
+  <Section id="section4">
+    <Checkbox
+      id="checkbox1"
+      label="Which spaces on campus?"
+      columns={12}
+      horizontal
+      minWidth={180}
+      options={[
+        "Auditorium",
+        "Cafeteria",
+        "Gymnasium",
+        "Locker Room",
+        "Office Areas",
+        "Pool",
+      ]}
+    />
+  </Section>
+  <Section>
+    <Signature id="signature1" label="Signature" columns={4} />
+  </Section>
+  <Actions rejectText="Deny" />
+  <Section id="section1">
+    <Spacer id="spacer1" columns={12} height={50} />
+  </Section>
+  <Section
+    id="sectionComputedFields"
+    wide
+    border={false}
+    background="#F5EDFD"
+    display="false"
+  >
+    <Text
+      id="textComputedFields"
+      margin={0}
+      marginLeft={0}
+      marginRight={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={12}
+    >
+      <div style={{ color: "#330A5C", textAlign: "left" }}>
+        <h3>
+          <b>Computed Fields</b>
+        </h3>
+        <p>
+          Use this section to cleanly organize computed fields. Anything in this
+          purple section will not be visible at any step.
+        </p>
+      </div>
+    </Text>
+  </Section>
+</Form>

@@ -1,0 +1,6 @@
+{
+  "start": {
+    "submittedByName": "fullName",
+    "submittedByEmail": "primaryEmail"
+  }
+}

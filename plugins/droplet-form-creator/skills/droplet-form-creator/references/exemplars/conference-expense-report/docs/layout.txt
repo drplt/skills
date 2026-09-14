@@ -1,0 +1,954 @@
+<Form color="#203E7C">
+  <Section id="header">
+    <Image
+      id="logo"
+      src="https://api.droplet.io/v1/assets/drplt-fi-p-WlxJ4W-02Oz1y-75YKNn66M1C0lXAJLn46CJBGOVO-329-125.png"
+      columns={4}
+    />
+    <Text
+      id="formHeaderTitleText"
+      marginLeft={0}
+      marginRight={0}
+      marginTop={25}
+      marginBottom={10}
+      columns={8}
+    >
+      <h1 style={{ textAlign: "right" }}>
+        <b>
+          <span style={{ color: "#203E7C", fontSize: 24 }}>
+            Conference Expense Report
+          </span>
+        </b>
+      </h1>
+    </Text>
+    <Spacer columns={12} />
+  </Section>
+  <Section
+    id="rejectionSection"
+    marginBottom={10}
+    marginTop={10}
+    wide={false}
+    border
+    borderColor="#D64545"
+    background="#FDECEC"
+    display="_reason"
+    clear={false}
+  >
+    <Text
+      id="rejectionText"
+      margin={0}
+      marginLeft={0}
+      marginRight={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={12}
+    >
+      <p>
+        <b>Reason for Return/Reject</b>
+      </p>
+      <p>##_reason##</p>
+    </Text>
+  </Section>
+  <Section
+    id="instructionsSection"
+    marginBottom={10}
+    marginTop={10}
+    wide={false}
+    border
+    borderColor="#E0E0E0"
+    background="#F8F8F8"
+    clear={false}
+  >
+    <Text
+      id="instructionsText"
+      margin={0}
+      marginLeft={0}
+      marginRight={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={9}
+    >
+      <p>
+        Per Board of Education Regulations, this form must be filled out by the
+        participant within <b>30 days</b> of the completion of any
+        district-funded travel.
+      </p>
+    </Text>
+    <Identifier
+      id="reportID"
+      mode="auto"
+      columns={3}
+      formula="`CER${padStart(String(getSequenceId()-2), 7, '0')}`"
+    />
+  </Section>
+  <Section>
+    <Input id="submittedByName" label="Employee's Name" columns={5} />
+    <Input
+      id="submittedByEmail"
+      label="Employee's Email"
+      type="email"
+      columns={5}
+    />
+    <Input
+      id="employeeId"
+      label="Employee #"
+      mask="/(5)9"
+      placeholder="00000"
+      columns={2}
+    />
+    <Address
+      id="employeeAddress"
+      label="Employee's Mailing Address"
+      columns={12}
+    />
+    <Datetime id="date1" label="Conference Travel Start Date" columns={6} />
+    <Datetime
+      id="date2"
+      label="Conference Travel Return Date"
+      min={{ elementId: "date1" }}
+      columns={6}
+    />
+    <Textarea
+      id="purpose"
+      label="Nature/Purpose of Travel"
+      rows={2}
+      columns={12}
+    />
+  </Section>
+  <Section border>
+    <Dropdown
+      id="workLocation"
+      label="Work Location"
+      hint='Select the physical location at which you primarily report to work.  Your "homebase."'
+      columns={6}
+      options="Object.keys(schoolsDepartments).filter(key => schoolsDepartments[key].Type === 'Site').sort()"
+    />
+    <Dropdown
+      id="paymentLocation"
+      label="School/Department Responsible for Travel Expenses"
+      hint="Select the school or department who approved your travel and will be responsible for expenses."
+      columns={6}
+      options="Object.keys(schoolsDepartments).sort()"
+    />
+    <Address id="destinationAddress" label="Destination Address" columns={6} />
+    <Input
+      id="destinationZip"
+      label="Destination Zip Code"
+      mask="/9/9/9/9/9"
+      placeholder="00000"
+      hint="##zipCodeLabel##"
+      columns={3}
+    />
+    <Distance
+      id="distanceTraveled"
+      label="Distance (mi)"
+      columns={3}
+      startAddress="workLocationAddress"
+      endAddress="destinationAddress"
+      distanceUnits="mi"
+    />
+  </Section>
+  <Section id="section1" border>
+    <Tile id="tile4" columns={12}>
+      <Tile id="tile6" columns={12}>
+        <Dropdown
+          id="fundingSource"
+          label="Funding Source"
+          columns={3}
+          options={[
+            "District Funded",
+            "Grant Funded",
+            "Union Funded",
+            "Other/Unknown",
+          ]}
+        />
+        <Input
+          id="otherDescription"
+          label="Provide a description of how the travel is being funded."
+          columns={9}
+          display={{
+            conditions: [
+              {
+                elementId: "fundingSource",
+                comparator: "equal",
+                value: "Union Funded",
+              },
+            ],
+            action: "show",
+          }}
+        />
+        <Dropdown
+          id="budgetDescription"
+          label="Budget Description"
+          columns={8}
+          options="(Array.isArray(filteredCodes) ? filteredCodes : [filteredCodes])
+    .map(({ Description }) => Description)
+    .filter(Boolean)"
+          display="fundingSource !== 'Other/Unknown' &&
+  ((Array.isArray(filteredCodes) ? filteredCodes : [filteredCodes])
+    .map(({ Description }) => Description)
+    .filter(Boolean).length > 0)"
+        />
+      </Tile>
+      <Tile id="tile5" columns={9}>
+        <Computed
+          id="budgetCodeComputed"
+          label="Budget Code"
+          columns={9}
+          display={{
+            conditions: [
+              { elementId: "overrideBudgetCode", comparator: "truthy" },
+              {
+                elementId: "fundingSource",
+                comparator: "equal",
+                value: "Union Funded",
+              },
+            ],
+            operator: "or",
+            action: "hide",
+          }}
+          formula="filteredCodes.find(c => c.Description === budgetDescription)?.code"
+        />
+        <Input
+          id="budgetCodeManual"
+          label="Budget Code"
+          columns={9}
+          display={{
+            conditions: [
+              { elementId: "overrideBudgetCode", comparator: "truthy" },
+              {
+                elementId: "fundingSource",
+                comparator: "equal",
+                value: "Union Funded",
+              },
+            ],
+            operator: "or",
+            action: "show",
+          }}
+        />
+      </Tile>
+      <Boolean
+        id="overrideBudgetCode"
+        label="Administrative"
+        text="Override Budget Code"
+        columns={3}
+        display={{
+          conditions: [
+            {
+              elementId: "fundingSource",
+              comparator: "equal",
+              value: "Union Funded",
+            },
+          ],
+          action: "hide",
+        }}
+      />
+    </Tile>
+  </Section>
+  <Section marginTop={30} wide={false} border borderColor="#E3F3F1">
+    <Tile background="#F1F9F8" columns={12}>
+      <Text columns={12}>
+        <p>
+          <b>
+            <span style={{ color: "#1D9889" }}>
+              SECTION 1: Itemization of Daily Expenses
+            </span>
+          </b>
+        </p>
+      </Text>
+    </Tile>
+    <Table
+      id="dailyExpenses"
+      label="Expense Table"
+      hint="M&IE = Meals and Incidental Expenses; will be calculated automatically based on the table below."
+      initialRows={1}
+      displayRows="allDates.length"
+    >
+      <TableColumn
+        id="expenseDate"
+        label="Date"
+        width={10}
+        align="center"
+        bold
+        values={[
+          "##allDates[0]##",
+          "##allDates[1]##",
+          "##allDates[2]##",
+          "##allDates[3]##",
+          "##allDates[4]##",
+          "##allDates[5]##",
+          "##allDates[6]##",
+          "##allDates[7]##",
+          "##allDates[8]##",
+          "##allDates[9]##",
+        ]}
+      />
+      <TableColumn
+        id="driving"
+        label="Driving Expenses"
+        width={10}
+        formula="(()=>{
+  const date = getCell(expenseDate);
+  if (!date || !Array.isArray(allDates)) return toCurrency(0);
+
+  // Figure out the year of this expense date
+  const year = new Date(date).getFullYear();
+  const mileageRate =
+    mileageRateByYear && mileageRateByYear[year]
+      ? mileageRateByYear[year].rate
+      : 0;
+
+  // Is this the first or last day of the trip?
+  const isFirstOrLast =
+    allDates.length > 0 &&
+    (date === allDates[0] || date === allDates[allDates.length - 1]);
+
+  // Base mileage for this day (even if no driving table rows exist)
+  const baseMileage =
+    isFirstOrLast && distanceTraveled && mileageRate
+      ? distanceTraveled * mileageRate
+      : 0;
+
+  // Any additional driving entries for this date from the table
+  const extraFromTable = Array.isArray(drivingExpenseTable)
+    ? drivingExpenseTable.reduce((sum, row) => {
+        return row.drivingDate === date
+          ? sum + fromCurrency(row.drivingAmount)
+          : sum;
+      }, 0)
+    : 0;
+
+  return toCurrency(baseMileage + extraFromTable);
+})()"
+      />
+      <TableColumn
+        id="mie"
+        label="M&IE"
+        width={10}
+        mask="/{currency}"
+        formula='(()=>{
+  const date = getCell(expenseDate);
+  if (!date || !Array.isArray(table1) || !mieData || !Array.isArray(allDates)) {
+    return toCurrency(0);
+  }
+
+  // First/last day selection
+  const isFirstOrLast =
+    (allDates.length > 0 && date === allDates[0]) ||
+    (allDates.length > 0 && date === allDates[allDates.length - 1]);
+
+  const base = Number(isFirstOrLast ? mieData.firstLastDays : mieData.mieTotal) || 0;
+
+  // Locate meals row for this date
+  const mealsRow = table1.find(r => r.tableColumn1 === date) || {};
+
+  // Dropdown logic: "Purchased" = true
+  const isPurchased = (v) => String(v || "").trim().toLowerCase() === "purchased";
+
+  const b = isPurchased(mealsRow.breakfast);
+  const l = isPurchased(mealsRow.lunch);
+  const d = isPurchased(mealsRow.dinner);
+
+  // If all three purchased, no deductions; otherwise deduct any not purchased meals
+  const deduction = (b && l && d)
+    ? 0
+    : (!b ? Number(mieData.breakfast) : 0)
+      + (!l ? Number(mieData.lunch) : 0)
+      + (!d ? Number(mieData.dinner) : 0);
+
+  const incidentalFloor = Number(mieData.incidentalExpenses) || 0;
+
+  // Never allow result to dip below incidental expenses
+  const allowed = Math.max(incidentalFloor, base - deduction);
+
+  return toCurrency(allowed);
+})()'
+      />
+      <TableColumn
+        id="lodging"
+        label="Hotel/Lodging"
+        width={10}
+        mask="/{currency}"
+      />
+      <TableColumn
+        id="registrationMisc"
+        label="Registration & Misc Expenses"
+        width={10}
+        mask="/{currency}"
+        formula="(()=>{
+  const date = getCell(expenseDate);
+  if (!date || !Array.isArray(registrationTable)) return toCurrency(0);
+
+  const total = registrationTable.reduce((sum, row) => {
+    return sum + (row.regDate === date ? fromCurrency(row.regAmount) : 0);
+  }, 0);
+
+  return toCurrency(total);
+})()"
+      />
+      <TableColumn
+        id="taxi"
+        label="Taxi/Shuttle"
+        width={10}
+        mask="/{currency}"
+      />
+      <TableColumn
+        id="total"
+        label="Daily Total"
+        width={12}
+        background="#E3F3F1"
+        sum
+        formula="sum(getCell(driving), getCell(mie), getCell(lodging), getCell(registrationMisc), getCell(taxi))"
+      />
+    </Table>
+    <Table
+      id="table1"
+      label="Meals"
+      initialRows={1}
+      displayRows="allDates.length"
+    >
+      <TableColumn
+        id="tableColumn1"
+        label="Date"
+        width={10}
+        align="center"
+        bold
+        values={[
+          "##allDates[0]##",
+          "##allDates[1]##",
+          "##allDates[2]##",
+          "##allDates[3]##",
+          "##allDates[4]##",
+          "##allDates[5]##",
+          "##allDates[6]##",
+          "##allDates[7]##",
+          "##allDates[8]##",
+          "##allDates[9]##",
+        ]}
+      />
+      <TableColumn
+        id="breakfast"
+        type="dropdown"
+        label="Breakfast"
+        hideSearch
+        options={["Purchased", "Did Not Purchase"]}
+        required
+      />
+      <TableColumn
+        id="lunch"
+        type="dropdown"
+        label="Lunch"
+        hideSearch
+        options={["Purchased", "Did Not Purchase"]}
+        required
+      />
+      <TableColumn
+        id="dinner"
+        type="dropdown"
+        label="Dinner"
+        hideSearch
+        options={["Purchased", "Did Not Purchase"]}
+        required
+      />
+    </Table>
+    <Table
+      id="drivingExpenseTable"
+      label="Driving Expenses (not taxi or shuttle)"
+      hint="Use the + icon to the right to create additional rows."
+      initialRows={1}
+      display="date1 && date2"
+    >
+      <TableColumn
+        id="drivingDate"
+        type="dropdown"
+        label="Date"
+        width={15}
+        hideSearch
+        options="allDates"
+        validate="getCell(drivingAmount) ? getCell(value) : true"
+      />
+      <TableColumn id="drivingDescription" label="Description" />
+      <TableColumn id="drivingAmount" label="Amount" mask="/{currency}" />
+    </Table>
+    <Table
+      id="registrationTable"
+      label="Registration and Approved Miscellanous Expenses"
+      hint="Use the + icon to the right to create additional rows."
+      initialRows={1}
+      display="date1 && date2"
+    >
+      <TableColumn
+        id="regDate"
+        type="dropdown"
+        label="Date"
+        width={15}
+        hideSearch
+        options="allDates"
+        validate="(getCell(regDate) || getCell(regDescription) || getCell(regAmount)) ? value : false"
+      />
+      <TableColumn
+        id="regDescription"
+        label="Description"
+        validate="(getCell(regDate) || getCell(regDescription) || getCell(regAmount)) ? value : false"
+      />
+      <TableColumn
+        id="regAmount"
+        label="Amount"
+        mask="/{currency}"
+        validate="(getCell(regDate) || getCell(regDescription) || getCell(regAmount)) ? value : false"
+      />
+    </Table>
+    <Tile background="#E3F3F1" columns={12}>
+      <Text columns={12}>
+        <p style={{ textAlign: "right" }}>
+          <b>
+            <span style={{ color: "#203E7C", fontSize: 18 }}>
+              Total Cost of Conference: ##totalCostOfConference##
+            </span>
+          </b>
+        </p>
+      </Text>
+    </Tile>
+  </Section>
+  <Section marginTop={30} wide={false} border borderColor="#E3F3F1">
+    <Tile background="#F1F9F8" columns={12}>
+      <Text columns={12}>
+        <p>
+          <b>
+            <span style={{ color: "#1D9889" }}>
+              SECTION 2: Employee Reimbursement/Responsibility
+            </span>
+          </b>
+        </p>
+      </Text>
+    </Tile>
+    <Tile id="tile1" columns={6}>
+      <Text id="text1" marginTop={20} columns={6}>
+        <p>
+          <b>
+            <span style={{ fontSize: 16 }}>
+              Items Paid Directly by District
+            </span>
+          </b>
+        </p>
+      </Text>
+      <Text marginLeft={20} marginTop={20} columns={3}>
+        <p>
+          <b>Air Travel</b>
+        </p>
+      </Text>
+      <Input id="airTravel" mask="/{currency}" columns={3} />
+      <Text marginLeft={20} marginTop={20} columns={3}>
+        <p>
+          <b>Car Rental</b>
+        </p>
+      </Text>
+      <Input id="carRental" mask="/{currency}" columns={3} />
+      <Text marginLeft={20} marginTop={20} columns={3}>
+        <p>
+          <b>Registration</b>
+        </p>
+      </Text>
+      <Input id="registration" mask="/{currency}" columns={3} />
+      <Text marginLeft={20} marginTop={20} columns={3}>
+        <p>
+          <b>Other</b>
+        </p>
+      </Text>
+      <Input id="other" mask="/{currency}" columns={3} />
+      <Text marginLeft={20} marginTop={20} columns={3}>
+        <p>
+          <b>Total Directly Paid</b>
+        </p>
+      </Text>
+      <Computed
+        id="totalDirectlyPaid"
+        columns={3}
+        formula="toCurrency(sum(airTravel,registration,carRental,other))"
+      />
+    </Tile>
+    <Line id="line1" color="#F8F8F8" vertical />
+    <Tile id="tile2" columns={6}>
+      <Text id="text2" marginTop={20} columns={6}>
+        <p>
+          <b>
+            <span style={{ fontSize: 16 }}>
+              Employee Reimbursement/Responsibility
+            </span>
+          </b>
+        </p>
+      </Text>
+      <Text marginLeft={20} columns={3}>
+        <p>
+          <b>Total Cost of Conference</b>
+        </p>
+      </Text>
+      <Computed
+        id="totalCostOfConferenceDisplay"
+        columns={3}
+        formula="totalCostOfConference"
+      />
+      <Text marginLeft={20} columns={3}>
+        <p>
+          <b>Total Directly</b>
+        </p>
+        <p>
+          <b>Paid by District</b>
+        </p>
+      </Text>
+      <Computed
+        id="totalDirectlyPaidDisplay"
+        columns={3}
+        formula="totalDirectlyPaid"
+      />
+      <Text marginLeft={20} columns={3}>
+        <p>
+          <b>Out of Pocket Expenses</b>
+        </p>
+      </Text>
+      <Computed
+        id="outOfPocket"
+        columns={3}
+        formula="toCurrency(fromCurrency(totalCostOfConferenceDisplay)-fromCurrency(totalDirectlyPaidDisplay))"
+      />
+      <Text marginLeft={20} marginTop={20} columns={3}>
+        <p>
+          <b>Cash Advances</b>
+        </p>
+      </Text>
+      <Input id="cashAdvances" mask="/{currency}" columns={3} />
+      <Text marginLeft={20} marginTop={20} columns={3}>
+        <p>
+          <b>##reimbursementLabel##</b>
+        </p>
+      </Text>
+      <Computed
+        id="reimbursementDisplay"
+        columns={3}
+        formula="toCurrency(Math.abs(fromCurrency(outOfPocket) - fromCurrency(cashAdvances)))"
+      />
+    </Tile>
+    <Tile background="#203E7C" columns={12} display="reimbursement >= 0">
+      <Text columns={12}>
+        <p style={{ textAlign: "right" }}>
+          <b>
+            <span style={{ color: "#FFFFFF", fontSize: 18 }}>
+              Reimbursement Total ##reimbursementDisplay##
+            </span>
+          </b>
+        </p>
+      </Text>
+    </Tile>
+    <Tile background="#D64545" columns={12} display="reimbursement < 0">
+      <Text columns={12}>
+        <p style={{ textAlign: "right" }}>
+          <b>
+            <span style={{ color: "#FFFFFF", fontSize: 18 }}>
+              Employee Owes ##reimbursementDisplay##
+            </span>
+          </b>
+        </p>
+      </Text>
+    </Tile>
+    <Spacer id="spacer1" columns={12} height={32} />
+    <Upload
+      id="receipts"
+      label="Attach Receipts for All Expenses except Gas and Lodging"
+      hint="Except for Gas and Lodging, no expense will be reimbursed without sufficient documentation."
+      multiple
+      columns={12}
+      required={false}
+    />
+    <Text id="text3" columns={12}>
+      <p>
+        I confirm that I have attached receipts for <b>all</b> items for which I
+        have paid (except gas and lodging).
+      </p>
+    </Text>
+    <Signature id="employeeSig" label="Employee Signature" columns={8} />
+    <Timestamp
+      id="employeeSigDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [{ elementId: "employeeSig", comparator: "notEmpty" }],
+        action: "show",
+      }}
+    />
+    <Textarea
+      id="textarea1"
+      label="Comments"
+      placeholder="Optional"
+      rows={2}
+      columns={12}
+      required={false}
+    />
+  </Section>
+  <Section
+    id="section2"
+    marginTop={30}
+    wide={false}
+    border
+    borderColor="#E3F3F1"
+  >
+    <Tile background="#F1F9F8" columns={12}>
+      <Text columns={12}>
+        <p>
+          <b>
+            <span style={{ color: "#1D9889" }}>SECTION 3: Approvals</span>
+          </b>
+        </p>
+      </Text>
+    </Tile>
+    <Radio
+      id="nextAction"
+      label="Next Action"
+      columns={12}
+      horizontal
+      options={["Approve", "Return to Employee", "Permanently Reject"]}
+    />
+    <Signature
+      id="approverSignature"
+      label="Approver Signature"
+      columns={8}
+      display="value || (nextAction && nextAction === 'Approve')"
+    />
+    <Timestamp
+      id="signature1DateSigned"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [
+          { elementId: "approverSignature", comparator: "notEmpty" },
+        ],
+        action: "show",
+      }}
+    />
+    <Signature
+      id="grantApproverSignature"
+      label="Grant Approver Signature"
+      columns={8}
+      display="value || (nextAction && nextAction === 'Approve' && isGrant)"
+    />
+    <Timestamp
+      id="signature2DateSigned"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [
+          { elementId: "grantApproverSignature", comparator: "notEmpty" },
+        ],
+        action: "show",
+      }}
+    />
+    <Signature
+      id="accountsPayableSignature"
+      label="Accounts Payable Signature"
+      columns={8}
+      display="value || (nextAction && nextAction === 'Approve')"
+    />
+    <Timestamp
+      id="signature3DateSigned"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [
+          { elementId: "accountsPayableSignature", comparator: "notEmpty" },
+        ],
+        action: "show",
+      }}
+    />
+  </Section>
+  <Actions
+    display="currentStep() === 'start' || nextAction === 'Approve'"
+    enableReject={false}
+  />
+  <Actions
+    display="currentStep() !== 'start' && nextAction && nextAction !== 'Approve'"
+    enableSubmit={false}
+    rejectText="##nextAction##"
+  />
+  <Section
+    id="hiddenFields"
+    marginBottom={10}
+    marginTop={60}
+    wide={false}
+    border
+    borderColor="#E0E0E0"
+    background="#F8F8F8"
+    display={{ action: "alwaysHide" }}
+    clear={false}
+  >
+    <Text
+      id="hiddenText"
+      margin={0}
+      marginLeft={0}
+      marginRight={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={12}
+    >
+      <h3>
+        <b>Hidden Fields</b>
+      </h3>
+      <p>
+        The fields in this section are hidden from the end user and are only
+        used to power the form. Drag components here to hide them from users, or
+        move them out to make them visible.
+      </p>
+    </Text>
+    <Computed
+      id="workLocationAddress"
+      label="Work Location Address"
+      hint="This formula builds the address of the selected Work Location (from the Schools & Departments dataset)."
+      columns={3}
+      display={{ action: "alwaysHide" }}
+      formula="(()=>{
+
+const path = schoolsDepartments[workLocation]['Address'];
+return `${path.street}, ${path.city}, ${path.state} ${path.zipcode}`
+
+})()"
+    />
+    <Computed
+      id="mieData"
+      label="M&IE Data"
+      hint="This returns data from the destination zip code for M&IE values."
+      columns={3}
+      display={{ action: "alwaysHide" }}
+      formula='(()=>{
+const entry = Object.entries(mieRates).find(
+  ([, r]) => r.zipcodes?.includes(destinationZip)
+);
+
+const result = entry
+  ? { city: entry[0], ...Object.fromEntries(Object.entries(entry[1]).filter(([k]) => k !== "zipcodes")) }
+  : { city: "Standard Rate", ...Object.fromEntries(Object.entries(mieRates["Standard Rate"]).filter(([k]) => k !== "zipcodes")) };
+
+  return result;
+})()'
+    />
+    <Computed
+      id="zipCodeLabel"
+      label="Zip Code Label"
+      hint="This formula shows the GSA M&IE area associated with the destination zip code"
+      columns={3}
+      formula="destinationZip.length == 5 ? mieData.city + ' Area' : 'Enter a 5-digit zip code.'"
+    />
+    <Computed
+      id="rate"
+      label="Mileage Rate"
+      hint="Edit this value to update the current mileage rate"
+      columns={3}
+      formula="'$0.70'"
+    />
+    <Computed
+      id="totalCostOfConference"
+      label="Total Cost of Conference"
+      hint="This formula calculates the total cost of the conference, based upon the Daily Expenses table and any district-covered expenses."
+      columns={3}
+      formula="sum(total)"
+    />
+    <Computed
+      id="allDates"
+      label="All Dates"
+      hint="This formula generates a list of all dates between the conference start and end dates."
+      columns={3}
+      formula='(()=>{
+  if (!date1 || !date2) return [];
+
+  const start = new Date(date1 + "T00:00:00");
+  const end = new Date(date2 + "T00:00:00");
+
+  const days = Math.floor((end - start) / 86400000) + 1;
+
+  return Array.from({ length: days }, (_, i) => {
+    const d = new Date(start.getTime() + i * 86400000);
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    const yyyy = d.getFullYear();
+    return `${mm}/${dd}/${yyyy}`;
+  });
+})()'
+    />
+    <Computed
+      id="reimbursement"
+      label="Reimbursement Amount"
+      hint="This formula calculates the amount of the reimbursement as a numerical value (not formatted as currency)."
+      columns={3}
+      formula="fromCurrency(outOfPocket) - fromCurrency(cashAdvances)"
+    />
+    <Computed
+      id="reimbursementLabel"
+      label="Reimbursement Label"
+      hint='This formula will show "Reimbursement" if the employee is to be reimbursed.  Otherwise, will show "Employee Owes" if the reimbursement total is negative.'
+      columns={3}
+      formula="reimbursement > 0 ? 'Reimbursement' : 'Employee Owes'"
+    />
+    <Computed
+      id="filteredCodes"
+      label="Filtered Budget Codes"
+      columns={3}
+      formula="Object.entries(budgetCodes)
+  .filter(([code]) => code.split('-')[0] === String(locationCode) && code.split('-')[2] === '4086')
+  .map(([code, data]) => ({ code, ...data }))"
+    />
+    <Computed
+      id="budgetCode"
+      label="Budget Code"
+      hint="This will contain the computed budget code unless an admin has overridden the code manually."
+      columns={3}
+      formula="overrideBudgetCode ? budgetCodeManual : budgetCode"
+    />
+    <Computed
+      id="locationCode"
+      label="Location Code"
+      columns={3}
+      formula="schoolsDepartments[paymentLocation]['Location Code']"
+    />
+    <Tile id="tile3" columns={12}>
+      <Computed
+        id="approverName"
+        label="Approver Name"
+        columns={3}
+        formula="(submittedByEmail === budgetCodes[budgetCode]['Approver']['email']) ? budgetCodes[budgetCode]['Supervising Approver']['name'] : (budgetCodes[budgetCode]['Approver']['name'] || budgetCodes[budgetCode]['Supervising Approver']['name'])"
+      />
+      <Computed
+        id="approverEmail"
+        label="Approver Email"
+        columns={3}
+        formula="(submittedByEmail === budgetCodes[budgetCode]['Approver']['email']) ? budgetCodes[budgetCode]['Supervising Approver']['email'] : (budgetCodes[budgetCode]['Approver']['email'] || budgetCodes[budgetCode]['Supervising Approver']['email'])"
+      />
+      <Computed
+        id="isGrant"
+        label="Is Grant?"
+        columns={3}
+        formula="budgetCodes[budgetCode]['Grant Approver']['name'] ? true : false"
+      />
+      <Computed
+        id="grantApproverName"
+        label="Grant Approver Name"
+        columns={3}
+        formula="budgetCodes[budgetCode]['Grant Approver']['name']"
+      />
+      <Computed
+        id="grantApproverEmail"
+        label="Grant Approver Email"
+        columns={3}
+        formula="budgetCodes[budgetCode]['Grant Approver']['email']"
+      />
+      <Computed
+        id="apApproverName"
+        label="AP Approver Name"
+        columns={3}
+        formula="budgetCodes[budgetCode]['AP Approver']['name']"
+      />
+      <Computed
+        id="apApproverEmail"
+        label="AP Approver Email"
+        columns={3}
+        formula="budgetCodes[budgetCode]['AP Approver']['email']"
+      />
+    </Tile>
+  </Section>
+</Form>

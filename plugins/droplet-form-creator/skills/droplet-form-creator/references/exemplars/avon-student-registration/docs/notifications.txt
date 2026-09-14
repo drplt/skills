@@ -1,0 +1,77 @@
+{
+  "registrarReview": {
+    "onEnter": [
+      {
+        "type": "assignment",
+        "template": {
+          "subject": "Registration ##registrationId##: ##studentFirstName## ##studentLastName##, ##gradeLabel##",
+          "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>New Student Registration</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br /><b>##submittedByName##</b> submitted a registration for <b>##studentFirstName## ##studentLastName##</b> (##gradeLabel##, ##school##, ##schoolYear##).<br /><br />Review the registration, complete the Registrar section, and click Accept Registration to send it to the school nurse and transportation. Use Decline if the registration cannot be accepted, or Send Back to return it to the family for changes.</p></td></tr></table></td></tr><tr><td align='center'><a href='##assignmentUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>Review Registration</a></td></tr></table>"
+        }
+      },
+      {
+        "template": {
+          "subject": "We received your Avon registration for ##studentFirstName##",
+          "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Thank You</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br />Thank you for registering <b>##studentFirstName## ##studentLastName##</b> (##gradeLabel##, ##school##, ##schoolYear##) with the Avon Central School District. Your registration ID is <b>##registrationId##</b>.<br /><br />The Registrar will review your submission and reach out if anything else is needed. Questions can be directed to the Registrar at (585) 226-2455 ext. 1725 or lane.okafor@example.org.</p></td></tr></table></td></tr><tr><td align='center'><a href='##submissionUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>View Your Registration</a></td></tr></table>"
+        },
+        "sendToSubmitter": true,
+        "hidden": [
+          "districtSection",
+          "routingSection"
+        ]
+      }
+    ]
+  },
+  "nurseReview": {
+    "onEnter": {
+      "type": "assignment",
+      "template": {
+        "subject": "Health review needed: ##studentFirstName## ##studentLastName##, ##gradeLabel##",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Health Information Review</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br />The Registrar accepted a registration for <b>##studentFirstName## ##studentLastName##</b> (##gradeLabel##, ##school##, ##schoolYear##). The health information, health disclosure authorization, and health history are ready for your review.<br /><br />Physical form status: ##physicalStatus##.<br /><br />Add any nurse notes and click Mark Reviewed when finished.</p></td></tr></table></td></tr><tr><td align='center'><a href='##assignmentUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>Review Health Information</a></td></tr></table>"
+      }
+    }
+  },
+  "transportationReview": {
+    "onEnter": {
+      "type": "assignment",
+      "template": {
+        "subject": "Transportation plan needed: ##studentFirstName## ##studentLastName##, ##gradeLabel##",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Transportation Review</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br />The Registrar accepted a registration for <b>##studentFirstName## ##studentLastName##</b> (##gradeLabel##, ##school##, ##schoolYear##).<br /><br />Morning: ##amPlan##<br />Afternoon: ##pmPlan##<br /><br />Review the transportation plan, enter the bus route, sign to finalize, and click Mark Reviewed.</p></td></tr></table></td></tr><tr><td align='center'><a href='##assignmentUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>Review Transportation Plan</a></td></tr></table>"
+      }
+    }
+  },
+  "completed": {
+    "onEnter": [
+      {
+        "template": {
+          "subject": "##studentFirstName## is registered with Avon Central School District",
+          "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Registration Complete</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br />The registration for <b>##studentFirstName## ##studentLastName##</b> (##gradeLabel##, ##school##, ##schoolYear##) is complete. Welcome to Avon!<br /><br />The school will be in touch with next steps before the start of the school year. Questions can be directed to the Registrar at (585) 226-2455 ext. 1725 or lane.okafor@example.org.</p></td></tr></table></td></tr><tr><td align='center'><a href='##submissionUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>View Your Registration</a></td></tr></table>"
+        },
+        "sendToSubmitter": true,
+        "hidden": [
+          "districtSection",
+          "routingSection"
+        ]
+      },
+      {
+        "template": {
+          "subject": "Registration ##registrationId## completed: ##studentFirstName## ##studentLastName##",
+          "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Registration Complete</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br />The nurse and transportation reviews are finished for <b>##studentFirstName## ##studentLastName##</b> (##gradeLabel##, ##school##, ##schoolYear##). The registration is complete.</p></td></tr></table></td></tr><tr><td align='center'><a href='##submissionUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>View Registration</a></td></tr></table>"
+        },
+        "recipients": "[registrarEmail]"
+      }
+    ]
+  },
+  "rejected": {
+    "onEnter": {
+      "template": {
+        "subject": "Your Avon registration for ##studentFirstName## needs attention",
+        "body": "<table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;'><tr><td align='center' style='padding-bottom: 20px; font-family: Arial, sans-serif;'><img src='https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png' alt='Avon Central School District' style='display: block; min-width: 100px; max-width: 20%; height: auto;'></td></tr><tr><td align='center' style='padding-bottom: 20px;'><h1 style='font-size: 26px; color: #016844; font-weight: bold; margin: 0; font-family: sans-serif;'>Action Needed</h1></td></tr><tr><td align='center' style='padding-bottom: 20px;'><table width='100%' border='0' cellspacing='0' cellpadding='20' style='border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9;'><tr><td align='left'><p style='font-size: 16px; color: #555555; line-height: 1.5; margin: 0; font-family: sans-serif;'>Hi ##recipientFirstName##,<br /><br />The registration for <b>##studentFirstName## ##studentLastName##</b> (##gradeLabel##, ##school##, ##schoolYear##) could not be accepted.<br /><br /><b>Reason:</b> ##_reason##<br /><br />Contact the Registrar at (585) 226-2455 ext. 1725 or lane.okafor@example.org with any questions.</p></td></tr></table></td></tr><tr><td align='center'><a href='##submissionUrl##' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #016844; border-radius: 5px; text-decoration: none; font-family: sans-serif;'>View Your Registration</a></td></tr></table>"
+      },
+      "sendToSubmitter": true,
+      "hidden": [
+        "districtSection",
+        "routingSection"
+      ]
+    }
+  }
+}

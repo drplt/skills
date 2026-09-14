@@ -1,0 +1,306 @@
+{
+  "test": {},
+  "steps": {
+    "start": {
+      "onEnter": {
+        "sendToSubmitter": true
+      },
+      "onSubmit": [
+        {
+          "target": "michelleReview"
+        }
+      ],
+      "position": [
+        160,
+        80
+      ]
+    },
+    "michelleReview": {
+      "status": "pending",
+      "label": "Digital Systems",
+      "onEnter": {
+        "assign": {
+          "name": "Wren Hartigan",
+          "email": "wren.hartigan@example.org"
+        },
+        "if": {
+          "conditions": [
+            {
+              "elementId": "typeOfWork",
+              "comparator": "equal",
+              "value": "Grant Stipend"
+            },
+            {
+              "elementId": "subtype",
+              "comparator": "equal",
+              "value": "Tech & Learning Grant"
+            }
+          ],
+          "operator": "and",
+          "action": "run"
+        },
+        "scheduledActions": [
+          {
+            "type": "remind",
+            "when": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "repeating": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "notificationTemplateId": "michelleReviewReminder"
+          }
+        ]
+      },
+      "onSubmit": [
+        {
+          "target": "melissaReview"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        528,
+        80
+      ]
+    },
+    "melissaReview": {
+      "status": "pending",
+      "label": "Academic Programs",
+      "onEnter": {
+        "assign": {
+          "name": "Devin Kingsley",
+          "email": "devin.kingsley@example.org"
+        },
+        "if": {
+          "conditions": [
+            {
+              "elementId": "typeOfWork",
+              "comparator": "equal",
+              "value": "Curriculum Writing"
+            }
+          ],
+          "action": "run"
+        },
+        "scheduledActions": [
+          {
+            "type": "remind",
+            "when": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "repeating": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "notificationTemplateId": "melissaReviewReminder"
+          }
+        ]
+      },
+      "onSubmit": [
+        {
+          "target": "principalReview"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        880,
+        80
+      ]
+    },
+    "principalReview": {
+      "status": "pending",
+      "label": "Principal",
+      "onEnter": {
+        "assign": {
+          "nameElementId": "principalName",
+          "emailElementId": "principalEmail"
+        },
+        "if": {
+          "conditions": [
+            {
+              "elementId": "principalApplies",
+              "comparator": "truthy"
+            }
+          ],
+          "action": "run"
+        },
+        "scheduledActions": [
+          {
+            "type": "remind",
+            "when": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "repeating": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "notificationTemplateId": "principalReviewReminder"
+          }
+        ]
+      },
+      "onSubmit": [
+        {
+          "target": "christinaReview"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        1248,
+        80
+      ]
+    },
+    "christinaReview": {
+      "status": "pending",
+      "label": "Arden Montague",
+      "onEnter": {
+        "assign": {
+          "name": "Remy Montague",
+          "email": "remy.montague@example.org"
+        },
+        "if": {
+          "conditions": [
+            {
+              "elementId": "christinaApplies",
+              "comparator": "truthy"
+            }
+          ],
+          "action": "run"
+        },
+        "scheduledActions": [
+          {
+            "type": "remind",
+            "when": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "repeating": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "notificationTemplateId": "christinaReviewReminder"
+          }
+        ]
+      },
+      "onSubmit": [
+        {
+          "target": "ericReview"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        1600,
+        80
+      ]
+    },
+    "ericReview": {
+      "status": "pending",
+      "label": "Parker Caldwell",
+      "onEnter": {
+        "assign": {
+          "name": "Parker Caldwell",
+          "email": "parker.caldwell@example.org"
+        },
+        "scheduledActions": [
+          {
+            "type": "remind",
+            "when": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "repeating": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "notificationTemplateId": "ericReviewReminder"
+          }
+        ]
+      },
+      "onSubmit": [
+        {
+          "target": "katieReview"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        1960,
+        80
+      ]
+    },
+    "katieReview": {
+      "status": "pending",
+      "label": "Payroll",
+      "onEnter": {
+        "assign": {
+          "name": "Arden Okafor",
+          "email": "arden.okafor@example.org"
+        },
+        "scheduledActions": [
+          {
+            "type": "remind",
+            "when": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "repeating": {
+              "interval": 1,
+              "unit": "day"
+            },
+            "notificationTemplateId": "katieReviewReminder"
+          }
+        ]
+      },
+      "onSubmit": [
+        {
+          "target": "completed"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        2320,
+        80
+      ]
+    },
+    "completed": {
+      "status": "completed",
+      "position": [
+        2680,
+        0
+      ]
+    },
+    "rejected": {
+      "status": "rejected",
+      "label": "Rejected",
+      "position": [
+        2688,
+        208
+      ]
+    }
+  }
+}

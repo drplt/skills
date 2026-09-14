@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "form": {
+    "name": "Student Registration",
+    "description": "registration, enrollment, student, new student, housing questionnaire, home language questionnaire, health history, transportation, records request",
+    "loginRequired": false,
+    "submitAsLoggedIn": false
+  }
+}

@@ -1,0 +1,2428 @@
+<Form color="#016844">
+  <Section id="header" marginBottom={7.5} marginTop={7.5} wide>
+    <Image
+      id="logo"
+      src="https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png"
+      columns={3}
+      align="left"
+    />
+    <Text
+      id="formHeaderTitleText"
+      marginLeft={0}
+      marginRight={0}
+      marginTop={25}
+      marginBottom={10}
+      columns={9}
+    >
+      <h1 style={{ textAlign: "right" }}>Student Registration</h1>
+    </Text>
+  </Section>
+  <Section
+    id="instructionsSection"
+    marginBottom={10}
+    marginTop={10}
+    border
+    borderColor="#CFE6DD"
+    background="#F2F9F6"
+  >
+    <Text
+      id="instructionsText"
+      margin={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={9}
+    >
+      <div style={{ color: "#0B3B2C", textAlign: "left" }}>
+        <h3>
+          <span style={{ color: "#016844" }}>Welcome to Avon</span>
+        </h3>
+        <p>
+          Complete one registration for each child. Have your child's birth
+          certificate and proof of residency ready to upload. Questions can be
+          directed to the Registrar at (585) 226-2455 ext. 1725 or
+          lane.okafor@example.org.
+        </p>
+      </div>
+    </Text>
+    <Identifier
+      id="registrationId"
+      label="Registration ID"
+      mode="auto"
+      columns={3}
+      formula="`REG${padStart(String(getSequenceId()), 6, '0')}`"
+    />
+  </Section>
+  <Section id="submitterSection">
+    <Tile id="bannerSubmitter" background="#F2F9F6" columns={12}>
+      <Text id="bannerSubmitterText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Person Completing This Registration</b>
+        </div>
+      </Text>
+    </Tile>
+    <Input id="submittedByName" label="Your Name" columns={4} />
+    <Input id="submittedByEmail" label="Your Email" type="email" columns={4} />
+    <Dropdown
+      id="submitterRelationship"
+      label="Your Relationship to the Student"
+      columns={4}
+      options={[
+        "Mother",
+        "Father",
+        "Stepparent",
+        "Grandparent",
+        "Legal Guardian",
+        "Thornbury Parent",
+        "Other",
+      ]}
+      hideSearch
+    />
+  </Section>
+  <Section id="studentProfileSection" marginTop={10}>
+    <Tile id="bannerStudentProfile" background="#F2F9F6" columns={12}>
+      <Text id="bannerStudentProfileText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Student Profile</b>
+        </div>
+      </Text>
+    </Tile>
+    <Dropdown
+      id="schoolYear"
+      label="Registering for School Year"
+      columns={4}
+      options="(()=>{ const now = new Date(); const startYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1; return [startYear + '-' + (startYear + 1), (startYear + 1) + '-' + (startYear + 2)]; })()"
+      hideSearch
+    />
+    <Dropdown
+      id="grade"
+      label="Grade"
+      columns={4}
+      options={[
+        { PreK: "UPK (Pre-Kindergarten)" },
+        { K: "Kindergarten" },
+        { "1": "1" },
+        { "2": "2" },
+        { "3": "3" },
+        { "4": "4" },
+        { "5": "5" },
+        { "6": "6" },
+        { "7": "7" },
+        { "8": "8" },
+        { "9": "9" },
+        { "10": "10" },
+        { "11": "11" },
+        { "12": "12" },
+      ]}
+      hideSearch
+    />
+    <Computed
+      id="school"
+      label="School"
+      columns={4}
+      formula="(()=>{
+  if (!grade) return '';
+  const match = Object.keys(schoolsDepartments).find(key => (schoolsDepartments[key]['Grades'] || []).indexOf(grade) !== -1);
+  return match || '';
+})()"
+    />
+    <Computed
+      id="gradeLabel"
+      label="Grade Label"
+      columns={3}
+      formula="grade === 'PreK' ? 'UPK' : grade === 'K' ? 'Kindergarten' : grade ? 'Grade ' + grade : ''"
+      display={{ action: "alwaysHide" }}
+    />
+    <Radio
+      id="attendedAvonBefore"
+      label="Has your child ever attended Avon before?"
+      columns={6}
+      horizontal
+      options={["Yes", "No"]}
+    />
+    <Input
+      id="lastAvonYear"
+      label="Most Recent Year Attended Avon"
+      placeholder="2023-2024"
+      columns={6}
+      display={{
+        conditions: [
+          { elementId: "attendedAvonBefore", comparator: "equal", value: "Yes" },
+        ],
+        action: "show",
+      }}
+      clear
+    />
+  </Section>
+  <Section id="studentInfoSection" marginTop={10}>
+    <Tile id="bannerStudentInfo" background="#F2F9F6" columns={12}>
+      <Text id="bannerStudentInfoText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Student Information</b>
+        </div>
+      </Text>
+    </Tile>
+    <Input id="studentFirstName" label="First Name" columns={4} />
+    <Input
+      id="studentMiddleName"
+      label="Middle Name"
+      columns={4}
+      required={false}
+    />
+    <Input id="studentLastName" label="Last Name" columns={4} />
+    <Input
+      id="studentNickname"
+      label="Nickname"
+      columns={4}
+      required={false}
+    />
+    <Radio
+      id="studentGender"
+      label="Gender"
+      columns={4}
+      horizontal
+      options={["Female", "Male", "X"]}
+    />
+    <Input
+      id="studentPrimaryLanguage"
+      label="Primary Language"
+      columns={4}
+      initialValue="English"
+    />
+    <Datetime
+      id="studentBirthdate"
+      label="Birthdate"
+      min={{
+        adjustment: { years: 22 },
+        adjustor: "subtract",
+        specialDate: "now",
+      }}
+      max={{
+        adjustment: { years: 3 },
+        adjustor: "subtract",
+        specialDate: "now",
+      }}
+      columns={4}
+    />
+    <Computed
+      id="studentAge"
+      label="Age"
+      columns={2}
+      formula="(()=>{
+  if (!studentBirthdate) return '';
+  const dob = new Date(studentBirthdate + 'T00:00:00');
+  const now = new Date();
+  let age = now.getFullYear() - dob.getFullYear();
+  const beforeBirthday = now.getMonth() < dob.getMonth() || (now.getMonth() === dob.getMonth() && now.getDate() < dob.getDate());
+  if (beforeBirthday) age -= 1;
+  return age >= 0 ? String(age) : '';
+})()"
+    />
+    <Input
+      id="studentBirthplace"
+      label="Birthplace"
+      placeholder="City, State"
+      columns={6}
+    />
+    <Upload
+      id="birthCertificate"
+      label="Birth Certificate"
+      text="Upload birth certificate"
+      columns={6}
+    />
+    <Radio
+      id="studentEthnicity"
+      label="Is the student Hispanic or Latino?"
+      columns={6}
+      horizontal
+      options={["Yes", "No"]}
+    />
+    <Checkbox
+      id="studentRace"
+      label="Race"
+      hint="Select all that apply."
+      columns={12}
+      horizontal
+      minWidth={220}
+      options={[
+        "American Indian or Alaska Native",
+        "Asian",
+        "Black or African American",
+        "Native Hawaiian or Other Pacific Islander",
+        "White",
+      ]}
+    />
+  </Section>
+  <Section id="studentAddressSection" marginTop={10}>
+    <Tile id="bannerStudentAddress" background="#F2F9F6" columns={12}>
+      <Text id="bannerStudentAddressText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Student Address</b>
+        </div>
+      </Text>
+    </Tile>
+    <Dropdown
+      id="livesWith"
+      label="The student lives with"
+      columns={4}
+      options={[
+        "Both Parents",
+        "Mother",
+        "Father",
+        "Legal Guardian",
+        "Grandparent(s)",
+        "Thornbury Parent(s)",
+        "Other",
+      ]}
+      hideSearch
+    />
+    <Input
+      id="livesWithOther"
+      label="Please Describe"
+      columns={8}
+      display={{
+        conditions: [{ elementId: "livesWith", comparator: "equal", value: "Other" }],
+        action: "show",
+      }}
+      clear
+    />
+    <Address id="studentAddress" label="Physical Address" columns={8} />
+    <Radio
+      id="mailingDifferent"
+      label="Is the mailing address different?"
+      columns={4}
+      horizontal
+      options={["Yes", "No"]}
+    />
+    <Address
+      id="mailingAddress"
+      label="Mailing Address"
+      columns={8}
+      display={{
+        conditions: [
+          { elementId: "mailingDifferent", comparator: "equal", value: "Yes" },
+        ],
+        action: "show",
+      }}
+      clear
+    />
+  </Section>
+  <Section
+    id="summarySection"
+    marginTop={10}
+    display={{
+      conditions: [
+        { elementId: "studentFirstName", comparator: "notEmpty" },
+        { elementId: "studentLastName", comparator: "notEmpty" },
+        { elementId: "grade", comparator: "notEmpty" },
+      ],
+      operator: "and",
+      action: "show",
+    }}
+  >
+    <Tile
+      id="summaryTile"
+      border
+      borderColor="#CFE6DD"
+      background="#F2F9F6"
+      columns={12}
+    >
+      <Text id="summaryText" columns={12} marginTop={4} marginBottom={4}>
+        <p style={{ color: "#0B3B2C", fontSize: 15, textAlign: "center" }}>
+          Registering <b>##studentFirstName## ##studentLastName##</b> for{" "}
+          <b>##gradeLabel##</b> at <b>##school##</b> for the ##schoolYear##{" "}
+          school year.
+        </p>
+      </Text>
+    </Tile>
+  </Section>
+  <Section id="householdSection" marginTop={10}>
+    <Tile id="bannerHousehold" background="#F2F9F6" columns={12}>
+      <Text id="bannerHouseholdText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Parents and Guardians</b>
+        </div>
+      </Text>
+    </Tile>
+    <Tile id="parent1Tile" border borderColor="#E3EFE9" columns={12}>
+      <Text id="parent1Heading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Parent or Guardian 1</b> (lives with the student)
+        </p>
+      </Text>
+      <Input id="parent1FirstName" label="First Name" columns={4} />
+      <Input id="parent1LastName" label="Last Name" columns={4} />
+      <Dropdown
+        id="parent1Relationship"
+        label="Relationship to Student"
+        columns={4}
+        options={[
+          "Mother",
+          "Father",
+          "Stepmother",
+          "Stepfather",
+          "Grandmother",
+          "Grandfather",
+          "Legal Guardian",
+          "Thornbury Parent",
+          "Other",
+        ]}
+        hideSearch
+      />
+      <Boolean
+        id="parent1SameAddress"
+        label="Address"
+        text="Same as the student's address"
+        columns={4}
+        initialValue
+      />
+      <Address
+        id="parent1Address"
+        label="Address"
+        columns={8}
+        display={{
+          conditions: [{ elementId: "parent1SameAddress", comparator: "falsy" }],
+          action: "show",
+        }}
+        clear
+      />
+      <Input
+        id="parent1Phone"
+        label="Primary Phone"
+        mask="/{phone}"
+        placeholder="(   )    -"
+        columns={4}
+      />
+      <Dropdown
+        id="parent1PhoneType"
+        label="Phone Type"
+        columns={2}
+        options={["Cell", "Home", "Work"]}
+        hideSearch
+      />
+      <Input id="parent1Email" label="Email" type="email" columns={6} />
+      <Radio
+        id="parent1PortalAccess"
+        label="Parent portal access?"
+        columns={3}
+        horizontal
+        options={["Yes", "No"]}
+      />
+      <Dropdown
+        id="parent1MaritalStatus"
+        label="Marital Status"
+        columns={3}
+        options={[
+          "Married",
+          "Single",
+          "Divorced",
+          "Separated",
+          "Widowed",
+          "Domestic Partner",
+        ]}
+        hideSearch
+      />
+      <Dropdown
+        id="parent1Custody"
+        label="Custody"
+        columns={3}
+        options={["N/A", "Joint", "Sole", "Other"]}
+        hideSearch
+      />
+      <Input
+        id="parent1PrimaryLanguage"
+        label="Primary Language"
+        columns={3}
+        initialValue="English"
+      />
+      <Radio
+        id="parent1ArmedForces"
+        label="Active member of the Armed Forces?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+      />
+      <Radio
+        id="parent1Mailings"
+        label="Receives district mailings?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+        initialValue="Yes"
+      />
+      <Upload
+        id="custodyPaperwork"
+        label="Custody Paperwork"
+        text="Upload custody order or agreement"
+        columns={6}
+        multiple
+        display={{
+          conditions: [
+            { elementId: "parent1Custody", comparator: "equal", value: "Joint" },
+            { elementId: "parent1Custody", comparator: "equal", value: "Sole" },
+            { elementId: "parent1Custody", comparator: "equal", value: "Other" },
+          ],
+          operator: "or",
+          action: "show",
+        }}
+        clear
+      />
+    </Tile>
+    <Radio
+      id="hasSecondParent"
+      label="Is there a second parent, guardian, or other adult living with the student?"
+      columns={12}
+      horizontal
+      options={["Yes", "No"]}
+    />
+    <Tile
+      id="parent2Tile"
+      border
+      borderColor="#E3EFE9"
+      columns={12}
+      display={{
+        conditions: [
+          { elementId: "hasSecondParent", comparator: "equal", value: "Yes" },
+        ],
+        action: "show",
+      }}
+    >
+      <Text id="parent2Heading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Parent, Guardian, or Other Adult 2</b> (lives with the student)
+        </p>
+      </Text>
+      <Input id="parent2FirstName" label="First Name" columns={4} clear />
+      <Input id="parent2LastName" label="Last Name" columns={4} clear />
+      <Dropdown
+        id="parent2Relationship"
+        label="Relationship to Student"
+        columns={4}
+        options={[
+          "Mother",
+          "Father",
+          "Stepmother",
+          "Stepfather",
+          "Grandmother",
+          "Grandfather",
+          "Legal Guardian",
+          "Thornbury Parent",
+          "Other Adult",
+        ]}
+        hideSearch
+        clear
+      />
+      <Boolean
+        id="parent2SameAddress"
+        label="Address"
+        text="Same as the student's address"
+        columns={4}
+        initialValue
+      />
+      <Address
+        id="parent2Address"
+        label="Address"
+        columns={8}
+        display={{
+          conditions: [{ elementId: "parent2SameAddress", comparator: "falsy" }],
+          action: "show",
+        }}
+        clear
+      />
+      <Input
+        id="parent2Phone"
+        label="Primary Phone"
+        mask="/{phone}"
+        placeholder="(   )    -"
+        columns={4}
+        clear
+      />
+      <Dropdown
+        id="parent2PhoneType"
+        label="Phone Type"
+        columns={2}
+        options={["Cell", "Home", "Work"]}
+        hideSearch
+        clear
+      />
+      <Input
+        id="parent2Email"
+        label="Email"
+        type="email"
+        columns={6}
+        clear
+      />
+      <Radio
+        id="parent2PortalAccess"
+        label="Parent portal access?"
+        columns={3}
+        horizontal
+        options={["Yes", "No"]}
+        clear
+      />
+      <Dropdown
+        id="parent2MaritalStatus"
+        label="Marital Status"
+        columns={3}
+        options={[
+          "Married",
+          "Single",
+          "Divorced",
+          "Separated",
+          "Widowed",
+          "Domestic Partner",
+        ]}
+        hideSearch
+        clear
+      />
+      <Dropdown
+        id="parent2Custody"
+        label="Custody"
+        columns={3}
+        options={["N/A", "Joint", "Sole", "Other"]}
+        hideSearch
+        clear
+      />
+      <Input
+        id="parent2PrimaryLanguage"
+        label="Primary Language"
+        columns={3}
+        initialValue="English"
+        clear
+      />
+      <Radio
+        id="parent2ArmedForces"
+        label="Active member of the Armed Forces?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+        clear
+      />
+      <Radio
+        id="parent2Mailings"
+        label="Receives district mailings?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+        initialValue="Yes"
+        clear
+      />
+    </Tile>
+    <Radio
+      id="firstEmergencyContact"
+      label="Who should be contacted first in an emergency?"
+      columns={12}
+      horizontal
+      options={["Parent or Guardian 1", "Parent, Guardian, or Adult 2"]}
+      initialValue="Parent or Guardian 1"
+      display={{
+        conditions: [
+          { elementId: "hasSecondParent", comparator: "equal", value: "Yes" },
+        ],
+        action: "show",
+      }}
+      clear
+    />
+    <Radio
+      id="hasNonHouseholdParent"
+      label="Is there a parent or guardian who does not live with the student?"
+      columns={12}
+      horizontal
+      options={["Yes", "No"]}
+    />
+    <Tile
+      id="parent3Tile"
+      border
+      borderColor="#E3EFE9"
+      columns={12}
+      display={{
+        conditions: [
+          { elementId: "hasNonHouseholdParent", comparator: "equal", value: "Yes" },
+        ],
+        action: "show",
+      }}
+    >
+      <Text id="parent3Heading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Non-Household Parent or Guardian</b>
+        </p>
+      </Text>
+      <Input id="parent3FirstName" label="First Name" columns={4} clear />
+      <Input id="parent3LastName" label="Last Name" columns={4} clear />
+      <Dropdown
+        id="parent3Relationship"
+        label="Relationship to Student"
+        columns={4}
+        options={[
+          "Mother",
+          "Father",
+          "Stepmother",
+          "Stepfather",
+          "Grandmother",
+          "Grandfather",
+          "Legal Guardian",
+          "Other",
+        ]}
+        hideSearch
+        clear
+      />
+      <Address id="parent3Address" label="Address" columns={8} clear />
+      <Radio
+        id="parent3Mailings"
+        label="Receives district mailings?"
+        columns={4}
+        horizontal
+        options={["Yes", "No"]}
+        clear
+      />
+      <Input
+        id="parent3Phone"
+        label="Primary Phone"
+        mask="/{phone}"
+        placeholder="(   )    -"
+        columns={4}
+        clear
+      />
+      <Dropdown
+        id="parent3PhoneType"
+        label="Phone Type"
+        columns={2}
+        options={["Cell", "Home", "Work"]}
+        hideSearch
+        clear
+      />
+      <Input
+        id="parent3Email"
+        label="Email"
+        type="email"
+        columns={6}
+        required={false}
+        clear
+      />
+      <Radio
+        id="parent3PortalAccess"
+        label="Parent portal access?"
+        columns={3}
+        horizontal
+        options={["Yes", "No"]}
+        clear
+      />
+      <Dropdown
+        id="parent3MaritalStatus"
+        label="Marital Status"
+        columns={3}
+        options={[
+          "Married",
+          "Single",
+          "Divorced",
+          "Separated",
+          "Widowed",
+          "Domestic Partner",
+        ]}
+        hideSearch
+        clear
+      />
+      <Input
+        id="parent3PrimaryLanguage"
+        label="Primary Language"
+        columns={3}
+        initialValue="English"
+        clear
+      />
+      <Radio
+        id="parent3ArmedForces"
+        label="Active member of the Armed Forces?"
+        columns={3}
+        horizontal
+        options={["Yes", "No"]}
+        clear
+      />
+    </Tile>
+  </Section>
+  <Section id="siblingsSection" marginTop={10}>
+    <Tile id="bannerSiblings" background="#F2F9F6" columns={12}>
+      <Text id="bannerSiblingsText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Other Children in the Home</b>
+        </div>
+      </Text>
+    </Tile>
+    <Radio
+      id="hasSiblings"
+      label="Are there other children (birth to 21) living in the home?"
+      columns={12}
+      horizontal
+      options={["Yes", "No"]}
+    />
+    <Table
+      id="siblingsTable"
+      label="Other Children"
+      hint="One row per child."
+      initialRows={1}
+      display={{
+        conditions: [{ elementId: "hasSiblings", comparator: "equal", value: "Yes" }],
+        action: "show",
+      }}
+    >
+      <TableColumn id="siblingName" label="Name" width={26} required />
+      <TableColumn
+        id="siblingSex"
+        label="Sex"
+        width={10}
+        type="dropdown"
+        options={["F", "M", "X"]}
+        hideSearch
+      />
+      <TableColumn
+        id="siblingBirthdate"
+        label="Birthdate"
+        width={16}
+        type="date"
+      />
+      <TableColumn
+        id="siblingGrade"
+        label="Grade"
+        width={12}
+        type="dropdown"
+        options={[
+          "Not in school",
+          "UPK",
+          "K",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "Graduated",
+        ]}
+        hideSearch
+      />
+      <TableColumn id="siblingSchool" label="Current School" width={24} />
+      <TableColumn
+        id="siblingLivesAtHome"
+        label="Lives at Home"
+        width={12}
+        type="dropdown"
+        options={["Yes", "No"]}
+        hideSearch
+      />
+    </Table>
+  </Section>
+  <Section id="emergencySection" marginTop={10}>
+    <Tile id="bannerEmergency" background="#F2F9F6" columns={12}>
+      <Text id="bannerEmergencyText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Emergency Contacts and Pickup</b>
+        </div>
+      </Text>
+    </Tile>
+    <Table
+      id="emergencyTable"
+      label="Emergency Contacts"
+      hint="Contacts will be called in the order listed."
+      initialRows={1}
+    >
+      <TableColumn id="contactName" label="Name" width={22} required />
+      <TableColumn
+        id="contactRelationship"
+        label="Relationship to Student"
+        width={18}
+        required
+      />
+      <TableColumn
+        id="contactPrimaryPhone"
+        label="Primary Phone"
+        width={15}
+        mask="/{phone}"
+        required
+      />
+      <TableColumn
+        id="contactPrimaryType"
+        label="Type"
+        width={9}
+        type="dropdown"
+        options={["Cell", "Home", "Work"]}
+        hideSearch
+      />
+      <TableColumn
+        id="contactAlternatePhone"
+        label="Alternate Phone"
+        width={15}
+        mask="/{phone}"
+      />
+      <TableColumn
+        id="contactAlternateType"
+        label="Type"
+        width={9}
+        type="dropdown"
+        options={["Cell", "Home", "Work"]}
+        hideSearch
+      />
+      <TableColumn
+        id="contactPickup"
+        label="May Pick Up"
+        width={12}
+        type="dropdown"
+        options={["Yes", "No"]}
+        hideSearch
+        required
+      />
+    </Table>
+  </Section>
+  <Section id="housingSection" marginTop={10}>
+    <Tile id="bannerHousing" background="#F2F9F6" columns={12}>
+      <Text id="bannerHousingText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Housing Questionnaire</b>
+        </div>
+      </Text>
+    </Tile>
+    <Text id="housingIntro" columns={12} marginTop={4} marginBottom={0}>
+      <p style={{ color: "#0B3B2C" }}>
+        Your answer helps the District determine services available under the
+        McKinney-Vento Act (42 USC 11435).
+      </p>
+    </Text>
+    <Radio
+      id="housingStatus"
+      label="The student is currently living"
+      columns={12}
+      options={[
+        "In permanent housing in a rented or owned apartment or house",
+        "In a shelter or transitional housing",
+        "Sharing housing with another family or person due to loss of housing or economic hardship",
+        "In a motel, hotel, or campground due to lack of alternative housing",
+        "In a car, park, public space, or abandoned building",
+        "In another temporary living situation",
+      ]}
+    />
+    <Upload
+      id="proofOfResidency"
+      label="Proof of Residency"
+      text="Upload proof of residency"
+      hint="Driver's license with current address, current mortgage statement or lease, recent utility or cable bill, recent pay stub, or current auto policy."
+      columns={12}
+      multiple
+      display={{
+        conditions: [
+          {
+            elementId: "housingStatus",
+            comparator: "equal",
+            value: "In permanent housing in a rented or owned apartment or house",
+          },
+        ],
+        action: "show",
+      }}
+      clear
+    />
+    <Tile
+      id="housingProtectedTile"
+      border
+      borderColor="#CFE6DD"
+      background="#F8FBFA"
+      columns={12}
+      display={{
+        conditions: [
+          {
+            elementId: "housingStatus",
+            comparator: "equal",
+            value: "In a shelter or transitional housing",
+          },
+          {
+            elementId: "housingStatus",
+            comparator: "equal",
+            value: "Sharing housing with another family or person due to loss of housing or economic hardship",
+          },
+          {
+            elementId: "housingStatus",
+            comparator: "equal",
+            value: "In a motel, hotel, or campground due to lack of alternative housing",
+          },
+          {
+            elementId: "housingStatus",
+            comparator: "equal",
+            value: "In a car, park, public space, or abandoned building",
+          },
+          {
+            elementId: "housingStatus",
+            comparator: "equal",
+            value: "In another temporary living situation",
+          },
+        ],
+        operator: "or",
+        action: "show",
+      }}
+    >
+      <Text id="housingProtectedText" columns={12} marginTop={4} marginBottom={4}>
+        <p style={{ color: "#0B3B2C" }}>
+          Students protected under the McKinney-Vento Act are entitled to
+          enrollment without proof of residency, free lunch, and transportation
+          under the District's Transportation Policy. No proof of residency is
+          needed. The District will reach out to help with next steps.
+        </p>
+      </Text>
+    </Tile>
+  </Section>
+  <Section id="schoolHistorySection" marginTop={10}>
+    <Tile id="bannerSchoolHistory" background="#F2F9F6" columns={12}>
+      <Text id="bannerSchoolHistoryText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>School History</b>
+        </div>
+      </Text>
+    </Tile>
+    <Radio
+      id="attendedPreviously"
+      label="Has your child attended school previously?"
+      columns={12}
+      horizontal
+      options={["Yes", "No"]}
+    />
+    <Tile
+      id="previousSchoolTile"
+      border
+      borderColor="#E3EFE9"
+      columns={12}
+      display={{
+        conditions: [
+          { elementId: "attendedPreviously", comparator: "equal", value: "Yes" },
+        ],
+        action: "show",
+      }}
+    >
+      <Input
+        id="previousSchoolName"
+        label="Name of Last School Attended"
+        columns={4}
+        clear
+      />
+      <Input
+        id="previousGrades"
+        label="Grade(s) Attended There"
+        placeholder="K-4"
+        columns={2}
+        clear
+      />
+      <Datetime
+        id="attendanceFrom"
+        label="Attended From"
+        max={{
+          adjustment: { days: 0 },
+          adjustor: "subtract",
+          specialDate: "now",
+        }}
+        columns={3}
+        clear
+      />
+      <Datetime
+        id="attendanceTo"
+        label="Attended To"
+        min={{ elementId: "attendanceFrom" }}
+        max={{
+          adjustment: { days: 0 },
+          adjustor: "subtract",
+          specialDate: "now",
+        }}
+        columns={3}
+        clear
+      />
+      <Address
+        id="previousSchoolAddress"
+        label="Previous School Address"
+        columns={6}
+        clear
+      />
+      <Input
+        id="previousSchoolPhone"
+        label="Previous School Phone"
+        mask="/{phone}"
+        placeholder="(   )    -"
+        columns={3}
+        clear
+      />
+      <Input
+        id="previousSchoolFax"
+        label="Previous School Fax"
+        mask="/{phone}"
+        placeholder="(   )    -"
+        columns={3}
+        required={false}
+        clear
+      />
+    </Tile>
+    <Tile id="academicServicesTile" columns={12}>
+      <Text id="academicServicesHeading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Special Education or Other Academic Services</b>
+        </p>
+      </Text>
+      <Radio
+        id="iepOr504"
+        label="Does your child currently have an IEP (Individual Education Program) or 504 Plan?"
+        columns={12}
+        horizontal
+        options={["IEP", "504 Plan", "Neither"]}
+      />
+      <Textarea
+        id="planServices"
+        label="Services in the Student's Plan"
+        rows={2}
+        columns={12}
+        display={{
+          conditions: [
+            { elementId: "iepOr504", comparator: "equal", value: "IEP" },
+            { elementId: "iepOr504", comparator: "equal", value: "504 Plan" },
+          ],
+          operator: "or",
+          action: "show",
+        }}
+        clear
+      />
+      <Radio
+        id="receivesAis"
+        label="Does your child currently receive additional help (AIS, Academic Intervention Services)?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+      />
+      <Checkbox
+        id="aisAreas"
+        label="Areas of Additional Help"
+        columns={6}
+        horizontal
+        minWidth={120}
+        options={["Reading", "Writing", "Math", "Science", "Social Studies"]}
+        display={{
+          conditions: [{ elementId: "receivesAis", comparator: "equal", value: "Yes" }],
+          action: "show",
+        }}
+        clear
+      />
+      <Radio
+        id="acceleratedClasses"
+        label="Is your child currently in any accelerated classes or programs?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+      />
+      <Input
+        id="acceleratedDescribe"
+        label="Accelerated Classes or Programs"
+        columns={6}
+        display={{
+          conditions: [
+            { elementId: "acceleratedClasses", comparator: "equal", value: "Yes" },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Radio
+        id="bocesCte"
+        label="Is the student currently enrolled in a BOCES CTE Program?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+        display={{
+          conditions: [
+            { elementId: "grade", comparator: "equal", value: "11" },
+            { elementId: "grade", comparator: "equal", value: "12" },
+          ],
+          operator: "or",
+          action: "show",
+        }}
+        clear
+      />
+      <Input
+        id="cteProgram"
+        label="CTE Program"
+        columns={6}
+        display={{
+          conditions: [{ elementId: "bocesCte", comparator: "equal", value: "Yes" }],
+          action: "show",
+        }}
+        clear
+      />
+    </Tile>
+    <Tile id="otherServicesTile" columns={12}>
+      <Text id="otherServicesHeading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Other Services</b>
+        </p>
+      </Text>
+      <Radio
+        id="lunchStatus"
+        label="Does your child currently receive Free or Reduced Lunch?"
+        columns={6}
+        horizontal
+        options={["Free", "Reduced", "No"]}
+      />
+      <Radio
+        id="threatAssessment"
+        label="Has your child ever had a threat assessment done?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+      />
+      <Textarea
+        id="threatAssessmentDetails"
+        label="Threat Assessment Details"
+        rows={2}
+        columns={12}
+        display={{
+          conditions: [
+            { elementId: "threatAssessment", comparator: "equal", value: "Yes" },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Textarea
+        id="additionalServices"
+        label="Any additional services your child receives"
+        rows={2}
+        columns={12}
+        required={false}
+      />
+    </Tile>
+  </Section>
+  <Section
+    id="recordsRequestSection"
+    marginTop={10}
+    display={{
+      conditions: [
+        { elementId: "attendedPreviously", comparator: "equal", value: "Yes" },
+      ],
+      action: "show",
+    }}
+  >
+    <Tile id="bannerRecordsRequest" background="#F2F9F6" columns={12}>
+      <Text id="bannerRecordsRequestText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Records Request</b>
+        </div>
+      </Text>
+    </Tile>
+    <Text id="recordsAuthorizationText" columns={12} marginTop={4} marginBottom={4}>
+      <p style={{ color: "#0B3B2C", fontSize: 15 }}>
+        I hereby authorize <b>##previousSchoolName##</b> to release all school
+        records for <b>##studentFirstName## ##studentLastName##</b> (born
+        ##studentBirthdate##, ##gradeLabel##) to the Avon Central
+        School District.
+      </p>
+    </Text>
+    <Tile
+      id="recordsListTile"
+      border
+      borderColor="#E3EFE9"
+      background="#FAFCFB"
+      columns={6}
+    >
+      <Text id="recordsListText" columns={12}>
+        <div style={{ color: "#0B3B2C", fontSize: 14 }}>
+          <p>
+            <b>Records requested</b>
+          </p>
+          <ul>
+            <li>Birth Certificate</li>
+            <li>Current physical and immunizations</li>
+            <li>Custody (if applicable)</li>
+            <li>Attendance</li>
+            <li>Discipline (if applicable)</li>
+            <li>Transcript (grades 9-12)</li>
+            <li>Most recent report card, progress report, or exit grades</li>
+            <li>Test scores (NYS, iReady, etc.)</li>
+            <li>Intervention reports (ISST, AIS, RtI, etc.)</li>
+            <li>CSE/504 (including all recent evaluations)</li>
+          </ul>
+        </div>
+      </Text>
+    </Tile>
+    <Tile
+      id="recordsSendToTile"
+      border
+      borderColor="#E3EFE9"
+      background="#FAFCFB"
+      columns={6}
+    >
+      <Text id="recordsSendToText" columns={12}>
+        <div style={{ color: "#0B3B2C", fontSize: 14 }}>
+          <p>
+            <b>Please send records to</b>
+          </p>
+          <p>
+            Avon Central School District
+            <br />
+            Registrar
+            <br />
+            191 Clinton Street
+            <br />
+            Avon, NY 14414
+          </p>
+          <p>
+            Phone: (585) 226-2455, ext. 1725
+            <br />
+            Fax: (585) 226-3989
+            <br />
+            Email: lane.okafor@example.org
+          </p>
+        </div>
+      </Text>
+    </Tile>
+    <Checkbox
+      id="recordsAuthorization"
+      label="Authorization"
+      columns={12}
+      options={[
+        "I authorize the release of these records to the Avon Central School District.",
+      ]}
+      clear
+    />
+    <Text id="ferpaNote" columns={12} marginTop={0} marginBottom={4}>
+      <p style={{ color: "#5A6B63", fontSize: 12 }}>
+        Under the Family Education Rights Privacy Act (FERPA) Section 99.31, a
+        parent or guardian signature is not required to transfer student records
+        from District to District when the purpose is to enroll the child in a
+        new District.
+      </p>
+    </Text>
+  </Section>
+  <Section id="homeLanguageSection" marginTop={10}>
+    <Tile id="bannerHomeLanguage" background="#F2F9F6" columns={12}>
+      <Text id="bannerHomeLanguageText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Home Language Questionnaire</b>
+        </div>
+      </Text>
+    </Tile>
+    <Text id="homeLanguageIntro" columns={12} marginTop={4} marginBottom={0}>
+      <p style={{ color: "#0B3B2C" }}>
+        To provide your child with the best possible education, the District
+        needs to know how well your child understands, speaks, reads, and writes
+        in English, as well as prior school and personal history.
+      </p>
+    </Text>
+    <Tile id="languageBackgroundTile" columns={12}>
+      <Text id="languageBackgroundHeading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Language Background</b>
+        </p>
+      </Text>
+      <Checkbox
+        id="hlqHomeLanguages"
+        label="1. What language(s) is/are spoken in the student's home or residence?"
+        columns={6}
+        horizontal
+        minWidth={120}
+        options={["English", "Other"]}
+      />
+      <Input
+        id="hlqHomeLanguagesOther"
+        label="Other Language(s) Spoken at Home"
+        columns={6}
+        display={{
+          conditions: [
+            { elementId: "hlqHomeLanguages", comparator: "oneOf", value: ["Other"] },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Checkbox
+        id="hlqFirstLanguage"
+        label="2. What was the first language your child learned?"
+        columns={6}
+        horizontal
+        minWidth={120}
+        options={["English", "Other"]}
+      />
+      <Input
+        id="hlqFirstLanguageOther"
+        label="Other First Language"
+        columns={6}
+        display={{
+          conditions: [
+            { elementId: "hlqFirstLanguage", comparator: "oneOf", value: ["Other"] },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Text id="hlqParentLanguageHeading" columns={12} marginBottom={0}>
+        <p style={{ color: "#0B3B2C" }}>
+          3. What is the home language of each parent or guardian?
+        </p>
+      </Text>
+      <Input
+        id="hlqMotherLanguage"
+        label="Mother"
+        columns={4}
+        required={false}
+      />
+      <Input
+        id="hlqFatherLanguage"
+        label="Father"
+        columns={4}
+        required={false}
+      />
+      <Input
+        id="hlqGuardianLanguage"
+        label="Guardian"
+        columns={4}
+        required={false}
+      />
+      <Checkbox
+        id="hlqUnderstand"
+        label="4. What language(s) does your child understand?"
+        columns={6}
+        horizontal
+        minWidth={120}
+        options={["English", "Other"]}
+      />
+      <Input
+        id="hlqUnderstandOther"
+        label="Other Language(s) Understood"
+        columns={6}
+        display={{
+          conditions: [
+            { elementId: "hlqUnderstand", comparator: "oneOf", value: ["Other"] },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Checkbox
+        id="hlqSpeak"
+        label="5. What language(s) does your child speak?"
+        columns={6}
+        horizontal
+        minWidth={120}
+        options={["English", "Other", "Does not speak"]}
+      />
+      <Input
+        id="hlqSpeakOther"
+        label="Other Language(s) Spoken"
+        columns={6}
+        display={{
+          conditions: [
+            { elementId: "hlqSpeak", comparator: "oneOf", value: ["Other"] },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Checkbox
+        id="hlqRead"
+        label="6. What language(s) does your child read?"
+        columns={6}
+        horizontal
+        minWidth={120}
+        options={["English", "Other", "Does not read"]}
+      />
+      <Input
+        id="hlqReadOther"
+        label="Other Language(s) Read"
+        columns={6}
+        display={{
+          conditions: [
+            { elementId: "hlqRead", comparator: "oneOf", value: ["Other"] },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Checkbox
+        id="hlqWrite"
+        label="7. What language(s) does your child write?"
+        columns={6}
+        horizontal
+        minWidth={120}
+        options={["English", "Other", "Does not write"]}
+      />
+      <Input
+        id="hlqWriteOther"
+        label="Other Language(s) Written"
+        columns={6}
+        display={{
+          conditions: [
+            { elementId: "hlqWrite", comparator: "oneOf", value: ["Other"] },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Input
+        id="hlqYearsEnrolled"
+        label="8. Total number of years your child has been enrolled in school"
+        type="number"
+        columns={6}
+      />
+      <Radio
+        id="hlqDifficulties"
+        label="9. Do you think your child may have any difficulties or conditions that affect their ability to understand, speak, read, or write in English or any other language?"
+        columns={6}
+        horizontal
+        options={["Yes", "No", "Not Sure"]}
+      />
+      <Textarea
+        id="hlqDifficultiesDescribe"
+        label="Please Describe"
+        rows={2}
+        columns={12}
+        display={{
+          conditions: [
+            { elementId: "hlqDifficulties", comparator: "equal", value: "Yes" },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+    </Tile>
+    <Tile id="educationalHistoryTile" columns={12}>
+      <Text id="educationalHistoryHeading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Educational History</b>
+        </p>
+      </Text>
+      <Radio
+        id="hlqSpedReferral"
+        label="10a. Has your child ever been referred for a special education evaluation in the past?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+      />
+      <Radio
+        id="hlqSpedServices"
+        label="10b. If referred, has your child ever received any special education services in the past?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+        display={{
+          conditions: [
+            { elementId: "hlqSpedReferral", comparator: "equal", value: "Yes" },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Input
+        id="hlqSpedServiceType"
+        label="Type of Services Received"
+        columns={6}
+        display={{
+          conditions: [
+            { elementId: "hlqSpedServices", comparator: "equal", value: "Yes" },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Checkbox
+        id="hlqSpedAges"
+        label="Age at Which Services Were Received"
+        columns={6}
+        options={[
+          "Birth to 3 years (Early Intervention)",
+          "3 to 5 years (Special Education)",
+          "6 years or older (Special Education)",
+        ]}
+        display={{
+          conditions: [
+            { elementId: "hlqSpedServices", comparator: "equal", value: "Yes" },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+      <Radio
+        id="hlqHasIep"
+        label="10c. Does your child have an Individualized Education Program (IEP)?"
+        columns={6}
+        horizontal
+        options={["Yes", "No"]}
+      />
+      <Textarea
+        id="hlqOtherInfo"
+        label="11. Is there anything else you think is important for the school to know about your child? (special talents, health concerns, etc.)"
+        rows={2}
+        columns={12}
+        required={false}
+      />
+      <Input
+        id="hlqPreferredLanguage"
+        label="12. In what language(s) would you like to receive information from the school?"
+        columns={12}
+        initialValue="English"
+      />
+    </Tile>
+  </Section>
+  <Section id="healthSection" marginTop={10}>
+    <Tile id="bannerHealth" background="#F2F9F6" columns={12}>
+      <Text id="bannerHealthText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Health Information</b>
+        </div>
+      </Text>
+    </Tile>
+    <Input id="physicianName" label="Primary Care Physician" columns={6} />
+    <Input id="preferredHospital" label="Preferred Hospital" columns={6} />
+    <Address id="physicianAddress" label="Physician's Address" columns={6} />
+    <Input
+      id="physicianPhone"
+      label="Physician Phone"
+      mask="/{phone}"
+      placeholder="(   )    -"
+      columns={3}
+    />
+    <Input
+      id="physicianFax"
+      label="Physician Fax"
+      mask="/{phone}"
+      placeholder="(   )    -"
+      columns={3}
+      required={false}
+    />
+  </Section>
+  <Section id="healthDisclosureSection" marginTop={10}>
+    <Tile id="bannerHealthDisclosure" background="#F2F9F6" columns={12}>
+      <Text id="bannerHealthDisclosureText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Health Disclosure Authorization</b>
+        </div>
+      </Text>
+    </Tile>
+    <Text id="healthDisclosureIntro" columns={12} marginTop={4} marginBottom={0}>
+      <p style={{ color: "#0B3B2C" }}>
+        Your healthcare provider may require this authorization under HIPAA
+        before sharing health information with the school. A signed copy will
+        be given to your provider and the school nurse to avoid delays in care.
+      </p>
+      <p style={{ color: "#0B3B2C", fontSize: 15 }}>
+        I, <b>##submittedByName##</b>, authorize <b>##physicianName##</b>{" "}
+        (phone ##physicianPhone##, fax ##physicianFax##) to release the medical
+        records of <b>##studentFirstName## ##studentLastName##</b> (born
+        ##studentBirthdate##) to the District's:
+      </p>
+    </Text>
+    <Checkbox
+      id="hipaaReleaseTo"
+      label="Release records to"
+      columns={12}
+      horizontal
+      minWidth={160}
+      options={["Medical Director", "School Nurse", "Counselor", "Social Worker"]}
+    />
+    <Checkbox
+      id="hipaaDisclose"
+      label="The healthcare provider may disclose the following information"
+      columns={12}
+      options={[
+        "Immunizations",
+        "Health Appraisals",
+        "Past and current medical conditions and their impact on attendance, athletics, or school programming or therapy",
+      ]}
+    />
+    <Checkbox
+      id="hipaaPurposes"
+      label="The Protected Health Information may be used, disclosed, or received for the following purpose(s)"
+      columns={12}
+      options={[
+        "To develop care or therapy plans for routine and emergent school management",
+        "To design appropriate educational, school, or athletic programs",
+        "To assess the impact of the medical condition(s) on school programming and/or attendance",
+        "To share school observations and concerns surrounding behavior",
+        "To assess a medical basis for modification of transportation and/or home tutoring",
+        "Medication delivery or therapy prescriptions",
+        "At patient's request with no specified purpose",
+      ]}
+    />
+    <Radio
+      id="hipaaValidity"
+      label="This authorization is valid"
+      columns={8}
+      options={[
+        "For the entire academic school year",
+        "For the duration of attendance within the school district",
+        "Until a date I choose",
+      ]}
+      initialValue="For the entire academic school year"
+    />
+    <Datetime
+      id="hipaaExpirationDate"
+      label="Authorization Expires On"
+      min={{
+        adjustment: { days: 1 },
+        adjustor: "add",
+        specialDate: "now",
+      }}
+      columns={4}
+      display={{
+        conditions: [
+          { elementId: "hipaaValidity", comparator: "equal", value: "Until a date I choose" },
+        ],
+        action: "show",
+      }}
+      clear
+    />
+    <Tile
+      id="hipaaAcknowledgementTile"
+      border
+      borderColor="#E3EFE9"
+      background="#FAFCFB"
+      columns={12}
+    >
+      <Text id="hipaaAcknowledgementText" columns={12}>
+        <p style={{ color: "#0B3B2C", fontSize: 13 }}>
+          I acknowledge that I have the right to revoke this authorization at
+          any time by sending written notification to the Privacy Officer at my
+          healthcare provider's office and to the District Administration
+          Building. I understand that the revocation of this authorization is
+          not effective if the Healthcare Provider or District has used the
+          authorization for disclosure of the Protected Health Information
+          before receiving my written revocation notice. I understand that any
+          Protected Health Information disclosed as a result of this
+          Authorization to anyone not covered by the state and federal privacy
+          laws and regulations may be subject to re-disclosure and may no longer
+          be protected by federal or state law. I understand that my child's
+          treatment is not dependent on my agreement to release or withhold
+          information. I acknowledge that the district will share relevant
+          school information with my healthcare providers and, when applicable,
+          with those governmental agencies as required for reimbursements. I
+          give permission for the school representatives above to share and
+          disclose information as indicated above with the health care provider
+          listed.
+        </p>
+        <p style={{ color: "#0B3B2C", fontSize: 13 }}>
+          <b>
+            You may refuse to sign this authorization. A signed copy of this
+            authorization must be given to the adult patient or parent of the
+            minor child.
+          </b>
+        </p>
+      </Text>
+    </Tile>
+    <Signature
+      id="hipaaSignature"
+      label="Parent or Guardian Signature (Health Disclosure)"
+      columns={8}
+    />
+    <Timestamp
+      id="hipaaSignatureDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [{ elementId: "hipaaSignature", comparator: "notEmpty" }],
+        action: "show",
+      }}
+      type="date"
+    />
+  </Section>
+  <Section id="healthHistorySection" marginTop={10}>
+    <Tile id="bannerHealthHistory" background="#F2F9F6" columns={12}>
+      <Text id="bannerHealthHistoryText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Health History</b>
+        </div>
+      </Text>
+    </Tile>
+    <Text id="healthHistoryIntro" columns={12} marginTop={4} marginBottom={0}>
+      <p style={{ color: "#0B3B2C" }}>
+        If your child will require medication at school, contact the school
+        nurse as soon as possible. Proper paperwork is required and an adult
+        must bring the medication to the health office. Students may not bring
+        in their own medication.
+      </p>
+    </Text>
+    <Radio
+      id="physicalStatus"
+      label="NYS Physical Form"
+      columns={6}
+      options={[
+        "I have my child's completed NYS Physical Form",
+        "My child has an upcoming physical appointment",
+      ]}
+    />
+    <Upload
+      id="physicalForm"
+      label="NYS Physical Form"
+      text="Upload physical form"
+      columns={6}
+      display={{
+        conditions: [
+          {
+            elementId: "physicalStatus",
+            comparator: "equal",
+            value: "I have my child's completed NYS Physical Form",
+          },
+        ],
+        action: "show",
+      }}
+      clear
+    />
+    <Datetime
+      id="physicalAppointmentDate"
+      label="Physical Appointment Date"
+      min={{
+        adjustment: { days: 0 },
+        adjustor: "add",
+        specialDate: "now",
+      }}
+      columns={6}
+      display={{
+        conditions: [
+          {
+            elementId: "physicalStatus",
+            comparator: "equal",
+            value: "My child has an upcoming physical appointment",
+          },
+        ],
+        action: "show",
+      }}
+      clear
+    />
+    <Radio
+      id="hasLimitations"
+      label="Does your child have any physical limitations?"
+      columns={6}
+      horizontal
+      options={["Yes", "No"]}
+    />
+    <Textarea
+      id="limitationsDescribe"
+      label="Please Describe the Limitations"
+      rows={2}
+      columns={6}
+      display={{
+        conditions: [{ elementId: "hasLimitations", comparator: "equal", value: "Yes" }],
+        action: "show",
+      }}
+      clear
+    />
+    <Text id="healthHistoryChecklistHeading" columns={12} marginTop={6} marginBottom={0}>
+      <p style={{ color: "#016844", fontSize: 15 }}>
+        <b>Has or does your child... (check any that apply)</b>
+      </p>
+    </Text>
+    <Tile id="hhGeneralTile" border borderColor="#E3EFE9" columns={6}>
+      <Checkbox
+        id="hhGeneral"
+        label="General Health"
+        columns={12}
+        required={false}
+        options={[
+          "Ever been restricted by a doctor, physician assistant, or nurse practitioner from sports participation for any reason",
+          "Have an ongoing medical condition",
+          "Ever had surgery",
+          "Ever spent the night in a hospital",
+          "Been diagnosed with Mononucleosis within the last month",
+          "Have only one functioning kidney",
+          "Have a bleeding disorder",
+          "Have any problems with hearing or wears hearing aid(s)",
+          "Have any problems with vision or has vision in only one eye",
+          "Wear glasses or contacts",
+        ]}
+      />
+    </Tile>
+    <Tile id="hhRightColumnTile" columns={6}>
+      <Tile id="hhAllergiesTile" border borderColor="#E3EFE9" columns={12}>
+        <Checkbox
+          id="hhAllergies"
+          label="Allergies"
+          columns={12}
+          required={false}
+          options={[
+            "Have a life threatening allergy",
+            "Carry an epinephrine auto-injector",
+          ]}
+        />
+      </Tile>
+      <Tile id="hhRespiratoryTile" border borderColor="#E3EFE9" columns={12}>
+        <Checkbox
+          id="hhRespiratory"
+          label="Breathing (Respiratory) Health"
+          columns={12}
+          required={false}
+          options={[
+            "Ever complained of getting more tired or short of breath than friends during exercise",
+            "Wheeze or cough frequently during or after exercise",
+            "Ever been told by their health care provider they have asthma",
+            "Use or carry an inhaler or nebulizer",
+          ]}
+        />
+      </Tile>
+      <Tile id="hhDevicesTile" border borderColor="#E3EFE9" columns={12}>
+        <Checkbox
+          id="hhDevices"
+          label="Devices and Equipment"
+          columns={12}
+          required={false}
+          options={[
+            "Use a brace, orthotic, or other device",
+            "Have any special devices or prostheses (insulin pump, glucose sensor, ostomy bag, etc.)",
+            "Wear protective eyewear, such as goggles or a face shield",
+          ]}
+        />
+      </Tile>
+    </Tile>
+    <Tile id="hhConcussionTile" border borderColor="#E3EFE9" columns={6}>
+      <Checkbox
+        id="hhConcussion"
+        label="Concussion and Head Injury History"
+        columns={12}
+        required={false}
+        options={[
+          "Ever had a hit to the head that caused headache, dizziness, nausea, or confusion, or been told they had a concussion",
+          "Ever had a head injury or concussion",
+          "Ever had headaches with exercise",
+          "Ever had any unexplained seizures",
+          "Currently receive treatment for a seizure disorder or epilepsy",
+        ]}
+      />
+    </Tile>
+    <Tile id="hhHeartTile" border borderColor="#E3EFE9" columns={6}>
+      <Checkbox
+        id="hhHeart"
+        label="Heart Health"
+        columns={12}
+        required={false}
+        options={[
+          "Ever passed out during or after exercise",
+          "Ever complained of light headedness or dizziness during or after exercise",
+          "Ever complained of chest pain, tightness, or pressure during or after exercise",
+          "Ever complained of fluttering in their chest, skipped beats, or their heart racing, or has a pacemaker",
+          "Ever had a test by their medical provider for their heart (EKG, echocardiogram, stress test)",
+          "Ever been told they have a heart condition or problem by a physician",
+        ]}
+      />
+    </Tile>
+    <Tile id="hhInjuryTile" border borderColor="#E3EFE9" columns={6}>
+      <Checkbox
+        id="hhInjury"
+        label="Injury History"
+        columns={12}
+        required={false}
+        options={[
+          "Ever been diagnosed with a stress fracture",
+          "Ever been unable to move their arms and legs, or had tingling, numbness, or weakness after being hit or falling",
+          "Ever had an injury, pain, or swelling of a joint that caused them to miss practice or a game",
+          "Have a bone, muscle, or joint injury that bothers them",
+          "Have joints that become painful, swollen, warm, or red with use",
+        ]}
+      />
+    </Tile>
+    <Tile id="hhStomachTile" border borderColor="#E3EFE9" columns={6}>
+      <Checkbox
+        id="hhStomach"
+        label="Stomach Health and Nutrition"
+        columns={12}
+        required={false}
+        options={[
+          "Ever become ill while exercising in hot weather",
+          "Have a special diet or have to avoid certain foods",
+          "Have to worry about their weight",
+          "Have stomach problems",
+          "Ever had an eating disorder",
+        ]}
+      />
+    </Tile>
+    <Tile id="hhFamilyTile" border borderColor="#E3EFE9" columns={6}>
+      <Checkbox
+        id="hhFamily"
+        label="Family History"
+        columns={12}
+        required={false}
+        options={[
+          "Have any relative who has been diagnosed with a heart condition, such as a murmur, hypertrophic cardiomyopathy, Marfan Syndrome, Brugada Syndrome, right ventricular cardiomyopathy, long QT or short QT syndrome, or catecholaminergic polymorphic ventricular tachycardia",
+        ]}
+      />
+    </Tile>
+    <Tile id="hhSkinTile" border borderColor="#E3EFE9" columns={6}>
+      <Checkbox
+        id="hhSkin"
+        label="Skin Health"
+        columns={12}
+        required={false}
+        options={[
+          "Currently have any rashes, pressure sores, or other skin problems",
+          "Have had a herpes or MRSA skin infection",
+        ]}
+      />
+    </Tile>
+    <Tile
+      id="hhFemaleTile"
+      border
+      borderColor="#E3EFE9"
+      columns={6}
+      display={{
+        conditions: [{ elementId: "studentGender", comparator: "equal", value: "Female" }],
+        action: "show",
+      }}
+    >
+      <Checkbox
+        id="hhFemale"
+        label="Females Only"
+        columns={12}
+        required={false}
+        options={["Begun having her period", "Have regular periods"]}
+        clear
+      />
+    </Tile>
+    <Tile
+      id="hhMaleTile"
+      border
+      borderColor="#E3EFE9"
+      columns={6}
+      display={{
+        conditions: [{ elementId: "studentGender", comparator: "equal", value: "Male" }],
+        action: "show",
+      }}
+    >
+      <Checkbox
+        id="hhMale"
+        label="Males Only"
+        columns={12}
+        required={false}
+        options={[
+          "Have only one testicle",
+          "Have groin pain or a bulge or hernia in the groin",
+        ]}
+        clear
+      />
+    </Tile>
+    <Textarea
+      id="healthHistoryDetails"
+      label="Details for the items checked above"
+      hint="Include dates, diagnoses, and current treatment where you can."
+      rows={3}
+      columns={12}
+      display={{
+        conditions: [
+          { elementId: "hhGeneral", comparator: "notEmpty" },
+          { elementId: "hhAllergies", comparator: "notEmpty" },
+          { elementId: "hhRespiratory", comparator: "notEmpty" },
+          { elementId: "hhDevices", comparator: "notEmpty" },
+          { elementId: "hhConcussion", comparator: "notEmpty" },
+          { elementId: "hhHeart", comparator: "notEmpty" },
+          { elementId: "hhInjury", comparator: "notEmpty" },
+          { elementId: "hhStomach", comparator: "notEmpty" },
+          { elementId: "hhFamily", comparator: "notEmpty" },
+          { elementId: "hhSkin", comparator: "notEmpty" },
+          { elementId: "hhFemale", comparator: "notEmpty" },
+          { elementId: "hhMale", comparator: "notEmpty" },
+        ],
+        operator: "or",
+        action: "show",
+      }}
+      clear
+    />
+  </Section>
+  <Section
+    id="athleticsSection"
+    marginTop={10}
+    display={{
+      conditions: [
+        { elementId: "grade", comparator: "equal", value: "7" },
+        { elementId: "grade", comparator: "equal", value: "8" },
+        { elementId: "grade", comparator: "equal", value: "9" },
+        { elementId: "grade", comparator: "equal", value: "10" },
+        { elementId: "grade", comparator: "equal", value: "11" },
+        { elementId: "grade", comparator: "equal", value: "12" },
+      ],
+      operator: "or",
+      action: "show",
+    }}
+  >
+    <Tile id="bannerAthletics" background="#F2F9F6" columns={12}>
+      <Text id="bannerAthleticsText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Athletic Questionnaire</b>
+        </div>
+      </Text>
+    </Tile>
+    <Radio
+      id="playedSportsPreviously"
+      label="Did your child play scholastic sports at their previous school?"
+      columns={6}
+      horizontal
+      options={["Yes", "No"]}
+      clear
+    />
+    <Radio
+      id="interestedInSports"
+      label="Is your child interested in playing school sports at Avon?"
+      columns={6}
+      horizontal
+      options={["Yes", "No"]}
+      clear
+    />
+    <Input
+      id="sportsOfInterest"
+      label="Sports of Interest"
+      placeholder="Soccer, basketball, track"
+      columns={12}
+      required={false}
+      display={{
+        conditions: [
+          { elementId: "interestedInSports", comparator: "equal", value: "Yes" },
+        ],
+        action: "show",
+      }}
+      clear
+    />
+  </Section>
+  <Section id="transportationSection" marginTop={10}>
+    <Tile id="bannerTransportation" background="#F2F9F6" columns={12}>
+      <Text id="bannerTransportationText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Transportation</b>
+        </div>
+      </Text>
+    </Tile>
+    <Text id="transportationIntro" columns={12} marginTop={4} marginBottom={0}>
+      <p style={{ color: "#0B3B2C" }}>
+        Tell us your plan for getting <b>##studentFirstName##</b> to and from
+        school. Pick-up and drop-off points must be within the school
+        district's boundaries.
+      </p>
+    </Text>
+    <Tile id="morningPlanTile" border borderColor="#E3EFE9" columns={6}>
+      <Text id="morningPlanHeading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Morning Plan</b>
+        </p>
+      </Text>
+      <Radio
+        id="amPlan"
+        label="In the morning, my child will"
+        columns={12}
+        options={[
+          "Ride the bus",
+          "Be dropped off by a parent or guardian",
+          "Walk",
+          "Drive themselves",
+        ]}
+      />
+      <Checkbox
+        id="amBusDays"
+        label="Bus Days"
+        columns={12}
+        horizontal
+        minWidth={100}
+        options={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+        initialValue={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+        display={{
+          conditions: [{ elementId: "amPlan", comparator: "equal", value: "Ride the bus" }],
+          action: "show",
+        }}
+        clear
+      />
+      <Radio
+        id="amPickupDifferent"
+        label="Is the pick-up address different from the student's address?"
+        columns={12}
+        horizontal
+        options={["Yes", "No"]}
+        display={{
+          conditions: [{ elementId: "amPlan", comparator: "equal", value: "Ride the bus" }],
+          action: "show",
+        }}
+        clear
+      />
+      <Address
+        id="amPickupAddress"
+        label="Morning Pick-up Address"
+        columns={12}
+        display={{
+          conditions: [
+            { elementId: "amPickupDifferent", comparator: "equal", value: "Yes" },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+    </Tile>
+    <Tile id="afternoonPlanTile" border borderColor="#E3EFE9" columns={6}>
+      <Text id="afternoonPlanHeading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Afternoon Plan</b>
+        </p>
+      </Text>
+      <Radio
+        id="pmPlan"
+        label="In the afternoon, my child will"
+        columns={12}
+        options={[
+          "Ride the bus",
+          "Be picked up by a parent or guardian",
+          "Walk",
+          "Drive themselves",
+          "Attend an after-school program",
+        ]}
+      />
+      <Checkbox
+        id="pmBusDays"
+        label="Bus Days"
+        columns={12}
+        horizontal
+        minWidth={100}
+        options={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+        initialValue={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+        display={{
+          conditions: [{ elementId: "pmPlan", comparator: "equal", value: "Ride the bus" }],
+          action: "show",
+        }}
+        clear
+      />
+      <Radio
+        id="pmDropoffDifferent"
+        label="Is the drop-off address different from the student's address?"
+        columns={12}
+        horizontal
+        options={["Yes", "No"]}
+        display={{
+          conditions: [{ elementId: "pmPlan", comparator: "equal", value: "Ride the bus" }],
+          action: "show",
+        }}
+        clear
+      />
+      <Address
+        id="pmDropoffAddress"
+        label="Afternoon Drop-off Address"
+        columns={12}
+        display={{
+          conditions: [
+            { elementId: "pmDropoffDifferent", comparator: "equal", value: "Yes" },
+          ],
+          action: "show",
+        }}
+        clear
+      />
+    </Tile>
+    <Radio
+      id="earlyDismissalDifferent"
+      label="Is the drop-off location different on early dismissal days?"
+      hint="MS/HS dismisses at Noon and ES dismisses at 12:45 PM on early dismissal days."
+      columns={6}
+      horizontal
+      options={["Yes", "No"]}
+    />
+    <Address
+      id="earlyDismissalAddress"
+      label="Early Dismissal Drop-off Address"
+      columns={6}
+      display={{
+        conditions: [
+          { elementId: "earlyDismissalDifferent", comparator: "equal", value: "Yes" },
+        ],
+        action: "show",
+      }}
+      clear
+    />
+    <Text id="transportationContact" columns={12} marginTop={0} marginBottom={4}>
+      <p style={{ color: "#5A6B63", fontSize: 13 }}>
+        Questions about transportation? Contact Jordan Okafor, Transportation
+        Director, at (585) 226-2455 ext. 1962 or remy.lindqvist@example.org.
+      </p>
+    </Text>
+  </Section>
+  <Section id="certificationSection" marginTop={10}>
+    <Tile id="bannerCertification" background="#F2F9F6" columns={12}>
+      <Text id="bannerCertificationText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Certification</b>
+        </div>
+      </Text>
+    </Tile>
+    <Text id="certificationText" columns={12} marginTop={6} marginBottom={6}>
+      <p style={{ color: "#0B3B2C" }}>
+        I certify that I am the parent or person in parental relation to{" "}
+        <b>##studentFirstName## ##studentLastName##</b> and that the information
+        in this registration is accurate and complete. My signature applies to
+        the Housing Questionnaire, Records Request, Home Language Questionnaire,
+        Health History, and Transportation Plan included in this form.
+      </p>
+    </Text>
+    <Signature id="parentSignature" label="Parent or Guardian Signature" columns={8} />
+    <Timestamp
+      id="parentSignatureDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [{ elementId: "parentSignature", comparator: "notEmpty" }],
+        action: "show",
+      }}
+      type="date"
+    />
+  </Section>
+  <Section
+    id="districtSection"
+    marginTop={10}
+    border
+    borderColor="#CFE6DD"
+    background="#F8FBFA"
+    display="currentStep() !== 'start'"
+  >
+    <Tile id="bannerDistrict" background="#F2F9F6" columns={12}>
+      <Text id="bannerDistrictText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>District Use Only</b>
+        </div>
+      </Text>
+    </Tile>
+    <Tile id="registrarTile" columns={12}>
+      <Text id="registrarHeading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Registrar</b>
+        </p>
+      </Text>
+      <Input
+        id="studentIdNumber"
+        label="Student ID"
+        columns={3}
+        required={false}
+      />
+      <Radio
+        id="oralInterviewNecessary"
+        label="Oral Interview Necessary (HLQ)?"
+        columns={3}
+        horizontal
+        options={["Yes", "No"]}
+        required={false}
+      />
+      <Textarea
+        id="iepAccommodations"
+        label="Accommodations administered in accordance with IEP pursuant to CSE recommendation"
+        rows={2}
+        columns={6}
+        required={false}
+      />
+      <Textarea
+        id="registrarNotes"
+        label="Registrar Notes"
+        rows={2}
+        columns={12}
+        required={false}
+      />
+    </Tile>
+    <Tile
+      id="nurseTile"
+      columns={6}
+      display="currentStep() !== 'registrarReview'"
+    >
+      <Text id="nurseHeading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>School Nurse</b>
+        </p>
+      </Text>
+      <Textarea
+        id="nurseNotes"
+        label="Nurse Notes"
+        rows={3}
+        columns={12}
+        required={false}
+      />
+    </Tile>
+    <Tile
+      id="transportationDistrictTile"
+      columns={6}
+      display="currentStep() !== 'registrarReview'"
+    >
+      <Text id="transportationDistrictHeading" columns={12} marginBottom={0}>
+        <p style={{ color: "#016844", fontSize: 15 }}>
+          <b>Transportation</b>
+        </p>
+      </Text>
+      <Input
+        id="busRoute"
+        label="Bus Route"
+        columns={12}
+        required={false}
+      />
+      <Signature
+        id="transportationFinalizedSignature"
+        label="Finalized By"
+        columns={8}
+        required={false}
+      />
+      <Timestamp
+        id="transportationFinalizedDate"
+        label="Date"
+        columns={4}
+        display={{
+          conditions: [
+            { elementId: "transportationFinalizedSignature", comparator: "notEmpty" },
+          ],
+          action: "show",
+        }}
+        type="date"
+      />
+    </Tile>
+  </Section>
+  <Section id="routingSection" display="false">
+    <Computed
+      id="registrarName"
+      label="Registrar Name"
+      columns={3}
+      formula="'Avery Whitfield'"
+    />
+    <Computed
+      id="registrarEmail"
+      label="Registrar Email"
+      columns={3}
+      formula="'lane.okafor@example.org'"
+    />
+    <Computed
+      id="nurseName"
+      label="School Nurse Name"
+      columns={3}
+      formula="(()=>{
+  if (!school) return registrarName;
+  const record = schoolsDepartments[school];
+  return record && record['Nurse'] && record['Nurse']['name'] && record['Nurse']['name'] !== 'School Nurse' ? record['Nurse']['name'] : registrarName;
+})()"
+    />
+    <Computed
+      id="nurseEmail"
+      label="School Nurse Email"
+      columns={3}
+      formula="(()=>{
+  if (!school) return registrarEmail;
+  const record = schoolsDepartments[school];
+  return record && record['Nurse'] && record['Nurse']['email'] && record['Nurse']['email'] !== 'shiloh.marchetti@example.org' ? record['Nurse']['email'] : registrarEmail;
+})()"
+    />
+    <Computed
+      id="transportationName"
+      label="Transportation Director Name"
+      columns={3}
+      formula="'Jordan Okafor'"
+    />
+    <Computed
+      id="transportationEmail"
+      label="Transportation Director Email"
+      columns={3}
+      formula="'remy.lindqvist@example.org'"
+    />
+  </Section>
+  <Actions
+    display="currentStep() === 'start'"
+    enableReject={false}
+    submitText="Submit Registration"
+  />
+  <Actions
+    display="currentStep() === 'registrarReview'"
+    submitText="Accept Registration"
+    rejectText="Decline"
+  />
+  <Actions
+    display="currentStep() === 'nurseReview' || currentStep() === 'transportationReview'"
+    enableReject={false}
+    submitText="Mark Reviewed"
+  />
+</Form>

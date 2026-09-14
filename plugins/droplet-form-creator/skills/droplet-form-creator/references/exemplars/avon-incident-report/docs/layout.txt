@@ -1,0 +1,347 @@
+<Form color="#016844">
+  <Section id="header" marginBottom={7.5} marginTop={7.5} wide>
+    <Image
+      id="logo"
+      src="https://api.droplet.io/v1/assets/drplt-fi-p-AJajoW-0Y9Qz0-5ZQM5m99XVf98yM7p4VnS6827DM-528-512.png"
+      columns={3}
+      align="left"
+    />
+    <Text
+      id="formHeaderTitleText"
+      marginLeft={0}
+      marginRight={0}
+      marginTop={25}
+      marginBottom={10}
+      columns={9}
+    >
+      <h1 style={{ textAlign: "right" }}>Incident Report</h1>
+    </Text>
+  </Section>
+  <Section
+    id="instructionsSection"
+    marginBottom={10}
+    marginTop={10}
+    border
+    borderColor="#CFE6DD"
+    background="#F2F9F6"
+  >
+    <Text
+      id="instructionsText"
+      margin={0}
+      marginTop={10}
+      marginBottom={10}
+      columns={9}
+    >
+      <div style={{ color: "#0B3B2C", textAlign: "left" }}>
+        <h3>
+          <span style={{ color: "#016844" }}>Instructions</span>
+        </h3>
+        <p>
+          Use this form to report an incident or injury involving a student,
+          staff member, or visitor on district property. Complete it as soon as
+          possible after the incident, while details are fresh. If you do not
+          know the answer to an optional field, leave it blank rather than
+          guessing.
+        </p>
+      </div>
+    </Text>
+    <Identifier
+      id="incidentReportId"
+      label="Report ID"
+      mode="auto"
+      columns={3}
+      formula="`IR${padStart(String(getSequenceId()), 6, '0')}`"
+    />
+  </Section>
+  <Section id="reporterSection">
+    <Tile
+      id="bannerReporter"
+      border
+      borderColor="#CFE6DD"
+      background="#F2F9F6"
+      columns={12}
+    >
+      <Text id="bannerReporterText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Reporter Information</b>
+        </div>
+      </Text>
+    </Tile>
+    <Input id="submittedByName" label="Your Name" columns={6} />
+    <Input id="submittedByEmail" label="Your Email" type="email" columns={6} />
+    <Input
+      id="personReporting"
+      label="Person Reporting the Incident"
+      hint="Only if different from the person filling out this form."
+      columns={6}
+      required={false}
+    />
+  </Section>
+  <Section id="injuredPersonSection" marginTop={10}>
+    <Tile
+      id="bannerInjuredPerson"
+      border
+      borderColor="#CFE6DD"
+      background="#F2F9F6"
+      columns={12}
+    >
+      <Text id="bannerInjuredPersonText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Injured Person</b>
+        </div>
+      </Text>
+    </Tile>
+    <Input id="injuredPersonName" label="Injured Person Name" columns={6} />
+    <Radio
+      id="injuredPersonRole"
+      label="The injured person is a"
+      columns={6}
+      horizontal
+      options={["Student", "Staff Member", "Visitor"]}
+    />
+    <Dropdown
+      id="grade"
+      label="Grade"
+      columns={4}
+      options={[
+        "Pre-K",
+        "K",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+      ]}
+      hideSearch
+      display="injuredPersonRole === 'Student'"
+      clear
+    />
+    <Datetime
+      id="dateOfBirth"
+      label="Date of Birth"
+      columns={4}
+      required={false}
+      min="addDays(-120 * 365.25, today())"
+      max="today()"
+    />
+    <Radio
+      id="sex"
+      label="Sex"
+      columns={4}
+      horizontal
+      options={["Male", "Female"]}
+      required={false}
+    />
+    <Address
+      id="injuredPersonAddress"
+      label="Address"
+      columns={8}
+      required={false}
+    />
+    <Input
+      id="injuredPersonPhone"
+      label="Phone Number"
+      mask="/{phone}"
+      placeholder="(   )    -"
+      columns={4}
+      required={false}
+    />
+  </Section>
+  <Section id="incidentDetailsSection" marginTop={10}>
+    <Tile
+      id="bannerIncidentDetails"
+      border
+      borderColor="#CFE6DD"
+      background="#F2F9F6"
+      columns={12}
+    >
+      <Text id="bannerIncidentDetailsText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Incident Details</b>
+        </div>
+      </Text>
+    </Tile>
+    <Datetime
+      id="dateOfIncident"
+      label="Date/Time of Incident"
+      type="datetime"
+      columns={4}
+      max="new Date()"
+    />
+    <Dropdown
+      id="locationOfIncident"
+      label="Location of Incident"
+      columns={4}
+      options="(()=>{ const keys = Object.keys(schoolsDepartments).sort(); keys.push('District Campus Grounds'); return keys; })()"
+      hideSearch
+    />
+    <Input
+      id="placeOfIncident"
+      label="Place of Incident"
+      hint="Gym, playground, parking lot, cafeteria, Room 112, etc."
+      columns={4}
+    />
+    <Input
+      id="reasonPresent"
+      label="Reason Person Was There"
+      hint="Class, recess, athletic practice, visiting, etc."
+      columns={6}
+      required={false}
+    />
+    <Input
+      id="witnesses"
+      label="Witness(es) to the Incident"
+      hint="Names of anyone who saw what happened."
+      columns={6}
+      required={false}
+    />
+    <Textarea
+      id="incidentDescription"
+      label="Complete Description of the Incident"
+      rows={9}
+      hint="Describe what happened, what the person was doing, and any equipment or conditions involved."
+      columns={12}
+    />
+  </Section>
+  <Section id="injurySection" marginTop={10}>
+    <Tile
+      id="bannerInjury"
+      border
+      borderColor="#CFE6DD"
+      background="#F2F9F6"
+      columns={12}
+    >
+      <Text id="bannerInjuryText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Injury and Treatment</b>
+        </div>
+      </Text>
+    </Tile>
+    <Input
+      id="bodyParts"
+      label="Body Part(s) Injured"
+      hint="Forehead, left wrist, right knee, etc."
+      columns={6}
+    />
+    <Radio
+      id="sideOfBody"
+      label="Side of Body"
+      columns={6}
+      horizontal
+      options={["Left", "Right", "Both", "Not applicable"]}
+      required={false}
+    />
+    <Input
+      id="treatmentGiven"
+      label="Treatment Given"
+      hint="Ice pack, bandage, sent to the nurse, none, etc."
+      columns={6}
+      required={false}
+    />
+    <Input
+      id="treatmentGivenBy"
+      label="Treatment Given By"
+      columns={6}
+      required={false}
+    />
+    <Textarea
+      id="additionalNotes"
+      label="Additional Notes"
+      rows={2}
+      columns={12}
+      required={false}
+    />
+  </Section>
+  <Section id="parentNotificationSection" marginTop={10}>
+    <Tile
+      id="bannerParentNotification"
+      border
+      borderColor="#CFE6DD"
+      background="#F2F9F6"
+      columns={12}
+    >
+      <Text id="bannerParentNotificationText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Parent or Guardian Notification</b>
+        </div>
+      </Text>
+    </Tile>
+    <Radio
+      id="parentNotified"
+      label="Has a parent or guardian been notified?"
+      columns={12}
+      horizontal
+      options={["Yes", "Not yet", "Not applicable"]}
+    />
+    <Input
+      id="parentNotifiedBy"
+      label="Notified By"
+      columns={6}
+      display="parentNotified === 'Yes'"
+      clear
+    />
+    <Datetime
+      id="dateTimeParentNotified"
+      label="Date/Time Notified"
+      type="datetime"
+      columns={6}
+      display="parentNotified === 'Yes'"
+      clear
+    />
+  </Section>
+  <Section id="certificationSection" marginTop={10}>
+    <Tile
+      id="bannerCertification"
+      border
+      borderColor="#CFE6DD"
+      background="#F2F9F6"
+      columns={12}
+    >
+      <Text id="bannerCertificationText" columns={12}>
+        <div style={{ fontSize: 16, color: "#016844" }}>
+          <b>Certification</b>
+        </div>
+      </Text>
+    </Tile>
+    <Text
+      id="certificationText"
+      margin={0}
+      marginTop={6}
+      marginBottom={6}
+      columns={12}
+    >
+      <p style={{ color: "#0B3B2C" }}>
+        I certify that the information in this report is accurate and complete
+        to the best of my knowledge.
+      </p>
+    </Text>
+    <Signature id="signature" label="Signature" columns={8} />
+    <Timestamp
+      id="signatureDate"
+      label="Date Signed"
+      columns={4}
+      display={{
+        conditions: [{ elementId: "signature", comparator: "notEmpty" }],
+        action: "show",
+      }}
+      type="date"
+    />
+  </Section>
+  <Actions
+    display="currentStep() === 'start'"
+    enableReject={false}
+    submitText="Submit Report"
+  />
+  <Actions
+    display="currentStep() !== 'start'"
+    enableReject={false}
+    submitText="Mark as Reviewed"
+  />
+</Form>

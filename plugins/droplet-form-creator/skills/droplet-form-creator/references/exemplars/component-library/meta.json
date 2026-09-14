@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "form": {
+    "name": "Component Library",
+    "description": "",
+    "loginRequired": false,
+    "submitAsLoggedIn": false
+  }
+}

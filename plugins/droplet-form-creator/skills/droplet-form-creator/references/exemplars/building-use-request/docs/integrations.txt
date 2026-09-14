@@ -1,0 +1,23 @@
+{
+  "completed": {
+    "onEnter": [
+      {
+        "type": "google",
+        "configuration": {
+          "itemName": "Building Use Request - Google Sheet",
+          "connectionId": 0,
+          "mappings": [
+            {
+              "source": "school",
+              "targetField": "Location"
+            },
+            {
+              "source": "club",
+              "targetField": "Student Club"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

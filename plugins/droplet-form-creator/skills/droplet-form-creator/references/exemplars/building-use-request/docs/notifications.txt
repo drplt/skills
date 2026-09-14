@@ -1,0 +1,11 @@
+{
+  "step1": {
+    "onEnter": {
+      "type": "assignment",
+      "template": {
+        "subject": "Customized",
+        "body": "<p>Hi ##recipientFirstName##,</p><p><br/></p><p>##initiatedByFullName## submitted a request that is awaiting your review.</p><p><br/></p><p><a href=\"##submissionUrl##\">Click here to review the request.</a></p>"
+      }
+    }
+  }
+}

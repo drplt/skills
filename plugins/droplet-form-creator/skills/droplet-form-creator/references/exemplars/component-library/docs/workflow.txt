@@ -1,0 +1,23 @@
+{
+  "test": {},
+  "steps": {
+    "start": {
+      "onSubmit": [
+        {
+          "target": "completed"
+        }
+      ],
+      "position": [
+        160,
+        80
+      ]
+    },
+    "completed": {
+      "status": "completed",
+      "position": [
+        672,
+        80
+      ]
+    }
+  }
+}

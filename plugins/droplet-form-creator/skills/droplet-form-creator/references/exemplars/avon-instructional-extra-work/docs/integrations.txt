@@ -1,0 +1,136 @@
+{
+  "start": {
+    "onEnter": [
+      {
+        "type": "customWebhook",
+        "configuration": {
+          "itemName": "PL Ledger release",
+          "connectionId": 0,
+          "endpoint": "https://script.google.com/macros/s/REPLACE_WITH_YOUR_SCRIPT_ID/exec?op=release&token=REPLACE_ME",
+          "secret": "avonCSD",
+          "includeMetadata": false,
+          "mappings": [
+            {
+              "source": "submittedByEmail",
+              "targetField": "submittedByEmail"
+            },
+            {
+              "source": "plThisHours",
+              "targetField": "plThisHours"
+            },
+            {
+              "source": "paysheetId",
+              "targetField": "submissionId"
+            },
+            {
+              "source": "typeOfWork",
+              "targetField": "typeOfWork"
+            },
+            {
+              "source": "subtype",
+              "targetField": "subtype"
+            },
+            {
+              "source": "plThisYearWindow",
+              "targetField": "thisYearWindow"
+            }
+          ]
+        }
+      }
+    ],
+    "onExit": [
+      {
+        "type": "customWebhook",
+        "configuration": {
+          "itemName": "PL Ledger reserve",
+          "connectionId": 0,
+          "endpoint": "https://script.google.com/macros/s/REPLACE_WITH_YOUR_SCRIPT_ID/exec?op=reserve&token=REPLACE_ME",
+          "secret": "avonCSD",
+          "includeMetadata": false,
+          "mappings": [
+            {
+              "source": "submittedByEmail",
+              "targetField": "submittedByEmail"
+            },
+            {
+              "source": "plThisHours",
+              "targetField": "plThisHours"
+            },
+            {
+              "source": "paysheetId",
+              "targetField": "submissionId"
+            },
+            {
+              "source": "typeOfWork",
+              "targetField": "typeOfWork"
+            },
+            {
+              "source": "subtype",
+              "targetField": "subtype"
+            },
+            {
+              "source": "claimedDates",
+              "targetField": "claimedDates"
+            },
+            {
+              "source": "plThisYearClaim",
+              "targetField": "thisYearHours"
+            },
+            {
+              "source": "plLastYearClaim",
+              "targetField": "lastYearHours"
+            },
+            {
+              "source": "plThisYearWindow",
+              "targetField": "thisYearWindow"
+            },
+            {
+              "source": "plLastYearWindow",
+              "targetField": "lastYearWindow"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "rejected": {
+    "onEnter": [
+      {
+        "type": "customWebhook",
+        "configuration": {
+          "itemName": "PL Ledger release",
+          "connectionId": 0,
+          "endpoint": "https://script.google.com/macros/s/REPLACE_WITH_YOUR_SCRIPT_ID/exec?op=release&token=REPLACE_ME",
+          "secret": "avonCSD",
+          "includeMetadata": false,
+          "mappings": [
+            {
+              "source": "submittedByEmail",
+              "targetField": "submittedByEmail"
+            },
+            {
+              "source": "plThisHours",
+              "targetField": "plThisHours"
+            },
+            {
+              "source": "paysheetId",
+              "targetField": "submissionId"
+            },
+            {
+              "source": "typeOfWork",
+              "targetField": "typeOfWork"
+            },
+            {
+              "source": "subtype",
+              "targetField": "subtype"
+            },
+            {
+              "source": "plThisYearWindow",
+              "targetField": "thisYearWindow"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

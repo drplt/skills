@@ -1,0 +1,143 @@
+{
+  "test": {},
+  "steps": {
+    "start": {
+      "onEnter": {
+        "sendToSubmitter": true
+      },
+      "onSubmit": [
+        {
+          "target": "superintendentStep"
+        }
+      ],
+      "position": [
+        -256,
+        336
+      ]
+    },
+    "superintendentStep": {
+      "status": "pending",
+      "label": "Superintendent",
+      "onEnter": {
+        "assign": {
+          "name": "Kendall Ingram",
+          "email": "kendall.ingram@example.org"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "athleticsStep"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "start",
+          "if": {
+            "conditions": [
+              {
+                "elementId": "decisionSuperintendent",
+                "comparator": "equal",
+                "value": "Must Revise"
+              }
+            ]
+          }
+        },
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        176,
+        336
+      ]
+    },
+    "athleticsStep": {
+      "status": "pending",
+      "label": "Athletic Director",
+      "onEnter": {
+        "if": "includeAthletics",
+        "assign": {
+          "name": "Parker Beaumont",
+          "email": "parker.beaumont@example.org"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "theaterStep"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "start",
+          "if": "decisionAthletics === 'Must Revise'"
+        },
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        592,
+        336
+      ]
+    },
+    "theaterStep": {
+      "status": "pending",
+      "label": "Theater",
+      "onEnter": {
+        "if": "includeTheater",
+        "assign": {
+          "name": "Sage Donovan",
+          "email": "sage.donovan@example.org"
+        }
+      },
+      "onSubmit": [
+        {
+          "target": "entryStep"
+        }
+      ],
+      "onReject": [
+        {
+          "target": "start",
+          "if": "decisionTheater === 'Must Revise'"
+        },
+        {
+          "target": "rejected"
+        }
+      ],
+      "position": [
+        1008,
+        336
+      ]
+    },
+    "rejected": {
+      "status": "rejected",
+      "position": [
+        1792,
+        528
+      ]
+    },
+    "completed": {
+      "status": "completed",
+      "position": [
+        1792,
+        336
+      ]
+    },
+    "entryStep": {
+      "status": "pending",
+      "label": "Request Entry",
+      "onEnter": {
+        "assign": "buildings[building].facilityRequest"
+      },
+      "onSubmit": [
+        {
+          "target": "completed"
+        }
+      ],
+      "position": [
+        1392,
+        336
+      ]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "form": {
+    "name": "Incident Report",
+    "description": "incident, injury, report, student, staff, visitor, safety",
+    "loginRequired": false,
+    "submitAsLoggedIn": false
+  }
+}

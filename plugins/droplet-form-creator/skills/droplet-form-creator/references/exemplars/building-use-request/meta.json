@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "form": {
+    "name": "Building Use Request",
+    "description": "",
+    "loginRequired": false,
+    "submitAsLoggedIn": false
+  }
+}
