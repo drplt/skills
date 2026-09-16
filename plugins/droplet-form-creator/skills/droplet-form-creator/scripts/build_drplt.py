@@ -40,6 +40,11 @@ JSON_MODULES = ["workflow", "steps", "notifications", "datasets", "attributes",
                 "tagExpressions", "translations", "integrations"]
 ALL_DOCS = ["layout"] + JSON_MODULES
 
+RESERVED_ID_ERROR = {"formId"}
+RESERVED_ID_WARN = {"formName", "submissionId", "submissionUrl", "assignmentUrl", "recipientFirstName",
+                    "recipientLastName", "recipientFullName", "recipientEmail", "initiatedByFullName",
+                    "initiatedByFirstName", "initiatedByEmail", "_reason"}
+
 INPUT_TYPES = {"Input", "Textarea", "Dropdown", "Radio", "Checkbox", "Boolean", "Datetime", "Signature",
                "Upload", "Address", "Table", "TableColumn"}
 STRUCTURAL = {"Section", "Tile", "Group", "Text", "Image", "Spacer", "Line", "Pagebreak", "Table"}
@@ -349,6 +354,10 @@ def lint_form(meta, docs, data, lint):
             if eid:
                 if eid in types:
                     lint.error(where, "duplicate id \"{}\" (ids must be unique across the whole form)".format(eid))
+                if eid in RESERVED_ID_ERROR:
+                    lint.error(where, "id \"{}\" is a reserved email template key and the form will not import; use referenceId or requestId".format(eid))
+                elif eid in RESERVED_ID_WARN:
+                    lint.warn(where, "id \"{}\" matches a notification template variable; pick another id to be safe".format(eid))
                 types[eid] = name
                 ids_in_order.append(eid)
                 if name == "TableColumn":

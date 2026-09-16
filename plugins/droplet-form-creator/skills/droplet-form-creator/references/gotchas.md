@@ -9,6 +9,7 @@ Read this before writing any file. Most items are import-time errors or silent n
 | Layout | Missing `submittedByName` or `submittedByEmail` | Add both as `<Input>` fields near the top, email with `type="email"` |
 | Layout | Section inside a Section | Sections are direct children of `<Form>`; use Tiles for sub-grouping |
 | Layout | Element outside any Section | Everything except `<Actions>` lives inside a Section |
+| Layout | An element id that is a reserved email template key, such as `<Identifier id="formId">` | Use `referenceId`, `requestId`, or a form-specific name; keep `formName`, `submissionId`, `submissionUrl`, `assignmentUrl`, `recipientFirstName`, `initiatedByFullName`, and `_reason` out of ids too |
 | Boolean | `required` prop | Use a `validate` rule to require a checked state, or a single-option `<Checkbox>` |
 | TableColumn | `initialValue` prop | Use a `formula` that returns a default, or a `values` array |
 | TableColumn | `align` on a plain data-entry column | `align` only works alongside `formula` or `values` |
@@ -68,6 +69,7 @@ Read this before writing any file. Most items are import-time errors or silent n
 ## Pre-build checklist
 
 - [ ] `submittedByName` and `submittedByEmail` present
+- [ ] No element id reuses a notification template key (`formId` and its siblings)
 - [ ] Every input element listed in the `start` permissions
 - [ ] Computed, Section, Tile, Text never editable
 - [ ] Editable columns have an editable parent Table in that step

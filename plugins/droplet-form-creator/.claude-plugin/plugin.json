@@ -1,10 +1,16 @@
 {
   "name": "droplet-form-creator",
   "displayName": "Droplet Form Creator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build and edit Droplet Forms and Workflows .drplt files (layout, workflow, permissions, notifications, datasets) from a plain-language description.",
   "author": {
     "name": "Droplet"
   },
-  "keywords": ["droplet", "forms", "workflows", "drplt", "k12"]
+  "keywords": [
+    "droplet",
+    "forms",
+    "workflows",
+    "drplt",
+    "k12"
+  ]
 }

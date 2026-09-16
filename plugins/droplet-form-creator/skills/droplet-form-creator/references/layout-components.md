@@ -237,7 +237,7 @@ Sequential id, claimed when the field renders.
 <Identifier id="requestId" label="Request ID" mode="auto" columns={3} formula="`FT${padStart(String(getSequenceId()), 5, '0')}`" />
 ```
 
-Keep it visible on `start`. A hidden Identifier stays empty.
+Keep it visible on `start`. A hidden Identifier stays empty. Do not name it `formId`; that is a reserved email template key and the import fails. `referenceId`, `requestId`, or a form-specific id all work.
 
 ## Display components
 
