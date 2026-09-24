@@ -42,9 +42,9 @@ The script generates `import/layout.jsx`, `import/<module>.js` for every JSON mo
    python3 scripts/build_drplt.py build "<Form Name>"
    ```
    Fix every ERROR and read every warning. The script writes `<Form Name>/<Form Name>.drplt`. Use `-o` to choose another path.
-5. **Hand over.** Give the user the `.drplt` path, the list of placeholders to replace (dataset IDs, approver names and emails, logo URL, webhook connection IDs), the import steps (Droplet: Forms, then Import), and what to test in the workflow tester.
+5. **Hand over.** For a new form, give the user the `.drplt` path, the list of placeholders to replace (dataset IDs, approver names and emails, logo URL, webhook connection IDs), the import steps (Droplet: Forms, then Import), and what to test in the workflow tester. For a form that already exists in Droplet, an import cannot replace it (it would create a second form with a new link). List which `docs/*.txt` files changed and tell the user to paste each one into the matching code view of the existing form, in this order: layout, workflow, steps, notifications, then datasets, attributes, and tagExpressions if they changed.
 
-To edit an existing form: `python3 scripts/build_drplt.py extract "Existing.drplt"` unpacks `meta.json` and `docs/` into a folder. Edit the text files, then build. Never hand-edit the `import/` files separately; they are regenerated.
+To edit an existing form: `python3 scripts/build_drplt.py extract "Existing.drplt"` unpacks `meta.json` and `docs/` into a folder. Edit the text files, then build. Never hand-edit the `import/` files separately; they are regenerated. The rebuilt `.drplt` is for a fresh import only; the form already in Droplet is updated by pasting the changed `docs/*.txt` modules into its editor (see Hand over).
 
 ## Hard rules
 
@@ -227,6 +227,8 @@ export { metadata };
 Zip `meta.json`, `docs/`, and `import/` at the root of the archive (not inside a parent folder) and name the file `<Form Name>.drplt`.
 
 ## Appendix B: handoff checklist
+
+First say whether this is a first import (hand over the `.drplt`) or a change to a form already in Droplet (an import never overwrites it; hand over the list of changed `docs/*.txt` modules to paste, in order: layout, workflow, steps, notifications, then datasets, attributes, tagExpressions).
 
 Tell the user, in this order:
 

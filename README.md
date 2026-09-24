@@ -67,6 +67,7 @@ Paste `SKILL.md` and the relevant reference files into the conversation, or atta
 1. In Droplet, open Forms, then Import, and choose the `.drplt` file.
 2. Replace the placeholders the assistant listed in its handoff: dataset ids, approver names and emails, the logo image, and any webhook connection.
 3. Open the form in the editor, run the workflow tester, and publish when satisfied.
+4. For later changes, do not import again: an import creates a second form with a new link. Open the existing form in the editor and paste each changed `docs/*.txt` file into the matching code view, in this order: layout, workflow, steps, notifications, then datasets, attributes, and tag expressions if they changed.
 
 ## Building and editing by hand
 

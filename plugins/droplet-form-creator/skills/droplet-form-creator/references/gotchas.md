@@ -83,3 +83,13 @@ Read this before writing any file. Most items are import-time errors or silent n
 - [ ] Identifiers and Timestamps visible where their value is needed
 - [ ] No em dashes in any copy
 - [ ] `##fieldId##` references all match real ids
+
+## Updating a form that already exists
+
+A `.drplt` import always creates a new form with a new link. It cannot overwrite a form already in
+the workspace. To change a form that is live or already imported, open it in the editor and paste
+the changed `docs/*.txt` modules into the matching code views, in this order so references
+resolve: `layout.txt`, `workflow.txt`, `steps.txt`, `notifications.txt`, then `datasets.txt`,
+`attributes.txt`, and `tagExpressions.txt` if they changed. The form name and login settings are
+edited in the form's settings, not pasted. When handing over a revision, say which modules changed
+since the last hand-over so nothing is pasted twice or missed.
