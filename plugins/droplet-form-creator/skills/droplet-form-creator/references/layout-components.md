@@ -218,6 +218,8 @@ There is no upload column for tables. For per-row attachments, add N Upload fiel
 
 A Distance endpoint can be a Computed field, but it must return one geocodable string, not an address object.
 
+A Distance only looks up miles while it is on screen. Hidden by `display` (including `alwaysHide`) or by a `hidden` permission, it stays blank, and so does every Computed that reads it. To show round trip or reimbursable miles, keep the one way Distance visible in its own labeled row and put the Computeds in the row below. Google returns its optimal driving route, which accounts for travel time, so it is not always the shortest distance.
+
 ### Computed
 
 Read-only value driven by a formula (see the logic reference).

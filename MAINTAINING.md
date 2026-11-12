@@ -64,4 +64,4 @@ Mention notable changes in the changelog line, since that becomes the release no
 
 - `python3 tools/check_package.py` runs every structural check and lints every exemplar.
 - The skeleton in `SKILL.md` must build: copy its blocks into a folder and run `scripts/build_drplt.py build`.
-- Negative test: build a form with known faults (a Boolean with `required`, `{label, value}` options, two conditions without `operator`, a Checkbox with `includes`, an editable Computed, `sendToSubmitter` inside `template`, a reminder using `assignmentUrl`, an empty `secret`, an element with `id="formId"`) and confirm each produces an ERROR.
+- Negative test: build a form with known faults (a Boolean with `required`, `{label, value}` options, two conditions without `operator`, a Checkbox with `includes`, an editable Computed, `sendToSubmitter` inside `template`, a reminder using `assignmentUrl`, an empty `secret`, an element with `id="formId"`, a `<Distance>` with `display={{ action: "alwaysHide" }}`) and confirm each produces an ERROR.

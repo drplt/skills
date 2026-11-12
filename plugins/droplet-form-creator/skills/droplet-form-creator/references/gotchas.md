@@ -41,6 +41,7 @@ Read this before writing any file. Most items are import-time errors or silent n
 | Distance column shows no miles | Distance TableColumn is `readonly` where addresses are typed | Make `type="distance"` columns (and their Table) `"editable"` in the step where addresses are entered |
 | Distance shows 0 miles from a computed address | The computed returned an address object | Return one geocodable string: `street + ', ' + city + ', ' + state + ' ' + zip` |
 | Distance column ignores a formula-driven address column | Column distance only geocodes addresses typed through autocomplete | Use free-entry `type="address"` columns; form-level `<Distance>` does accept a computed string |
+| Distance and the Computeds that read it stay blank | The `<Distance>` is hidden (`alwaysHide`, a false `display`, or a `hidden` permission) | Keep it visible and editable where addresses are entered; show derived miles in Computeds next to it |
 | Identifier or Timestamp is empty in a webhook, formula, or notification | It was never rendered (`alwaysHide` section or `hidden` permission) | Keep it visible (readonly) on the step where its value is first needed |
 | Total shows `$0.000` or a threshold check misfires | `sum()` over a currency-formatted column returned a string, and `+` concatenated | `const n = v => parseFloat(String(v).replace(/[^0-9.-]/g, '')) \|\| 0;` then do the math on `n(...)` |
 | A projected date keeps moving | Computed fields re-evaluate on every view, so `new Date()` drifts | Anchor on a stored Timestamp: `signedAt ? new Date(signedAt) : new Date()` |

@@ -388,6 +388,9 @@ def lint_form(meta, docs, data, lint):
                     lint.error(where, "align on a TableColumn only works when formula or values is also set")
                 if attrs.get("type") == ("str", "upload"):
                     lint.error(where, "there is no upload column type; place Upload fields outside the table")
+            if name == "Distance" and isinstance(attrs.get("display"), tuple) and (
+                    "alwaysHide" in attrs["display"][1] or attrs["display"][1].strip() in ("false", "{false}")):
+                lint.error(where, "<Distance> is always hidden, so it never looks up miles; keep it visible and show derived miles in a Computed")
             if name == "Dropdown" and "hideSearch" in attrs and "multiple" in attrs:
                 lint.error(where, "<Dropdown> hideSearch is not compatible with multiple")
             if name in ("Dropdown", "Radio", "Checkbox", "TableColumn") and isinstance(attrs.get("options"), tuple) and attrs["options"][0] == "expr":
@@ -547,6 +550,8 @@ def lint_form(meta, docs, data, lint):
                     lint.error(where, "<{} id=\"{}\"> cannot take step permissions; remove it".format(t, fid))
                 if val == "editable" and t == "Computed":
                     lint.error(where, "<Computed id=\"{}\"> cannot be editable (readonly, hidden, or redacted only)".format(fid))
+                if val == "hidden" and t == "Distance" and sid == "start":
+                    lint.error(where, "<Distance id=\"{}\"> is hidden on start, so it never looks up miles; make it editable".format(fid))
                 if val == "editable" and t in ("Identifier", "Timestamp"):
                     lint.warn(where, "<{} id=\"{}\"> is editable; these are normally readonly".format(t, fid))
                 if val == "editable" and t in STRUCTURAL and t != "Table":
