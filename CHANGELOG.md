@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.4] - 2026-11-12
+- Group assignment: a step's assign can be a list of up to 8 people, rules, or expressions, and the first to act completes the step. Use a parallel step when everyone must act. The linter checks each entry and errors past 8 assignees.
+
 ## [1.0.3] - 2026-11-11
 - A hidden Distance never looks up miles. Keep every Distance visible and editable where addresses are entered, and show round trip or reimbursable miles in Computeds beside it. The linter now errors on an always-hidden Distance or one hidden on start.
 

@@ -1,7 +1,7 @@
 {
   "name": "droplet-form-creator",
   "displayName": "Droplet Form Creator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Build and edit Droplet Forms and Workflows .drplt files (layout, workflow, permissions, notifications, datasets) from a plain-language description.",
   "author": {
     "name": "Droplet"

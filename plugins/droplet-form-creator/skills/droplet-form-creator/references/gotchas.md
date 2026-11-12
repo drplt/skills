@@ -58,7 +58,7 @@ Read this before writing any file. Most items are import-time errors or silent n
 - **Send Back is native.** Approvers can return a submission from the actions menu. Do not build "Return to Employee" reject routes or reason-capture flows just for corrections. Use `onReject` only for a genuine reject-to-terminal route.
 - **Data saves on step transitions only.** There is no in-place edit and save. The Save Progress button works only for the current assignee and does not advance the step.
 - **Profile prefill is name and email only.** The `attributes` module can fill `submittedByName` (`fullName`) and `submittedByEmail` (`primaryEmail`). School, department, position, and role are not profile attributes; use a dataset-driven dropdown the user picks.
-- **One assignee per step.** There are no group assignments or shared queues. When "either person can handle it", pick one as the assignee, copy the other in a notification, and make the choice dataset-driven so the district can change it without a form edit.
+- **Group assignment is "any one of".** An `assign` array (up to 8) lets the first person to act complete the step for everyone. If each person must act, use a parallel step. An array over 8 entries, or 8 plus `sendToSubmitter: true`, fails validation.
 - **Timestamps stamp when rendered.** A bare `<Timestamp>` records when the form was opened. A Timestamp whose `display` waits for a Signature to be non-empty records when it was signed.
 - **Identifiers claim their sequence number at render.** Gaps from abandoned drafts are normal.
 - **Tables inside Tiles.** The documented rule is Tables directly inside a Section. Forms with a Table inside a Tile have imported, so treat the Section placement as the safe default rather than an absolute.

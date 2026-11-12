@@ -85,6 +85,26 @@ For a fixed person or shared mailbox that never varies by submission.
 
 The string is a field id or an expression that returns `{ name, email }`. Still valid but renders poorly in the editor. Do not use for new forms; migrate when editing old ones.
 
+### Group assignment (several people, first to act completes it)
+
+`assign` can be an array of up to 8 entries. Each entry is any single shape above: a `nameElementId` / `emailElementId` rule, a static `{ name, email }`, or an expression string. `sendToSubmitter: true` can sit beside the array and takes one of the 8 slots.
+
+```json
+"onEnter": {
+  "assign": [
+    { "nameElementId": "bookkeeperName", "emailElementId": "bookkeeperEmail" },
+    { "nameElementId": "grantDirectorName", "emailElementId": "grantDirectorEmail" },
+    { "name": "Business Office", "email": "businessoffice@district.org" }
+  ]
+}
+```
+
+- Every assignee gets the step and their own link. The first one to submit or reject completes it; the others see it is already done. This is "any one of", not "all of". When everyone must act, use a parallel step instead.
+- Each entry resolves on its own. An entry whose email comes back empty is skipped without error, so an assignee who only applies sometimes is a computed pair that returns `''` when they do not apply.
+- Duplicates are removed by email. An expression that throws is skipped inside a list, but stops the transition when it is the only `assign` value.
+- At least one entry must always resolve, or the step has nobody and errors.
+- `getAllAssignedTo()` returns every assignee of the current step as `[{ name, email }]`.
+
 ### Conditional entry (skip the step)
 
 ```json
@@ -198,6 +218,14 @@ A parallel container activates several substeps at once and advances only when a
 
 Rules: substeps are top-level steps referenced from `substeps`; a substep belongs to one container; no transition may target a substep; no nested parallels; `start`, `completed`, and `rejected` cannot be substeps. A reject from any substep triggers the container's `onReject` immediately and interrupts the others. Re-entering a container resets every substep. Substeps cannot see each other's data until all complete (last write wins on merge). `currentStep()` returns the substep id. Control buttons per substep with `display` on `<Actions>`, not with `_actions` permissions.
 
+### Parallel step or group assignment?
+
+| Need | Use |
+|---|---|
+| Every person must sign off, each with their own fields | Parallel step, one substep each |
+| Anyone from a set of people can handle it | Group assignment on one step |
+| An extra person only in some cases | Group assignment with a computed pair that returns `''` when they do not apply |
+
 ## Permissions (steps.txt)
 
 ```json
@@ -251,6 +279,6 @@ Rules:
 
 ## Platform notes
 
-- One assignee per step. No group queues. When two people could handle a step, assign one, notify the other, and drive the choice from a dataset so the district can change it later.
+- A step can have up to 8 assignees (group assignment). The first to act completes it. Use a parallel step when every person must act.
 - Data saves only on step transitions. Save Progress exists for the current assignee but does not advance the step.
 - Attributes (profile prefill) cover name and email only.

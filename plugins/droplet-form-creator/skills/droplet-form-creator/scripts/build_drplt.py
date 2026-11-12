@@ -336,6 +336,25 @@ def jsx_condition_blocks(layout):
         yield line, m.group(1), layout[start:k + 1]
 
 
+def check_assign_entry(lint, where, assign, types):
+    """One assign entry: a rule, a static person, or an expression string."""
+    if isinstance(assign, dict):
+        for k in ("nameElementId", "emailElementId"):
+            if k in assign and assign[k] not in types:
+                lint.error(where, "onEnter.assign.{} references unknown field \"{}\"".format(k, assign[k]))
+            elif k in assign and types.get(assign[k]) not in ("Computed", "Input", "Dropdown"):
+                lint.warn(where, "onEnter.assign.{} points at a <{}>; a Computed (or Input) returning a string is expected".format(k, types.get(assign[k])))
+        if "name" in assign and "email" in assign and not assign.get("email"):
+            lint.error(where, "static assign has an empty email")
+    elif isinstance(assign, str):
+        if assign in types:
+            lint.warn(where, "onEnter.assign uses the legacy single-object form; prefer nameElementId/emailElementId")
+        elif re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", assign):
+            lint.error(where, "onEnter.assign references unknown field \"{}\"".format(assign))
+        else:
+            lint.warn(where, "onEnter.assign is an expression returning {name, email} (legacy); prefer nameElementId/emailElementId computeds")
+
+
 def lint_form(meta, docs, data, lint):
     layout = docs.get("layout")
     types, tables_of_columns, ids_in_order = {}, {}, []
@@ -485,21 +504,15 @@ def lint_form(meta, docs, data, lint):
             on_enter = step.get("onEnter")
             if isinstance(on_enter, dict):
                 assign = on_enter.get("assign")
-                if isinstance(assign, dict):
-                    for k in ("nameElementId", "emailElementId"):
-                        if k in assign and assign[k] not in types:
-                            lint.error(where, "onEnter.assign.{} references unknown field \"{}\"".format(k, assign[k]))
-                        elif k in assign and types.get(assign[k]) not in ("Computed", "Input", "Dropdown"):
-                            lint.warn(where, "onEnter.assign.{} points at a <{}>; a Computed (or Input) returning a string is expected".format(k, types.get(assign[k])))
-                    if "name" in assign and "email" in assign and not assign.get("email"):
-                        lint.error(where, "static assign has an empty email")
-                elif isinstance(assign, str):
-                    if assign in types:
-                        lint.warn(where, "onEnter.assign uses the legacy single-object form; prefer nameElementId/emailElementId")
-                    elif re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", assign):
-                        lint.error(where, "onEnter.assign references unknown field \"{}\"".format(assign))
-                    else:
-                        lint.warn(where, "onEnter.assign is an expression returning {name, email} (legacy); prefer nameElementId/emailElementId computeds")
+                entries = assign if isinstance(assign, list) else ([assign] if assign is not None else [])
+                if isinstance(assign, list):
+                    slots = len(assign) + (1 if on_enter.get("sendToSubmitter") is True else 0)
+                    if not assign:
+                        lint.warn(where, "onEnter.assign is an empty list")
+                    if slots > 8:
+                        lint.error(where, "a step holds at most 8 assignees (assign entries plus sendToSubmitter); found {}".format(slots))
+                for assign in entries:
+                    check_assign_entry(lint, where, assign, types)
                 if isinstance(on_enter.get("if"), dict):
                     check_conditions(lint, where + ".onEnter.if", on_enter["if"], types)
                 for sa in on_enter.get("scheduledActions") or []:
