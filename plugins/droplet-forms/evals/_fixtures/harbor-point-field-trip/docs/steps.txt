@@ -1,0 +1,35 @@
+{
+  "start": {
+    "permissions": {
+      "sectionRequester": "readonly",
+      "textIntro": "readonly",
+      "submittedByName": "editable",
+      "submittedByEmail": "editable",
+      "school": "editable",
+      "gradeLevel": "editable",
+      "sectionTrip": "readonly",
+      "destination": "editable",
+      "tripDate": "editable",
+      "studentCount": "editable",
+      "busNeeded": "editable",
+      "tripPurpose": "editable",
+      "sectionPrincipal": "hidden",
+      "principalDecision": "hidden",
+      "principalComments": "hidden",
+      "principalSignature": "hidden",
+      "principalSignedAt": "hidden"
+    }
+  },
+  "principalApproval": {
+    "permissions": {
+      "sectionPrincipal": "readonly",
+      "principalDecision": "editable",
+      "principalComments": "editable",
+      "principalSignature": "editable",
+      "principalSignedAt": "readonly"
+    },
+    "actions": {}
+  },
+  "completed": { "permissions": { "_actions": "hidden" } },
+  "rejected": { "permissions": { "_actions": "hidden" }, "actions": {} }
+}

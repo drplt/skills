@@ -77,7 +77,7 @@ if lines > 400:
     print("  note     SKILL.md is {} lines; keep it lean and push detail into references/".format(lines))
 
 # long dashes in authored markdown
-for md in [SKILL / "SKILL.md", ROOT / "README.md", ROOT / "MAINTAINING.md", ROOT / "CHANGELOG.md"] + sorted((SKILL / "references").glob("*.md")) + [SKILL / "references" / "exemplars" / "README.md"]:
+for md in [SKILL / "SKILL.md", ROOT / "README.md", ROOT / "MAINTAINING.md", ROOT / "CHANGELOG.md"] + sorted((SKILL / "references").glob("*.md")) + [SKILL / "references" / "exemplars" / "README.md"] + sorted(m for m in (PLUGIN / "evals").rglob("*.md") if "results" not in m.parts):
     if md.exists():
         text = md.read_text(encoding="utf-8")
         for i, line in enumerate(text.split("\n"), 1):
@@ -120,6 +120,14 @@ for ex in cfg["exemplars"]:
                 problem("{} contains an empty secret".format(f.relative_to(ROOT)))
             if re.search(r"script\.google\.com/macros/s/AK", text):
                 problem("{} contains a live Apps Script id".format(f.relative_to(ROOT)))
+# eval fixture forms must lint clean, or the cases that start from them break
+for d in sorted((PLUGIN / "evals" / "_fixtures").glob("*/")):
+    if (d / "docs").is_dir():
+        lint = bd.Lint()
+        meta, docs, data = bd.load_form_dir(str(d), lint)
+        bd.lint_form(meta, docs, data, lint)
+        for where, msg in lint.errors:
+            problem("eval fixture {} {}: {}".format(d.name, where, msg))
 for d in ex_dir.iterdir():
     if d.is_dir() and d.name not in {ex["slug"] for ex in cfg["exemplars"]}:
         problem("exemplar folder not in tools/exemplars.json: {}".format(d.name))

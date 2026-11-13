@@ -1,0 +1,5 @@
+{
+  "principalApproval": { "onEnter": { "type": "assignment", "template": { "subject": "Field trip request from ##submittedByName##", "body": "<p>Hi ##recipientFirstName##, ##submittedByName## submitted a field trip to ##destination## on ##tripDate##.</p><p><a href='##assignmentUrl##'>Review the request</a></p>" } } },
+  "completed": { "onEnter": { "template": { "subject": "Your field trip to ##destination## was approved", "body": "<p>Your field trip request was approved.</p><p><a href='##submissionUrl##'>View the request</a></p>" }, "sendToSubmitter": true } },
+  "rejected": { "onEnter": { "template": { "subject": "Your field trip to ##destination## was not approved", "body": "<p>Your field trip request was not approved.</p><p><a href='##submissionUrl##'>View the request</a></p>" }, "sendToSubmitter": true } }
+}
