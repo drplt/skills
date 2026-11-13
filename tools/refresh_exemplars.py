@@ -19,7 +19,7 @@ import sys
 import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SKILL = ROOT / "plugins" / "droplet-form-creator" / "skills" / "droplet-form-creator"
+SKILL = ROOT / "plugins" / "droplet-forms" / "skills" / "droplet-form-creator"
 CONFIG = ROOT / "tools" / "exemplars.json"
 REF_DIR = SKILL / "references" / "exemplars"
 ASSET_DIR = SKILL / "assets" / "exemplars"

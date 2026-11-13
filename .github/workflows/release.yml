@@ -16,7 +16,7 @@ jobs:
         run: python3 tools/check_package.py
       - name: Build the claude.ai skill zip
         run: |
-          cd plugins/droplet-form-creator/skills
+          cd plugins/droplet-forms/skills
           zip -r ../../../droplet-form-creator-skill.zip droplet-form-creator -x '*.DS_Store'
       - name: Publish the GitHub release with the zip attached
         env:

@@ -6,8 +6,8 @@ For whoever keeps the skill current: a Droplet team member, or an AI assistant w
 
 | Path | What it is | Ships to customers |
 |---|---|---|
-| `plugins/droplet-form-creator/skills/droplet-form-creator/` | The skill: `SKILL.md`, `references/`, `scripts/`, `assets/` | Yes (the zip is this folder) |
-| `plugins/droplet-form-creator/.claude-plugin/plugin.json` | Plugin manifest, holds the version | Yes |
+| `plugins/droplet-forms/skills/droplet-form-creator/` | The skill: `SKILL.md`, `references/`, `scripts/`, `assets/` | Yes (the zip is this folder) |
+| `plugins/droplet-forms/.claude-plugin/plugin.json` | Plugin manifest, holds the version | Yes |
 | `.claude-plugin/marketplace.json` | Lets Claude Code install from this repo | Yes |
 | `tools/` | Maintainer scripts: package checks, exemplar refresh, release notes | No |
 | `release.sh` | One-command release | No |

@@ -15,7 +15,7 @@ import sys
 import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PLUGIN = ROOT / "plugins" / "droplet-form-creator"
+PLUGIN = ROOT / "plugins" / "droplet-forms"
 SKILL = PLUGIN / "skills" / "droplet-form-creator"
 problems = []
 
@@ -32,17 +32,17 @@ spec.loader.exec_module(bd)
 # manifests
 try:
     mp = json.loads((ROOT / ".claude-plugin" / "marketplace.json").read_text(encoding="utf-8"))
-    entry = next((p for p in mp.get("plugins", []) if p.get("name") == "droplet-form-creator"), None)
+    entry = next((p for p in mp.get("plugins", []) if p.get("name") == "droplet-forms"), None)
     if not entry:
-        problem("marketplace.json has no droplet-form-creator plugin entry")
+        problem("marketplace.json has no droplet-forms plugin entry")
     elif not (ROOT / entry["source"]).is_dir():
         problem("marketplace.json source path does not exist: {}".format(entry["source"]))
 except Exception as ex:
     problem("marketplace.json: {}".format(ex))
 try:
     pj = json.loads((PLUGIN / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))
-    if pj.get("name") != "droplet-form-creator":
-        problem("plugin.json name must be droplet-form-creator")
+    if pj.get("name") != "droplet-forms":
+        problem("plugin.json name must be droplet-forms")
     version = pj.get("version", "")
     if not re.match(r"^\d+\.\d+\.\d+$", version):
         problem("plugin.json version must look like 1.2.3")

@@ -15,7 +15,7 @@ git rev-parse "v$VERSION" >/dev/null 2>&1 && { echo "tag v$VERSION already exist
 python3 - "$VERSION" "$SUMMARY" <<'PY'
 import json, pathlib, re, sys, datetime
 version, summary = sys.argv[1], sys.argv[2]
-pj = pathlib.Path("plugins/droplet-form-creator/.claude-plugin/plugin.json")
+pj = pathlib.Path("plugins/droplet-forms/.claude-plugin/plugin.json")
 data = json.loads(pj.read_text()); data["version"] = version
 pj.write_text(json.dumps(data, indent=2) + "\n")
 cl = pathlib.Path("CHANGELOG.md"); text = cl.read_text()
@@ -34,5 +34,5 @@ git push origin HEAD
 git push origin "v$VERSION"
 echo
 echo "Pushed. The Release workflow is building the zip and publishing:"
-echo "  https://github.com/drplt/droplet-form-creator/releases/tag/v$VERSION"
+echo "  https://github.com/drplt/skills/releases/tag/v$VERSION"
 echo "Watch it with: gh run watch"

@@ -6,15 +6,15 @@ The skill works in Claude Code, claude.ai, OpenAI Codex, GitHub Copilot, Gemini 
 
 ## What is inside
 
-The skill folder is `plugins/droplet-form-creator/skills/droplet-form-creator/`. Everything else in this repository is packaging.
+The skill folder is `plugins/droplet-forms/skills/droplet-form-creator/`. Everything else in this repository is packaging.
 
-| Path | Purpose |
-|---|---|
-| `SKILL.md` | The instructions the assistant follows: the file format, the build process, and the rules that keep a form importable. |
-| `references/` | Detailed reference for each part of a form: layout components, display logic and formulas, workflow and permissions, notifications, datasets and integrations, and a consolidated list of gotchas. |
-| `references/exemplars/` | Eight complete example forms as readable text, from a component showcase to district forms with parallel review, dataset-driven routing, and webhooks. |
-| `assets/exemplars/` | The same forms as ready-to-import `.drplt` files. Import one into Droplet to see how it looks and behaves. |
-| `scripts/build_drplt.py` | A dependency-free Python 3 script that lints a form for common import failures, builds the `.drplt` archive, or extracts an existing one for editing. |
+| Path                     | Purpose                                                                                                                                                                                            |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SKILL.md`               | The instructions the assistant follows: the file format, the build process, and the rules that keep a form importable.                                                                             |
+| `references/`            | Detailed reference for each part of a form: layout components, display logic and formulas, workflow and permissions, notifications, datasets and integrations, and a consolidated list of gotchas. |
+| `references/exemplars/`  | Eight complete example forms as readable text, from a component showcase to district forms with parallel review, dataset-driven routing, and webhooks.                                             |
+| `assets/exemplars/`      | The same forms as ready-to-import `.drplt` files. Import one into Droplet to see how it looks and behaves.                                                                                         |
+| `scripts/build_drplt.py` | A dependency-free Python 3 script that lints a form for common import failures, builds the `.drplt` archive, or extracts an existing one for editing.                                              |
 
 ## Install
 
@@ -23,26 +23,37 @@ The skill folder is `plugins/droplet-form-creator/skills/droplet-form-creator/`.
 Install as a plugin, which also gives you updates:
 
 ```
-/plugin marketplace add drplt/droplet-form-creator
-/plugin install droplet-form-creator@droplet-forms
+/plugin marketplace add drplt/skills
+/plugin install droplet-forms@droplet
 ```
 
 Or copy the skill folder into a project (`.claude/skills/`) or your personal skills folder (`~/.claude/skills/`). Then ask for a form. Claude Code loads the skill when a request mentions Droplet forms or `.drplt` files.
 
+If you installed before version 2.0.0, reinstall. The marketplace used to be named `droplet-forms` and the plugin `droplet-form-creator`. Remove the old marketplace, which also removes the plugin, then run the two commands above:
+
+```
+/plugin marketplace remove droplet-forms
+```
+
 ### Claude.ai (web and desktop)
 
-1. Download the zip from the latest release: <https://github.com/drplt/droplet-form-creator/releases/latest/download/droplet-form-creator-skill.zip>
-2. In Claude, open Customize, then Skills, then Create skill, then Upload a skill, and choose the zip.
-3. Code execution must be on under Settings, then Capabilities. Team and Enterprise admins enable skills under Organization settings. With it on, Claude runs the build script itself and hands you the finished `.drplt` to download.
+Install as a plugin, which also gives you updates:
+
+1. In Claude, open Customize, then Plugins, then Add, then Add marketplace.
+2. Enter `drplt/skills`.
+3. Add Droplet Form Creator from the plugins that appear.
+4. Code execution must be on under Settings, then Capabilities. With it on, Claude runs the build script itself and hands you the finished `.drplt` to download.
+
+On Team and Enterprise plans, an Owner controls whether members can add their own plugins. If you don't see Add marketplace, upload the skill instead: download the zip from the latest release (<https://github.com/drplt/skills/releases/latest/download/droplet-form-creator-skill.zip>), then open Customize, then Skills, then Create skill, then Upload a skill, and choose the zip.
 
 ### OpenAI Codex, GitHub Copilot, Gemini CLI, and Cursor
 
 These tools read the same skill format from a shared folder:
 
 ```
-git clone https://github.com/drplt/droplet-form-creator.git
+git clone https://github.com/drplt/skills.git
 mkdir -p .agents/skills
-cp -R droplet-form-creator/plugins/droplet-form-creator/skills/droplet-form-creator .agents/skills/
+cp -R skills/plugins/droplet-forms/skills/droplet-form-creator .agents/skills/
 ```
 
 Tool-specific locations also work: `.github/skills/` for Copilot, `.gemini/skills/` for Gemini CLI, `.cursor/skills/` for Cursor. Codex invokes skills with `$droplet-form-creator`, Cursor from the `/` menu, Copilot and Gemini CLI automatically.
@@ -83,8 +94,9 @@ A form folder holds `meta.json` and a `docs/` directory with nine text files. `S
 
 The skill improves as Droplet changes and as new import rules are learned. Each change is a release with a changelog line.
 
-- Claude Code plugin: open `/plugin`, choose the `droplet-forms` marketplace, and update.
-- claude.ai: download the latest zip from the link above and upload it again.
+- Claude Code plugin: open `/plugin`, choose the `droplet` marketplace, and update.
+- claude.ai plugin: updates arrive on their own. To pull one sooner, open the plugin under Customize, then Plugins, and select Check for updates.
+- claude.ai uploaded skill: download the latest zip from the link above and upload it again.
 - Copied folders: re-copy from the latest release.
 
 Watch or star this repository to hear about releases.
