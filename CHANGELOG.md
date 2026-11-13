@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.0.0] - 2026-11-13
+- Renamed to the droplet marketplace and droplet-forms plugin; claude.ai users can install it as a plugin
+
 ## [1.0.4] - 2026-11-12
 - Group assignment: a step's assign can be a list of up to 8 people, rules, or expressions, and the first to act completes the step. Use a parallel step when everyone must act. The linter checks each entry and errors past 8 assignees.
 
