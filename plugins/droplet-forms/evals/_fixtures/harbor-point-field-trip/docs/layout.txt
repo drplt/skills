@@ -1,0 +1,26 @@
+<Form color="#1F4E79">
+  <Section id="sectionRequester">
+    <Text id="textIntro" columns={12}>
+      <h2><span style={{ color: "#1F4E79" }}>Harbor Point School District Field Trip Request</span></h2>
+      <p>Submit at least three weeks before the trip. Your principal reviews every request.</p>
+    </Text>
+    <Input id="submittedByName" label="Teacher name" columns={6} />
+    <Input id="submittedByEmail" label="Teacher email" type="email" columns={6} />
+    <Dropdown id="school" label="School" columns={6} options={["Harbor Point Elementary", "Seawall Middle School", "Harbor Point High School"]} />
+    <Input id="gradeLevel" label="Grade level" columns={6} />
+  </Section>
+  <Section id="sectionTrip">
+    <Input id="destination" label="Destination" columns={6} />
+    <Datetime id="tripDate" label="Trip date" columns={3} />
+    <Input id="studentCount" label="Number of students" type="number" columns={3} />
+    <Radio id="busNeeded" label="Bus needed" horizontal options={["Yes", "No"]} columns={6} />
+    <Textarea id="tripPurpose" label="Educational purpose" rows={3} columns={12} />
+  </Section>
+  <Section id="sectionPrincipal">
+    <Radio id="principalDecision" label="Principal decision" horizontal options={["Approve", "Deny"]} columns={6} />
+    <Textarea id="principalComments" label="Comments" rows={2} columns={6} required={false} />
+    <Signature id="principalSignature" label="Principal signature" columns={8} />
+    <Timestamp id="principalSignedAt" label="Date signed" columns={4} display={{ conditions: [{ elementId: "principalSignature", comparator: "notEmpty" }], action: "show" }} />
+  </Section>
+  <Actions submitText="Submit" enableReject={false} />
+</Form>

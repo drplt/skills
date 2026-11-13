@@ -1,0 +1,1 @@
+{ "version": 1, "form": { "name": "Field Trip Request", "description": "field trip, approval", "loginRequired": true, "submitAsLoggedIn": true } }

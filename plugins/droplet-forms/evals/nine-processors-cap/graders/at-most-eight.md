@@ -1,0 +1,6 @@
+---
+type: llm
+focus: { source: file, path: out/form/docs/workflow.txt }
+---
+How to read a Droplet workflow: a step's "onSubmit" routes are checked in order and the first one whose "if" is true (or that has no "if") is taken. A step whose "onEnter" has an "if" that is false is skipped, and routing continues through that step's own "onSubmit", so a conditional step written that way only runs when its condition holds. "assign" is one assignee (a static {name, email} or a {nameElementId, emailElementId} pair of fields), or an array of them where the first person to act completes the step for everyone. "sendToSubmitter": true beside an assign array takes one more slot. A step with "type": "parallel" runs every step listed in its "substeps" at the same time and moves on only when all of them are done. A denial is handled if the step routes to the rejected end state through "onReject" or through an "onSubmit" rule conditioned on a Deny decision.
+This is the workflow for a transcript request that any one of nine registrars can process. Droplet allows at most 8 assignees on one step, counting each assign entry plus one more if "sendToSubmitter" is true beside it. PASS only if no step has more than 8 assignees counted that way, and at least one step assigns several registrars as an "any one of" group. FAIL if any step has 9 or more assignees.

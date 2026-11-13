@@ -12,6 +12,7 @@ For whoever keeps the skill current: a Droplet team member, or an AI assistant w
 | `tools/` | Maintainer scripts: package checks, exemplar refresh, release notes | No |
 | `release.sh` | One-command release | No |
 | `.github/workflows/` | CI on every push, release build on every tag | No |
+| `plugins/droplet-forms/evals/` | `claude plugin eval` cases with fictional fixtures; run before every release | No |
 
 ## When a new rule, gotcha, or correction is learned
 
@@ -40,6 +41,16 @@ Keep the set small and varied. Every exemplar costs the assistant reading time.
 
 ## Releasing
 
+Every release reaches all Droplet staff within the hour (the internal marketplace pins the latest release tag and bumps itself), so test before you tag.
+
+1. **Run the evals.** From the repo root:
+   ```
+   claude plugin eval plugins/droplet-forms --tag frozen --scaffold --ablation none \
+     --allow-tools Bash Write Edit --runs 3 -j 4
+   ```
+   Compare the pass rate with the last run and open the report for any case that newly fails. Do not release a change that makes a passing case fail. If the change fixes a rule, add a regression case for it first (see `plugins/droplet-forms/evals/README.md`).
+2. **Release:**
+
 ```
 ./release.sh 1.0.1 "Added the Checkbox comparator rule and a lint check for it"
 ```
@@ -62,6 +73,7 @@ Mention notable changes in the changelog line, since that becomes the release no
 
 ## Testing
 
+- `claude plugin eval` runs the cases in `plugins/droplet-forms/evals/` (see its README). Run them before every release.
 - `python3 tools/check_package.py` runs every structural check and lints every exemplar.
 - The skeleton in `SKILL.md` must build: copy its blocks into a folder and run `scripts/build_drplt.py build`.
 - Negative test: build a form with known faults (a Boolean with `required`, `{label, value}` options, two conditions without `operator`, a Checkbox with `includes`, an editable Computed, `sendToSubmitter` inside `template`, a reminder using `assignmentUrl`, an empty `secret`, an element with `id="formId"`, a `<Distance>` with `display={{ action: "alwaysHide" }}`, an `assign` list of 8 entries plus `sendToSubmitter: true`) and confirm each produces an ERROR.

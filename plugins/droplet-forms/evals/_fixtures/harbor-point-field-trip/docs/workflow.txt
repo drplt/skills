@@ -1,0 +1,15 @@
+{
+  "test": {},
+  "steps": {
+    "start": { "onSubmit": [{ "target": "principalApproval" }], "position": [160, 80] },
+    "principalApproval": {
+      "status": "pending",
+      "label": "Principal Approval",
+      "onEnter": { "assign": { "name": "Morgan Ellis", "email": "morgan.ellis@harborpoint.example.org" } },
+      "onSubmit": [{ "target": "rejected", "if": "principalDecision === 'Deny'" }, { "target": "completed" }],
+      "position": [560, 80]
+    },
+    "completed": { "status": "completed", "position": [960, 80] },
+    "rejected": { "status": "rejected", "position": [960, 300] }
+  }
+}
